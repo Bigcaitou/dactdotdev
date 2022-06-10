@@ -1,13 +1,3 @@
----
-title: "关于"
-date: 2022-02-17T14:39:06+08:00
-lastmod: 2022-02-17T22:02:42+08:00
-tags: ["dacaitou", "dact.dev", "about"]
-categories: ["about"]
-menu: "main"
-weight: 50
-comment: false
----
 
 ## 个人介绍
 
@@ -28,15 +18,14 @@ comment: false
 
 本站点的搭建通过如下工具实现：
 
-* 静态网站文档生成器： [docsify@4.12.1](https://docsify.js.org/#/)
-* 代码高亮： [prismjs](https://prismjs.com/)
+* 静态网站文档生成器： [hugo](https://docsify.js.org/#/)
 * 代码及文档托管： [github](https://www.github.com/Bigcaitou/dacaitou)
 * 域名指向
     * `www.dact.dev` = `bigcaitou.github.io` → *.*.*.*(github page接入点)
 * 静态文件托管
     * 通过 [github page](https://docs.github.com/cn/pages/getting-started-with-github-pages/about-github-pages) 实现
     * 通过github接入层自带的重定向功能
-        * 将 https://www.dact.dev 重定向到 → 对应的repo https://www.github.com/Bigcaitou/dacaitou  → 对应的 github page 的 public 目录
+        * 将 https://www.dact.dev 重定向到 → 对应的repo https://www.github.com/Bigcaitou/dact_dev  → 对应的 github page 的 public 目录
     * 配置方式详见[docsify-部署-GitHub Pages](https://docsify.js.org/#/zh-cn/deploy?id=gitlab-pages)
 * 评论系统：[gitalk](https://github.com/gitalk/gitalk)
  

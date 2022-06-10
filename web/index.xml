@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Webs on My New Hugo Site</title><link>http://example.org/web/</link><description>Recent content in Webs on My New Hugo Site</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="http://example.org/web/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://example.org/web/custom_font/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://example.org/web/custom_font/</guid><description>&lt;h1 id="网页中的中文自定义字体和font-face">网页中的中文自定义字体和@font-face&lt;/h1>
+&lt;p>&lt;strong>2016年4月28号更新：&lt;/strong>
+现在有第三方的工具sfnttool可以直接裁剪中文字体文件，详见《&lt;a href="http://www.w3ctech.com/topic/85">中文字体其实也可以用在网页上的&lt;/a>》&lt;/p>
+&lt;p>最近在看Simon Garfield的《字体的故事》，相比英文字体，感觉中文字体虽然仅常用的字就达到了2500字，但是字体、字形多变，我大中华的文字真的是博大精深、源远流长啊，想到粉笔哥和他的方正显仁字体，又想到徐静蕾字体，初中时候班上好多女生字写的很漂亮，她们写的字体也都迥乎不同，03的柳体，00的行书。而英文只有26个字母，最常见的比如美漫对话中常用的Comic San、苹果早期软件菜单和对话框显示字体Chicago（现在好像是Helvetica）、等等字体改天看完再补上。英文字体给我的变化就像苹果手持设备的大小变来变去：ipod-&amp;gt;变大-&amp;gt;ipod touch-&amp;gt;能打电话-&amp;gt;iphone-&amp;gt;变大-&amp;gt;ipad-&amp;gt;变小-&amp;gt;ipad mini，又像ipod nano全系列的身材：苗条的ipod nano12-&amp;gt;变矮胖-&amp;gt;ipod nano3-&amp;gt;变苗条-&amp;gt;ipod nano45-&amp;gt;矮胖到变成正方形-&amp;gt;ipod nano6（6才是我的最爱，好想买啊T.T）-&amp;gt;又变苗条-&amp;gt;ipod nano7。详见这贴《&lt;a href="http://mp3.zol.com.cn/322/3222638.html">形变神不变 苹果历代iPod nano变化史&lt;/a>》。英文字体给我感觉就是变粗一个字体、变细又一个字体、加衬线又一个字体、加衬线字距增加有一个、线加粗又一个。&lt;/p>
+&lt;p>不过字形多样的中文字体带来的一个大问题就是：在网页显示时，字体文件过于庞大，加载困难。比如接下来要提到的造字工房情书字体，otf格式就有4.1MB了，这在网页加载中绝对是个大问题，解决的办法之一就是给字体瘦身，自制或者说定制一个精简版的字体文件。&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-css" data-lang="css">@&lt;span style="color:#66d9ef">font-face&lt;/span> {
+&lt;span style="color:#f92672">font-family&lt;/span>:&lt;span style="color:#a6e22e">qingshu&lt;/span>&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#f92672">src&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#f92672">url&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#39;qingshu.eot&amp;#39;&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">src&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#f92672">url&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#39;qingshu.eot?#iefix&amp;#39;&lt;/span>&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">format&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#39;eot&amp;#39;&lt;/span>&lt;span style="color:#f92672">),&lt;/span>
+&lt;span style="color:#f92672">url&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#39;qingshu.woff&amp;#39;&lt;/span>&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">format&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#39;woff&amp;#39;&lt;/span>&lt;span style="color:#f92672">),&lt;/span>
+&lt;span style="color:#f92672">url&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#39;qingshu.ttf&amp;#39;&lt;/span>&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">format&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#39;truetype&amp;#39;&lt;/span>&lt;span style="color:#f92672">),&lt;/span>
+&lt;span style="color:#f92672">url&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#39;qingshu.svg#webfontjKg17VrE&amp;#39;&lt;/span>&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">format&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#39;svg&amp;#39;&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>我选的是最傻的办法，具体方法请戳《&lt;a href="http://www.cnblogs.com/leer/archive/2011/07/21/font-family-define.html">网页中使用自定义中文字体的解决方法&lt;/a>》要用的字一个个复制到新字体工程里去，复制过去咋都没把unicode值也复制过去呢，还得自己一个个添，奇怪的是一个字有多种unicode，比如“子”字，直接用Font Creator居然找不到，要到网上找“子”的unicode，5B50，但是查到的“子”字不仅有5B50,主要显示的是2F26，后来发现这个“子”在康熙字典的213个边旁部首里，unicode是从 2F00到2FDF里，所以只能去查表才行。没去研究到底是不是所有的字体文件是这样的，总之，造字工房的情书字体这样的。&lt;/p>
+&lt;p>另外还有一个问题是，IE浏览器独家兼容的EOT格式的字体文件愣是做不出来，换了多个做otf或者ttf转eot格式的网址或者工具都不行，比如&lt;a href="http://www.fontsquirrel.com">Font Squirrel&lt;/a>和&lt;a href="http://ttf2eot.sebastiankippe.com">ttf2eot&lt;/a>,万恶的IE啊，还好转换好的TTF、OTF、SVG在safari和chrome能用。&lt;/p></description></item><item><title/><link>http://example.org/web/dact.dev/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://example.org/web/dact.dev/</guid><description>&lt;p>[TOC]&lt;/p>
+&lt;h2 id="dactdev实现细节">dact.dev实现细节&lt;/h2>
+&lt;h2 id="docsify">docsify&lt;/h2>
+&lt;h2 id="github-pages">github pages&lt;/h2>
+&lt;h3 id="自定义域名">自定义域名&lt;/h3>
+&lt;h2 id="gittalk">gittalk&lt;/h2>
+&lt;p>&lt;a href="https://github.com/gitalk/gitalk">gitalk&lt;/a>&lt;/p>
+&lt;pre>&lt;code>* github page action
+* https://github.com/marketplace/actions/github-pages
+&lt;/code>&lt;/pre>
+&lt;p>cat &lt;code>index.html&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-js" data-lang="js">&lt;span style="color:#75715e">&amp;lt;!--&lt;/span> &lt;span style="color:#a6e22e">gittalk组件&lt;/span> &lt;span style="color:#f92672">--&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">&amp;lt;&lt;/span>&lt;span style="color:#a6e22e">link&lt;/span> &lt;span style="color:#a6e22e">rel&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;stylesheet&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">href&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;//unpkg.com/gitalk/dist/gitalk.css&amp;#34;&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">&amp;lt;&lt;/span>&lt;span style="color:#a6e22e">script&lt;/span> &lt;span style="color:#a6e22e">src&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;//unpkg.com/gitalk/dist/gitalk.min.js&amp;#34;&lt;/span>&lt;span style="color:#f92672">&amp;gt;&amp;lt;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">/script&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">&amp;lt;&lt;/span>&lt;span style="color:#a6e22e">script&lt;/span> &lt;span style="color:#a6e22e">src&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;//unpkg.com/docsify/lib/plugins/gitalk.min.js&amp;#34;&lt;/span>&lt;span style="color:#f92672">&amp;gt;&amp;lt;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">/script&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">&amp;lt;&lt;/span>&lt;span style="color:#a6e22e">script&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span>
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">gitalk&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> &lt;span style="color:#a6e22e">Gitalk&lt;/span>({
+&lt;span style="color:#a6e22e">clientID&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;GITTALK_CLIENTID&amp;#39;&lt;/span>,
+&lt;span style="color:#a6e22e">clientSecret&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;env.GITTALK_CLIENTSECRET&amp;#39;&lt;/span>,
+&lt;span style="color:#a6e22e">repo&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;dacaitou&amp;#39;&lt;/span>,
+&lt;span style="color:#a6e22e">owner&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#e6db74">&amp;#39;Bigcaitou&amp;#39;&lt;/span>,
+&lt;span style="color:#a6e22e">admin&lt;/span>&lt;span style="color:#f92672">:&lt;/span> [&lt;span style="color:#e6db74">&amp;#39;Bigcaitou&amp;#39;&lt;/span>],
+&lt;span style="color:#a6e22e">title&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">location&lt;/span>.&lt;span style="color:#a6e22e">hash&lt;/span>.&lt;span style="color:#a6e22e">match&lt;/span>(&lt;span style="color:#e6db74">/#(.*?)([?]|$)/&lt;/span>)[&lt;span style="color:#ae81ff">1&lt;/span>],
+&lt;span style="color:#a6e22e">id&lt;/span>&lt;span style="color:#f92672">:&lt;/span> &lt;span style="color:#a6e22e">location&lt;/span>.&lt;span style="color:#a6e22e">hash&lt;/span>.&lt;span style="color:#a6e22e">match&lt;/span>(&lt;span style="color:#e6db74">/#(.*?)([?]|$)/&lt;/span>)[&lt;span style="color:#ae81ff">1&lt;/span>], &lt;span style="color:#75715e">// Ensure uniqueness and length less than 50
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> })
+&lt;span style="color:#75715e">// gitalk.render(&amp;#39;gitalk-container&amp;#39;)
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#f92672">&amp;lt;&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">/script&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="clientid和clientsecret在公网中暴露的问题">clientID和clientSecret在公网中暴露的问题&lt;/h3>
+&lt;p>之前担心clientID和clientSecret在公网中暴露会有安全问题，但是发现了官方issue里已经有人解答了：&lt;a href="https://github.com/gitalk/gitalk/issues/150">Bug？暴露 Client_id和Client_secret ？ #150&lt;/a>&lt;/p>
+&lt;blockquote>
+&lt;p>@booxood:&lt;/p>
+&lt;ul>
+&lt;li>获取或修改 GitHub 用户数据，需要 token，为了拿到 token，除了需要 OAuth App 的 client_id 和 client_secret 外，还需要一个 Authorization Code。&lt;/li>
+&lt;li>这个 code 是 GitHub 登录授权完成时，在跳转回 redirect_uri 的查询参数拿到的， redirect_uri 必须是在 OAuth App 配置的 callback URL 域名下。&lt;/li>
+&lt;li>这样即使别人用了你的 client_id 和 client_secret ，跳转之后也拿不到 code，所以，有 client_id 和 client_secret 也做不了什么。&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;h2 id="wordpress-数据迁移">wordpress 数据迁移&lt;/h2>
+&lt;ul>
+&lt;li>官方文档：https://ubuntu.com/tutorials/install-and-configure-wordpress#6-configure-wordpress-to-connect-to-the-database&lt;/li>
+&lt;li>apache&lt;/li>
+&lt;li>mysql&lt;/li>
+&lt;li>wp recover&lt;/li>
+&lt;li>wp config&lt;/li>
+&lt;li>host nginx&lt;/li>
+&lt;li>theme → md&lt;/li>
+&lt;/ul>
+&lt;h2 id="图床">图床&lt;/h2>
+&lt;p>//TODO&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://sspai.com/post/61624">https://sspai.com/post/61624&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="cdn加速">cdn加速&lt;/h2>
+&lt;p>//TODO&lt;/p></description></item><item><title/><link>http://example.org/web/hehehe.xyz/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://example.org/web/hehehe.xyz/</guid><description>&lt;p>[TOC]&lt;/p>
+&lt;h2 id="开始">开始&lt;/h2>
+&lt;p>大前天，突然发现新网的.xyz域名只有8块钱（只有8块钱，你没有看错，你没有看错，不是98，不是48，是8块钱呵呵呵），于是我就注册了一个&lt;code>http://hehehe.xyz&lt;/code> ，感觉这个域名和我气质还是挺相符的呵呵呵。
+然后有了个域名，得搭个网站，之前的&lt;code>http://dacaitou.me&lt;/code>是windows下用wordpress +sourceforge搭的，这回就换一个高级一点的Linux下用Jekyll + Github Page 好了。好的我们开始装Jekyll，那就看官方文档好了，（还可以参考Jekyll中文 、告别wordpress，拥抱jekyll）打开终端敲，好了，艾玛第一句终端就给我黑在那几分钟是闹哪样啊！！！&lt;/p>
+&lt;p>&lt;img src="images/1.png" alt="1">&lt;/p>
+&lt;p>学长说gem的官方源经常卡住，没有问题，我们换成淘宝源。然后官方源顺利删掉了，但是淘宝源添不进去是要怎样啊。&lt;/p>
+&lt;p>&lt;img src="images/2-4996991.png" alt="2">&lt;/p>
+&lt;p>会不会是ruby版本不够啊，更新到最新版，那啥还要装rvm，那就装吧（参考RVM 实用指南 、rvm 安装 Ruby )，装完再用rvm装个最新版的ruby吧，那啥，ruby还是1.9.2版本是闹哪样啊，然后就找啊找，找到一个说单用户模式安装要先切换，那就果不其然，淘宝源还是添不上啊摔。&lt;/p>
+&lt;p>&lt;img src="images/3.png" alt="3">&lt;/p>
+&lt;p>好像还有一个叫RubyGems东西要不要装装看啊，装! 官网首选用gem装rubygems是闹哪样啊，我就是gem出问题了好吗！好吧下安装包脱机装吧，果不其然，gem的NoMethodError错误还在啊哭，一定是我不够好，所以gem才会想要逃。百度对英文的支持不好，搜到的undefind method 都不是关于ord的啊，要不上谷歌搜吧。那就goagent + chrome + ubuntu 把。 goagent都下不动啊！！！好吧开win7那边goagent翻墙下一下goagent吧（其实win版和linux版是通用的，直接电脑复制就好。。。）下完发现linux下app engine的Application上传不了啊。（其实win下我已经上传过了，不用再上传了，那个教程发现的太晚，哭。)
+终于可以上谷歌了，虽然搜到关于&lt;code>undefind method 'ord'&lt;/code>的内容，但是讲得都是rail啊，这里面的艰辛，谁能体会，突然，天空飘来三个字：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">V   P   N&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;/table>
+&lt;p>我也是醉的不行了，关了vpn，换学校的网，gem居然就终于把淘宝源给添上了摔 。Jekyll也顺利装上，new完了项目，服务开启不了啊。&lt;/p>
+&lt;p>&lt;img src="images/4.png" alt="4">&lt;/p>
+&lt;p>报这么长的错，又是大坑。后面发现原来是Node.js忘了装了，官方的文档很重要，英语更重要啊！然后就是GitHub Page 和域名绑定的坑。&lt;/p>
+&lt;h2 id="参考资料">参考资料&lt;/h2>
+&lt;ul>
+&lt;li>Jekyll的使用参考
+&lt;ul>
+&lt;li>&lt;a href="http://jekyllcn.com/docs/usage/">将纯文本转化为静态博客网站&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>git的使用参考
+&lt;ul>
+&lt;li>&lt;a href="http://blog.csdn.net/wangyuefenga/article/details/7460104">使用git/github管理ios项目&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://www.open-open.com/lib/view/open1366080269265.html">Git 常见问题整理&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>git与GitHub的使用参考
+&lt;ul>
+&lt;li>&lt;a href="http://www.cnblogs.com/purediy/archive/2013/03/07/2948892.html">通过GitHub Pages建立个人站点&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://segmentfault.com/a/1190000000406019">使用Jekyll在Github上搭建个人博客&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>git push到GitHub不用每次输入账号和密码，SSH登陆参考
+&lt;ul>
+&lt;li>&lt;a href="http://blog.csdn.net/tangbin330/article/details/9105061">Github使用指南&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://help.github.com/categories/ssh/">GitHub与SSH官方文档&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>域名绑定到GitHub Page参考
+&lt;ul>
+&lt;li>&lt;a href="http://yanping.me/cn/blog/2011/12/04/github-pages-domain/">浅谈github页面域名绑定&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://yanping.me/cn/blog/2011/12/26/github-pages-domain-2/">再谈github页面域名绑定&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>我的Jekyll模版clone自
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/Yonsm/NET">Yonsm&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>先写这么多，我现在被学院楼的保安赶了！我都这么拼了，你们不把http://hehehe.xyz 添加到你们的收藏夹里吗！？&lt;/p></description></item><item><title/><link>http://example.org/web/kindeditorckplayer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://example.org/web/kindeditorckplayer/</guid><description>&lt;p>[TOC]&lt;/p>
+&lt;p>  因项目需要，现将KindEditor与ckplayer相结合，搭建一个带本地视频播放的cms。&lt;/p>
+&lt;h2 id="kindeditor">KindEditor&lt;/h2>
+&lt;p>  KindEditor的安装与配置这里不做多余介绍，具体参考&lt;a href="http://kindeditor.net/docs/usage.html">《官方文档-编辑器使用方法》&lt;/a>。&lt;/p>
+&lt;h3 id="ckplayer的配置">ckplayer的配置&lt;/h3>
+&lt;p>  上传相关文件到编辑器的插件目录即&lt;code>editor/plugins/ckplayer&lt;/code>，基本的文件包括&lt;code>ckplayer.js&lt;/code>、&lt;code>ckplayer.swf&lt;/code>、&lt;code>ckplayer.xml&lt;/code>、&lt;code>language.xml&lt;/code>和&lt;code>style.css&lt;/code>。&lt;/p>
+&lt;h3 id="修改格式验证代码">修改格式验证代码&lt;/h3>
+&lt;p>  修改kindeditor.js的960行左右的上传功能的格式验证代码，加入需要支持的视频格式：&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-js" data-lang="js">&lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">_mediaType&lt;/span>(&lt;span style="color:#a6e22e">src&lt;/span>) {
+&lt;span style="color:#66d9ef">if&lt;/span> (&lt;span style="color:#e6db74">/\.(rm|rmvb)(\?|$)/i&lt;/span>.&lt;span style="color:#a6e22e">test&lt;/span>(&lt;span style="color:#a6e22e">src&lt;/span>)) {
+&lt;span style="color:#66d9ef">return&lt;/span>&lt;span style="color:#e6db74">&amp;#39;audio/x-pn-realaudio-plugin&amp;#39;&lt;/span>;
+}
+&lt;span style="color:#66d9ef">if&lt;/span> (&lt;span style="color:#e6db74">/\.(swf|flv|mp4)(\?|$)/i&lt;/span>.&lt;span style="color:#a6e22e">test&lt;/span>(&lt;span style="color:#a6e22e">src&lt;/span>)) {
+&lt;span style="color:#66d9ef">return&lt;/span>&lt;span style="color:#e6db74">&amp;#39;application/x-shockwave-flash&amp;#39;&lt;/span>;
+}
+&lt;span style="color:#66d9ef">return&lt;/span>&lt;span style="color:#e6db74">&amp;#39;video/x-ms-asf-plugin&amp;#39;&lt;/span>;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>  修改jsp/upload_json.jsp的32行左右的上传功能的格式验证代码，加入需要支持的视频格式：&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#75715e">//定义允许上传的文件扩展名
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>HashMap&lt;span style="color:#f92672">&amp;lt;&lt;/span>String&lt;span style="color:#f92672">,&lt;/span> String&lt;span style="color:#f92672">&amp;gt;&lt;/span> extMap &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> HashMap&lt;span style="color:#f92672">&amp;lt;&lt;/span>String&lt;span style="color:#f92672">,&lt;/span> String&lt;span style="color:#f92672">&amp;gt;();&lt;/span>
+extMap&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">put&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;image&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;gif,jpg,jpeg,png,bmp&amp;#34;&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+extMap&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">put&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;flash&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;swf,flv,mp4&amp;#34;&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+extMap&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">put&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;media&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;swf,flv,mp3,wav,wma,wmv,mid,avi,mpg,asf,rm,rmvb,mp4&amp;#34;&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+extMap&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">put&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;file&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2&amp;#34;&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>  ckplayer官方称支持以下视频格式：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">视频协议&lt;/th>
+&lt;th style="text-align:center">视频格式&lt;/th>
+&lt;th style="text-align:center">Flash&lt;/th>
+&lt;th style="text-align:center">HTML5&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">HTTP&lt;/td>
+&lt;td style="text-align:center">flv&lt;/td>
+&lt;td style="text-align:center">g.jpg&lt;/td>
+&lt;td style="text-align:center">x.jpg&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">HTTP&lt;/td>
+&lt;td style="text-align:center">f4v&lt;/td>
+&lt;td style="text-align:center">g.jpg&lt;/td>
+&lt;td style="text-align:center">x.jpg&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">HTTP&lt;/td>
+&lt;td style="text-align:center">mp4&lt;/td>
+&lt;td style="text-align:center">g.jpg&lt;/td>
+&lt;td style="text-align:center">g.jpg&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">HTTP&lt;/td>
+&lt;td style="text-align:center">m3u8&lt;/td>
+&lt;td style="text-align:center">g.jpg&lt;/td>
+&lt;td style="text-align:center">g.jpg&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">HTTP&lt;/td>
+&lt;td style="text-align:center">webm&lt;/td>
+&lt;td style="text-align:center">x.jpg&lt;/td>
+&lt;td style="text-align:center">g.jpg&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">HTTP&lt;/td>
+&lt;td style="text-align:center">ogg&lt;/td>
+&lt;td style="text-align:center">x.jpg&lt;/td>
+&lt;td style="text-align:center">g.jpg&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">RTMP&lt;/td>
+&lt;td style="text-align:center">flv&lt;/td>
+&lt;td style="text-align:center">g.jpg&lt;/td>
+&lt;td style="text-align:center">x.jpg&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">RTMP&lt;/td>
+&lt;td style="text-align:center">f4v&lt;/td>
+&lt;td style="text-align:center">g.jpg&lt;/td>
+&lt;td style="text-align:center">x.jpg&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">RTMP&lt;/td>
+&lt;td style="text-align:center">mp4&lt;/td>
+&lt;td style="text-align:center">g.jpg&lt;/td>
+&lt;td style="text-align:center">x.jpg&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">RTMP&lt;/td>
+&lt;td style="text-align:center">直播流&lt;/td>
+&lt;td style="text-align:center">g.jpg&lt;/td>
+&lt;td style="text-align:center">x.jpg&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>  所以其中要添加什么类型的文件记得在两个文件都修改。&lt;/p>
+&lt;h3 id="修改embed标签代码">修改embed标签代码&lt;/h3>
+&lt;p>  ckplayer播放本地视频的原理是调用ckplayer.swf打开本地的视频，下面的修改kindeditor.js中983行左右embed标签相关的代码，加入ckplayer可以识别的参数flashvars：&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#66d9ef">function&lt;/span> &lt;span style="color:#a6e22e">_mediaEmbed&lt;/span>(&lt;span style="color:#a6e22e">attrs&lt;/span>) {
+&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">html&lt;/span> &lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&amp;lt;embed&amp;#39;&lt;/span>;
+&lt;span style="color:#a6e22e">_each&lt;/span>(&lt;span style="color:#a6e22e">attrs&lt;/span>, &lt;span style="color:#66d9ef">function&lt;/span>(&lt;span style="color:#a6e22e">key&lt;/span>, &lt;span style="color:#a6e22e">val&lt;/span>) {
+&lt;span style="color:#66d9ef">if&lt;/span> (&lt;span style="color:#a6e22e">key&lt;/span> &lt;span style="color:#f92672">==&lt;/span>&lt;span style="color:#e6db74">&amp;#39;src&amp;#39;&lt;/span>) {
+&lt;span style="color:#a6e22e">html&lt;/span> &lt;span style="color:#f92672">+=&lt;/span> &lt;span style="color:#a6e22e">key&lt;/span> &lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#e6db74">&amp;#39;=&amp;#34;&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">K&lt;/span>.&lt;span style="color:#a6e22e">options&lt;/span>.&lt;span style="color:#a6e22e">pluginsPath&lt;/span>
+&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#e6db74">&amp;#39;ckplayer/ckplayer.swf&amp;#34;&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#e6db74">&amp;#39;flashvars=&amp;#34;f=&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">localhostPath&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">val&lt;/span>
+&lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&amp;#34;&amp;#39;&lt;/span>;
+} &lt;span style="color:#66d9ef">else&lt;/span> {
+&lt;span style="color:#a6e22e">html&lt;/span> &lt;span style="color:#f92672">+=&lt;/span> &lt;span style="color:#a6e22e">key&lt;/span> &lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#e6db74">&amp;#39;=&amp;#34;&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">val&lt;/span> &lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&amp;#34;&amp;#39;&lt;/span>;
+}
+});
+&lt;span style="color:#a6e22e">html&lt;/span> &lt;span style="color:#f92672">+=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/&amp;gt;&amp;#39;&lt;/span>;
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">html&lt;/span>;
+}
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="注意">注意&lt;/h3>
+&lt;p>大约在kindeditor.js的300行左右，会有如下代码：&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#a6e22e">embed&lt;/span>&lt;span style="color:#f92672">:&lt;/span> [&lt;span style="color:#e6db74">&amp;#39;id&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;class&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;src&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;width&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;height&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;type&amp;#39;&lt;/span>, &lt;span style="color:#f92672">\&lt;/span>
+&lt;span style="color:#e6db74">&amp;#39;loop&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;autostart&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;quality&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;.width&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;.height&amp;#39;&lt;/span>, &lt;span style="color:#f92672">\&lt;/span>
+&lt;span style="color:#e6db74">&amp;#39;align&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;allowscriptaccess&amp;#39;&lt;/span>, &lt;span style="color:#e6db74">&amp;#39;flashvars&amp;#39;&lt;/span>],
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>  这段代码表示的是embed标签里的属性名，记得添加ckplayer专用的代表本地视频地址的&lt;code>flashvars&lt;/code>参数，否则在KindEditor编辑器将代码转换成HTML代码时，embed标签中的其它参数会被省略。&lt;/p>
+&lt;p>  修改之后，当插入视频时，将会生成如下代码其中flashvars的其它参数可以通过&amp;amp;来连接更多的参数，如控制自动播放的p参数。&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">&amp;lt;&lt;span style="color:#f92672">embed&lt;/span> &lt;span style="color:#a6e22e">src&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;http://localhost:8080/editor/plugins/ckplayer/ckplayer.swf&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">flashvars&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;f=/attached/flash/20160116/20160116131808_254.mp4&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">type&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;application/x-shockwave-flash&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">width&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;550&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">height&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;400&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">quality&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;high&amp;#34;&lt;/span> /&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="其他">其他&lt;/h2>
+&lt;p>  还有一些关于编辑器和优化如下：&lt;/p>
+&lt;h3 id="修改上传提示">修改上传提示&lt;/h3>
+&lt;p>  修改 &lt;code>editor/plugins/flash/flash.js&lt;/code> ，在html参数中如添加诸如一下代码，引导管理员更好的使用上传本地视频的功能。&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-javascript" data-lang="javascript">&lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">html&lt;/span> &lt;span style="color:#f92672">=&lt;/span> [
+&lt;span style="color:#e6db74">&amp;#39;&amp;lt;div style=&amp;#34;padding:20px;&amp;#34;&amp;gt;&amp;#39;&lt;/span>,
+&lt;span style="color:#75715e">//url
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#e6db74">&amp;#39;&amp;lt;div class=&amp;#34;ke-dialog-row&amp;#34;&amp;gt;&amp;#39;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#39;&amp;lt;div style=&amp;#34;color:red&amp;#34;&amp;gt;&amp;#39;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#39;本地视频上传详见&amp;lt;a href=&amp;#34;http://haha.tk&amp;#34; target=&amp;#34;_blank&amp;#34; &amp;gt;《教程吧啦吧啦》&amp;lt;/a&amp;gt;&amp;#39;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#39;&amp;lt;/div&amp;gt;&amp;#39;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#39;&amp;lt;label for=&amp;#34;keUrl&amp;#34; style=&amp;#34;width:60px;&amp;#34;&amp;gt;&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">lang&lt;/span>.&lt;span style="color:#a6e22e">url&lt;/span> &lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&amp;lt;/label&amp;gt;&amp;#39;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#39;&amp;lt;input class=&amp;#34;ke-input-text&amp;#34; type=&amp;#34;text&amp;#34; id=&amp;#34;keUrl&amp;#34; name=&amp;#34;url&amp;#34; value=&amp;#34;&amp;#34; style=&amp;#34;width:160px;&amp;#34; /&amp;gt; &amp;amp;nbsp;&amp;#39;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#39;&amp;lt;input type=&amp;#34;button&amp;#34; class=&amp;#34;ke-upload-button&amp;#34; value=&amp;#34;&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">lang&lt;/span>.&lt;span style="color:#a6e22e">upload&lt;/span> &lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&amp;#34; /&amp;gt; &amp;amp;nbsp;&amp;#39;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#39;&amp;lt;span class=&amp;#34;ke-bu
+&lt;/span>&lt;span style="color:#e6db74"> tton-common ke-button-outer&amp;#34;&amp;gt;&amp;#39;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#39;&amp;lt;input type=&amp;#34;button&amp;#34; class=&amp;#34;ke-button-common ke-button&amp;#34; name=&amp;#34;viewServer&amp;#34; value=&amp;#34;&amp;#39;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#a6e22e">lang&lt;/span>.&lt;span style="color:#a6e22e">viewServer&lt;/span> &lt;span style="color:#f92672">+&lt;/span>&lt;span style="color:#e6db74">&amp;#39;&amp;#34; /&amp;gt;&amp;#39;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#39;&amp;lt;/span&amp;gt;&amp;#39;&lt;/span>,
+&lt;span style="color:#e6db74">&amp;#39;&amp;lt;/div&amp;gt;&amp;#39;&lt;/span>,
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="视频播放去广告">视频播放去广告&lt;/h3>
+&lt;p>  将ckplayer.xml中setup参数的第9个值设置成0，具体参考 &lt;a href="http://www.ckplayer.com/tool/#p_3_6_23">官方文档&lt;/a>。&lt;/p>
+&lt;h2 id="参考链接">参考链接&lt;/h2>
+&lt;ul>
+&lt;li>ckplayer 6.7
+&lt;ul>
+&lt;li>&lt;a href="http://www.ckplayer.com/bbs/forum.php?mod=viewthread&amp;amp;tid=10864">ckplayer 6.7&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>KindEditor4.1.10 (2013-11-23)
+&lt;ul>
+&lt;li>&lt;a href="http://kindeditor.net/down.php">kindeditor&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>参考教程
+&lt;ul>
+&lt;li>&lt;a href="http://www.ckplayer.com/bbs/forum.php?mod=viewthread&amp;amp;tid=8961&amp;amp;highlight=kindeditor">关于kindeditor整合万能的ckplayer视频播放器插件&lt;/a>。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul></description></item><item><title/><link>http://example.org/web/readme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://example.org/web/readme/</guid><description>&lt;ul>
+&lt;li>&lt;a href="http://example.org/web/dact.dev.md">http://dact.dev搭建记录&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://example.org/web/KindEditor&amp;amp;ckplayer.md">KindEditor与ckplayer的简单结合&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://example.org/web/hehehe.xyz.md">一个8块钱的域名引发的&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://example.org/web/custom_font.md">网页中的中文自定义字体和@font-face&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

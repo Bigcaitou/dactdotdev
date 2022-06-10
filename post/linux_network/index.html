@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux学习——网络篇 - Dact.dev - dacaitou</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="dacaitou" /><meta name="description" content="[TOC] 网络基础知识 路由和交换 1. 了解交换机地址学习过程。 交换机是根据MAC地址表转发数据帧的。在交换机中有一张记录着局域网主机MAC地址与交换机接" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.82.0 with theme even" />
+
+
+<link rel="canonical" href="https://dact.dev/post/linux_network/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.39a3e01cac9473be1356f3572fcfe34b2e363efabad244a99a40f28a812c837e.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Linux学习——网络篇" />
+<meta property="og:description" content="[TOC] 网络基础知识 路由和交换 1. 了解交换机地址学习过程。 交换机是根据MAC地址表转发数据帧的。在交换机中有一张记录着局域网主机MAC地址与交换机接" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dact.dev/post/linux_network/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-04-27T21:00:00&#43;08:00" />
+<meta property="article:modified_time" content="2018-04-27T21:00:00&#43;08:00" />
+
+<meta itemprop="name" content="Linux学习——网络篇">
+<meta itemprop="description" content="[TOC] 网络基础知识 路由和交换 1. 了解交换机地址学习过程。 交换机是根据MAC地址表转发数据帧的。在交换机中有一张记录着局域网主机MAC地址与交换机接"><meta itemprop="datePublished" content="2018-04-27T21:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-04-27T21:00:00&#43;08:00" />
+<meta itemprop="wordCount" content="19220">
+<meta itemprop="keywords" content="Linux,os,stat,bash," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux学习——网络篇"/>
+<meta name="twitter:description" content="[TOC] 网络基础知识 路由和交换 1. 了解交换机地址学习过程。 交换机是根据MAC地址表转发数据帧的。在交换机中有一张记录着局域网主机MAC地址与交换机接"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">dact.dev</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">dact.dev</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux学习——网络篇</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-04-27 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            </div>
+          <span class="more-meta"> 约 19220 字 </span>
+          <span class="more-meta"> 预计阅读 39 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#网络基础知识">网络基础知识</a>
+      <ul>
+        <li><a href="#路由和交换">路由和交换</a>
+          <ul>
+            <li><a href="#1-了解交换机地址学习过程">1. 了解交换机地址学习过程。</a></li>
+            <li><a href="#2-了解-vlan-的概念和原理">2. 了解 VLAN 的概念和原理。</a></li>
+            <li><a href="#3-了解以太网帧格式中的主要字段和-mac-地址的作用">3. 了解以太网帧格式中的主要字段和 MAC 地址的作用。</a></li>
+            <li><a href="#4-ip-报文格式的主要字段和-ttl-字段的作用">4. IP 报文格式的主要字段和 TTL 字段的作用。</a></li>
+            <li><a href="#5-掌握-ipv4-地址私有地址子网掩码并能够熟练计算">5. 掌握 IPv4 地址、私有地址、子网掩码，并能够熟练计算。</a></li>
+            <li><a href="#6-arp-协议的原理和基本流程">6. ARP 协议的原理和基本流程。</a></li>
+            <li><a href="#7-dhcp-协议的原理和-dhcp-client-获取地址的基本过程">7. DHCP 协议的原理和 DHCP Client 获取地址的基本过程。</a></li>
+            <li><a href="#8-路由表的组成路由匹配过程最长匹配原则">8. 路由表的组成，路由匹配过程，最长匹配原则。</a></li>
+            <li><a href="#9-简单描述动态路由协议-ospf-和-bgp-的基本原理">9. 简单描述动态路由协议 OSPF 和 BGP 的基本原理。</a></li>
+            <li><a href="#10-向老员工导师了解-ospf-在公司内部的应用并举个具体的场景解释-ospf-如何在这个场景中起到作用">10. 向老员工（导师）了解 OSPF 在公司内部的应用，并举⼀个具体的场景解释 OSPF 如何在这个场景中起到作用</a></li>
+            <li><a href="#11-tcp-协议和-udp-协议的主要区别">11. TCP 协议和 UDP 协议的主要区别。</a></li>
+            <li><a href="#12-linux-如何配置-ip-地址网关和-dns">12. Linux 如何配置 IP 地址。网关和 DNS。</a></li>
+            <li><a href="#13-linux-静态路由与策略路由">13. Linux 静态路由与策略路由:</a></li>
+            <li><a href="#14-了解-qos-的基本概念">14. 了解 QoS 的基本概念。</a></li>
+            <li><a href="#15-了解-data-center网络的基本拓扑以及特性">15. 了解 Data Center网络的基本拓扑以及特性。</a></li>
+            <li><a href="#16-了解-cdn-的基本概念">16. 了解 CDN 的基本概念。</a></li>
+            <li><a href="#18-假设-a-到-b-法-ping-通列举少3种可能出现的情况并使上述ping-mtr-traceroute-tcpdump-等命令排查">18. 假设 A 到 B ⽆法 ping 通，列举⾄少3种可能出现的情况，并使⽤上述ping mtr traceroute tcpdump 等命令排查。</a></li>
+            <li><a href="#19-linux-系统内如何用工具解析个域名指向哪些ip">19. Linux 系统内如何用工具解析⼀个域名指向哪些ip?</a></li>
+            <li><a href="#20-linux-系统内如何用工具查询个ip的域名反解">20. Linux 系统内如何用工具查询⼀个ip的域名反解？</a></li>
+            <li><a href="#21-解释-ddos-广播风暴路由环路-dns-劫持等常见的网络问题概念">21. 解释 DDoS ，广播风暴，路由环路 ，DNS 劫持等常见的网络问题概念。</a></li>
+            <li><a href="#22-了解-sdn-nfv-openflow-iot-或者-cdn-anycast-routing-的概念和应场景或者其他网络方面的新进展">22. 了解 SDN ，NFV ，OpenFlow ，IoT 或者 CDN Anycast Routing 的概念和应⽤场景（或者其他网络方面的新进展）。</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#可选review时会从两个主题中选择其中个">可选(review时会从两个主题中选择其中⼀个)</a>
+      <ul>
+        <li><a href="#nat原理及应用">NAT原理及应用</a>
+          <ul>
+            <li><a href="#1-描述nat-的基本原理">1. 描述NAT 的基本原理。</a></li>
+            <li><a href="#2-说明linux-支持的nat类型">2. 说明Linux 支持的NAT类型。</a></li>
+            <li><a href="#3-nat-对-tcpudpsslhttp-等各种应和协议的影响">3. NAT 对 TCP、UDP、SSL、HTTP 等各种应⽤和协议的影响。</a></li>
+            <li><a href="#4-linux-中如何使用-iptables-配置-nat">4. Linux 中如何使用 iptables 配置 NAT。</a></li>
+            <li><a href="#5-向老员工了解公司哪些业务使用了-nat">5. 向老员工了解公司哪些业务使用了 NAT。</a></li>
+          </ul>
+        </li>
+        <li><a href="#tcp-原理">TCP 原理：</a>
+          <ul>
+            <li><a href="#1-详细说明tcp的握过程结束过程-在过程的各个步骤中-客户端和服务端分别会处于tcp协议描述的何种状态">1. 详细说明TCP的握⼿过程结束过程; 在过程的各个步骤中, 客户端和服务端,分别会处于TCP协议描述的何种状态?</a></li>
+            <li><a href="#2-了解-tcp-的滑动窗口协议等算法">2. 了解 TCP 的滑动窗口协议等算法。</a></li>
+            <li><a href="#3-了解-tcp-协议的拥塞控制-什么是tcp的慢启动算法快速重传算法快速恢复算法">3. 了解 TCP 协议的拥塞控制: 什么是TCP的慢启动算法、快速重传算法、快速恢复算法？</a></li>
+            <li><a href="#4-了解-tcp-的状态图">4. 了解 TCP 的状态图。</a></li>
+            <li><a href="#5-了解-tcp-不适用的场景以及不适用的原因">5. 了解 TCP 不适用的场景，以及不适用的原因。</a></li>
+          </ul>
+        </li>
+        <li><a href="#网络命令">网络命令</a>
+          <ul>
+            <li><a href="#ping">ping</a></li>
+            <li><a href="#traceroute">traceroute</a></li>
+            <li><a href="#tcpdump">tcpdump</a></li>
+            <li><a href="#ip">ip</a></li>
+            <li><a href="#42-ssnetstat">4.2. ss/netstat</a></li>
+            <li><a href="#mtr">mtr</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>[TOC]</p>
+<h1 id="网络基础知识">网络基础知识</h1>
+<h2 id="路由和交换">路由和交换</h2>
+<h3 id="1-了解交换机地址学习过程">1. 了解交换机地址学习过程。</h3>
+<p>交换机是根据MAC地址表转发数据帧的。在交换机中有一张记录着局域网主机MAC地址与交换机接口对应关系的表，交换机就是根据这张表负责将数据帧传输到指定的主机上的。
+交换机在接收到数据帧以后，首先会记录数据帧中的源MAC地址和对应的接口到MAC表中，接着、会检查自己的MAC表中是否有数据帧中目标MAC地址的信息，如果有则会根据MAC表中记录的对应接口将数据帧发送出去(也就是单播)，如果没有，则会将该数据帧从非接受接口发送出去(也就是广播)。
+如下图：详细讲解交换机传输数据帧的过程</p>
+<p><img src="index_files/0.6079403672911614.png" alt=""></p>
+<ol>
+<li>主机A会将一个源MAC地址为自己，目标MAC地址为主机B的数据帧发送给交换机。</li>
+<li>交换机收到此数据帧后，首先将数据帧中的源MAC地址和对应的接口(接口为f 0/1) 记录到MAC地址表中。</li>
+<li>然后交换机会检查自己的MAC地址表中是否有数据帧中的目标MAC地址的信息，如果有，则从MAC地址表中记录的接口发送出去，如果没有，则会将此数据帧从非接收接口的所有接口发送出去(也就是除了f 0/1接口)。</li>
+<li>这时，局域网的所有主机都会收到此数据帧，但是只有主机B收到此数据帧时会响应这个广播，并回应一个数据帧，此数据帧中包括主机B的MAC地址。</li>
+<li>当交换机收到主机B回应的数据帧后，也会记录数据帧中的源MAC地址(也就是主机B的MAC地址)，这时，再当主机A和主机B通信时，交换机根据MAC地址表中的记录，实现单播了。</li>
+</ol>
+<p>当局域网存在多个交换机互联的时候，交换机的MAC地址表是怎么记录的呢？</p>
+<p><img src="index_files/0.1307770490027267.png" alt=""></p>
+<ol>
+<li>主机A将一个源MAC地址为自己，目标MAC地址主机C的数据帧发送给交换机</li>
+<li>交换机1收到此数据帧后，会学习源MAC地址，并检查MAC地址表，发现没有目标MAC地址的记录，则会将数据帧广播出去，主机B和交换机2都会收到此数据帧。</li>
+<li>交换机2收到此数据帧后也会将数据帧中的源MAC地址和对应的接口记录到MAC地址表中，并检查自己的MAC地址表，发现没有目标MAC地址的记录，则会广播此数据帧。</li>
+<li>主机C收到数据帧后，会响应这个数据帧，并回复一个源MAC地址为自己的数据帧，这时交换机1和交换机2都会将主机C的MAC地址记录到自己的MAC地址表中，并且以单播的形式将此数据帧发送给主机A。</li>
+<li>这时，主机A和主机C通信就是一单播的形式传输数据帧了，主机B和主机C通信如上述过程一样，因此交换机2的MAC地址表中记录着主机A和主机B的MAC地址都对应接口f 0/1。</li>
+</ol>
+<p>交换机的一个接口可以对应多个MAC地址
+但是一个MAC地址只能对应一个接口。</p>
+<p>注意：交换机动态学习的MAC地址默认只有300S的有效期，如果300S内记录的MAC地址没有通信，则会删除此记录。</p>
+<h3 id="2-了解-vlan-的概念和原理">2. 了解 VLAN 的概念和原理。</h3>
+<p>VLAN（Virtual Local Area Network 虚拟局域网）是将一个物理局域网的不同用户逻辑地划分为多个虚拟的逻辑局域网，每一个虚拟局域网之间是隔离的，并且每一个虚拟局域网是一个单独的广播域
+VLAN可以隔离2层的广播域
+一个vlan = 一个广播域 = 一个逻辑子网
+广播域，指的是广播帧（目标MAC地址全部为1）所能传递到的范围，亦即能够直接通信的范围。严格地说，并不仅仅是广播帧，多播帧（Multicast Frame）和目标不明的单播帧（Unknown Unicast Frame）也能在同一个广播域中畅行无阻。
+本来，二层交换机只能构建单一的广播域，不过使用VLAN功能后，它能够将网络分割成多个广播域。只有交换机能看得到VLAN，节点和路由器都感觉不到VLAN的存在。</p>
+<p><a href="https://blog.csdn.net/phunxm/article/details/9498829">https://blog.csdn.net/phunxm/article/details/9498829</a></p>
+<h3 id="3-了解以太网帧格式中的主要字段和-mac-地址的作用">3. 了解以太网帧格式中的主要字段和 MAC 地址的作用。</h3>
+<p><img src="index_files/0.5638704159402455.png" alt=""></p>
+<p><img src="index_files/0.9594951263966869.png" alt="">
+数据字段：在交换式以太网中，一台主机向局域网中的另一台主机发送一个IP数据报，这个数据报封装在以太网帧结构中作为其有效载荷，以太网的最大传输单元（MTU）是1500字节，也就是限制了一个IP数据报最大为1500字节，如果超过1500字节，就要启用IP协议的分片策略进行传输。同时，数据字段最小长度为46字节，如果不够必须要填充到46字节。如IP数据报和填充部分会被网络层利用IP数据报首部的长度字段去除相关填充。</p>
+<ul>
+<li>前同步码：前7字节都是10101010，最后一个字节是10101011
+用于将发送方与接收方的时钟进行同步，主要是有不同的以太网类型，同时发送接收速率也不会完全精确的帧速率传输，因此需要在传输之前进行时钟同步。</li>
+<li>MAC地址字段（6个字节共48位的MAC物理地址）
+用于标识局域网中的每个主机，目的MAC可以是某个机器的物理地址，也可以是FF-FF-FF-FF-FF-FF广播MAC地址。
+在802.1Q中，又定义了以太帧中可选的QTag，位于SMAC和EtherType之间，占4个字节。在这种情况下，一个以太帧如果有QTag，它的最大长度就变成了1522字节。后来人们又觉得一个QTag不够用，在802.1ad又定义了Q in Q，也就是说一个以太帧可以有多个QTag，每增加一个QTag，以太帧的最大长度就增加4个字节。</li>
+<li>类型（2个字节）
+常用的用三种（0800,0806,8035）</li>
+<li>0800：表示通过ip协议</li>
+<li>0806：表示通过ARP协议（将IP地址转换为mac地址）</li>
+<li>8035：表示通过RARP协议（将mac地址转换为ip地址）</li>
+<li>CRC（4个字节）
+循环冗余校验，用来让接收方的网卡适配器检查接收的到数据帧是否有错误，是否有比特翻转引入差错，如果引入了差错就会丢弃，这是网卡适配器直接从硬件响应的。此字段是发送方发送时由适配器从该帧中除了前同步码之外的其他比特进行映射计算获得。</li>
+</ul>
+<h3 id="4-ip-报文格式的主要字段和-ttl-字段的作用">4. IP 报文格式的主要字段和 TTL 字段的作用。</h3>
+<p><img src="index_files/0.3497738158729604.png" alt=""></p>
+<ul>
+<li>版本
+IP协议的版本，目前的IP协议版本号为4，下一代IP协议版本号为6。</li>
+<li>首部长度
+IP报头的长度。固定部分的长度（20字节）和可变部分的长度之和。共占4位。最大为1111，即10进制的15，代表IP报头的最大长度可以为15个32bits（4字节），也就是最长可为15*4=60字节，除去固定部分的长度20字节，可变部分的长度最大为40字节。</li>
+<li>服务类型
+Type Of Service。
+长度为8位（bit），其组成：前3位为优先级（Precedence），后4位标志位，最后1位保留未用。优先级主要用于QoS，表示从0（普通级别）到7（网络控制分组）的优先级。标志位可分别表示D（Delay更低的时延）、T（Throughput 更高的吞吐量）、R（Reliability更高的可靠性）、C（Cost 更低费用的路由）。
+TOS只表示用户的请求，不具有强制性，实际应用中很少用，路由器通常忽略TOS字段。</li>
+<li>总长度
+IP报文的总长度。报头的长度和数据部分的长度之和。</li>
+<li>标识
+唯一的标识主机发送的每一分数据报。通常每发送一个报文，它的值加一。当IP报文长度超过传输网络的MTU（最大传输单元）时必须分片，这个标识字段的值被复制到所有数据分片的标识字段中，使得这些分片在达到最终目的地时可以依照标识字段的内容重新组成原先的数据。</li>
+<li>标志
+共3位。R、DF、MF三位。目前只有后两位有效，</li>
+<li>DF位：为1表示不分片，为0表示分片</li>
+<li>MF：为1表示“更多的片”，为0表示这是最后一片。</li>
+<li>片位移
+本分片在原先数据报文中相对首位的偏移位。（需要再乘以8）</li>
+<li>生存时间
+IP报文所允许通过的路由器的最大数量。每经过一个路由器，TTL减1，当为0时，路由器将该数据报丢弃。TTL 字段是由发送端初始设置一个 8 bit字段
+推荐的初始值由分配数字 RFC 指定，当前值为 <code>64</code>。
+发送 ICMP 回显应答时经常把 TTL 设为最大值 255。</li>
+<li>协议
+指出IP报文携带的数据使用的是那种协议，以便目的主机的IP层能知道要将数据报上交到哪个进程（不同的协议有专门不同的进程处理）。和端口号类似，此处采用协议号，</li>
+<li>TCP的协议号为6</li>
+<li>UDP的协议号为17</li>
+<li>ICMP的协议号为1</li>
+<li>IGMP的协议号为2.</li>
+<li>首部校验和
+计算IP头部的校验和，检查IP报头的完整性。</li>
+<li>源IP地址
+标识IP数据报的源端设备。</li>
+<li>目的IP地址
+标识IP数据报的目的地址。</li>
+<li>可选字段
+主要有：</li>
+<li>安全和处理限制（Security）</li>
+<li>记录路径（Record Route）</li>
+<li>时间戳（Timestamps）</li>
+<li>宽松源站选路（Loose Source Routing）</li>
+<li>严格的源站选路（Strict Source Routing）</li>
+<li>&hellip;</li>
+</ul>
+<p><img src="index_files/0.6632836422114072.png" alt=""></p>
+<h3 id="5-掌握-ipv4-地址私有地址子网掩码并能够熟练计算">5. 掌握 IPv4 地址、私有地址、子网掩码，并能够熟练计算。</h3>
+<p>(1) 10.82.10.255/23是否⼀个合法ip地址？
+是合法ip</p>
+<p>(2) 10.83.210.5/20所在的网段、子网掩码, 分别是? 这个子网掩码能划分多少个子网?
+1010.‭01010011‬.‭11010010‬.0101/20
+网段 10.83.208.0~10.83.223.255
+子网掩码 255.255.240.0
+子网 2^12-2=4094</p>
+<ul>
+<li>私有IP
+IP地址，一共分成了5类，范围分别如下：</li>
+<li>A类IP：从0.0.0.0 – 127.255.255.255，共有16777216个IP</li>
+<li>B类IP：从128.0.0.0 – 191.255.255.255，共有65536个IP</li>
+<li>C类IP：从192.0.0.0 – 223.255.255.255，共有256个IP</li>
+<li>D类组播地址IP：从224.0.0.0 – 239.255.255.255</li>
+<li>E类科研保留地址段IP：从2240.0.0.0 – 255.255.255.255</li>
+</ul>
+<p>私有IP地址的范围：
+A类私有IP地址：
+10.0.0.0～10.255.255.255
+B类私有IP地址：
+172.16.0.0～172.31.255.255
+C类私有IP地址：
+192.168.0.0～192.168.255.255</p>
+<h3 id="6-arp-协议的原理和基本流程">6. ARP 协议的原理和基本流程。</h3>
+<p>这时我们就需要使用ARP协议了，在每台主机中都有一张ARP表，它记录着主机的IP地址和MAC地址的对应关系。
+ARP协议：ARP协议是工作在网络层的协议，它负责将IP地址解析为MAC地址。
+如下图：详细讲解ARP的工作原理。</p>
+<p><img src="index_files/0.11174386651395252.png" alt=""></p>
+<p><img src="index_files/0.19613248687284823.png" alt=""></p>
+<ol>
+<li>如果主机A想发送数据给主机B，主机A首先会检查自己的ARP缓存表，查看是否有主机B的IP地址和MAC地址的对应关系，如果有，则会将主机B的MAC地址作为源MAC地址封装到数据帧中。如果没有，主机A则会发送一个ARP请求信息，请求的目标IP地址是主机B的IP地址，目标MAC地址是MAC地址的广播帧(即FF-FF-FF-FF-FF-FF)，源IP地址和MAC地址是主机A的IP地址和MAC地址。</li>
+<li>当交换机接受到此数据帧之后，发现此数据帧是广播帧，因此，会将此数据帧从非接收的所有接口发送出去。</li>
+<li>当主机B接受到此数据帧后，会校对IP地址是否是自己的，并将主机A的IP地址和MAC地址的对应关系记录到自己的ARP缓存表中，同时会发送一个ARP应答，其中包括自己的MAC地址。</li>
+<li>主机A在收到这个回应的数据帧之后，在自己的ARP缓存表中记录主机B的IP地址和MAC地址的对应关系。而此时交换机已经学习到了主机A和主机B的MAC地址了。</li>
+</ol>
+<h3 id="7-dhcp-协议的原理和-dhcp-client-获取地址的基本过程">7. DHCP 协议的原理和 DHCP Client 获取地址的基本过程。</h3>
+<p>Dynamic Host configuration protocol， 动态主机配置协议
+DHCP服务器上有一个数据库， 存放着IP、网关、DNS等参数。 当客户端请求使用时， 服务器则负责将相应的参数分配个客户端。一个无线路由器同时也是一个DHCP服务器。</p>
+<p><img src="index_files/0.4083347771511341.png" alt=""></p>
+<ul>
+<li>DHCP DISCOVER: 寻找服务器
+DHCP客户端网络广播去寻找DHCP服务器。 由于客户端此时还不知道自己属于哪一个网路，所以封包的来源地址会为0.0.0.0， 目的地址则为255.255.255.255，然后再附上DHCP discover的信息进行广播。</li>
+<li>DHCP OFFER分配IP地址
+当DHCP服务器监听到客户端发出的DHCP Discover广播后， 会针对这个客户端的硬件地址 (MAC)与本身的设定数据来进行下列工作：</li>
+<li>1 到服务器的登录文件中寻找该用户之前是否曾经用过某个 IP ，若有且该IP目前无人使用，则提供此 IP 给客户机；</li>
+<li>2若配置文件针对该 MAC 提供额外的固定 IP (static IP) 时，则提供该固定 IP 给客户机；</li>
+<li>3若不符合上述两个条件， 则随机取用目前没有被使用的 IP 参数给客户端，并记录下来。回应给客户端一个DHCP OFFER封包，由于客户端在开始的时候还没有IP地址﹐所以在其DHCP Discover封包内会带有其MAC地址信息，并且有一个XID编号来辨别该封包，DHCP服务器回应的DHCP Offer封包则会根据这些资料传递给要求租约的客户。根据服务器端的设定，DHCP Offer封包会包含一个租约期限的信息。</li>
+<li>DHCP REQUEST 请求使用
+如果客户端收到网路上多台DHCP服务器的回应，只会挑选其中一个DHCP Offer(通常是最先抵达的那个)并且向网路发送一个DHCP Request广播封包，告诉所有DHCP服务器它将指定接受哪一台服务器提供的IP位址。之所以要以广播方式回答，是为了通知所有的DHCP服务器，他将选择某台DHCP服务器所提供的IP地址， 同时，客户端还会发送一个ARP封包，查询网路上有没有其他机器使用该IP地址， 如果发现该IP被占用，客户端会发送一个DHCP <code>Decline</code>封包给DHCP服务器， 拒绝接受其DHCP Offer，并重新开始发送DHCP Discover信息。</li>
+<li>DHCP ACK IP地址分配确认
+当DHCP服务器收到DHCP客户机回答的DHCP Request请求信息之后， 它便向DHCP客户机发送一个包含它所提供的IP地址和其他设置的DHCP Ack确认信息。以确认IP地址的正式生效。然后DHCP客户机便将其TCP/IP协议与网卡绑定，另外，除DHCP客户机选中的服务器外，其他的DHCP服务器都将收回曾提供的IP地址</li>
+</ul>
+<h3 id="8-路由表的组成路由匹配过程最长匹配原则">8. 路由表的组成，路由匹配过程，最长匹配原则。</h3>
+<p>以太网交换机工作在第二层即数据链路层，用于在同一网络内部转发以太网帧。但是，当源和目的IP地址位于不同网络时，以太网帧必须发送给路由器。路由器负责在不同网络间传输报文，通过路由表来决定最佳转发路径。
+路由表详解
+路由表中的信息分为直连路由和非直连路由。</p>
+<ul>
+<li>直连路由：是直接连接在路由器接口的网段，由路由器自动生成。</li>
+<li>非直连路由：就是不是直接连接在路由器接口上的网段，此记录需要手动添加或者是使用动态路由。
+路由表中记录的条目有的需要手动添加(称为静态路由)，有的测试动态获取的(称为动态路由)。直连路由属于静态路由。</li>
+</ul>
+<p>路由器是工作在网络层的，在网络层可以识别逻辑地址。</p>
+<p>当路由器的某个接口收到一个包时，路由器会读取包中相应的目标的逻辑地址的网络部分，然后在路由表中进行查找。如果在路由表中找到目标地址的路由条目，则把包转发到路由器的相应接口，如果在路由表中没有找到目标地址的路由条目，那么，如果路由配置默认路由，就默认路由的配置转发到路由器的相应接口；如果没有配置默认路由，则将该包丢弃，并返回不可到达的信息。</p>
+<p><img src="index_files/0.8778744132461178.png" alt=""></p>
+<ol>
+<li>HostA在网络层将来自上层的报文封装成IP数据包，其中源IP地址为自己，目标IP地址是HostB，HostA会用本机配置的24位子网掩码与目标地址进行“与”运算，得出目标地址与本机不是同一网段，因此发送HostB的数据包需要经过网关路由A的转发。</li>
+<li>HostA通过ARP请求获取网关路由A的E0口的MAC地址，并在链路层将路由器E0接口的MAC地址封装成目标MAC地址，源MAC地址是自己。</li>
+<li>路由器A从E0可接收到数据帧，把数据链路层的封装去掉，并检查路由表中是否有目标IP地址网段(即192.168.2.2的网段)相匹配的的项，根据路由表中记录到192.168.2.0网段的数据请发送给下一跳地址10.1.1.2，因此数据在路由器A的E1口重新封装，此时，源MAC地址是路由器A的E1接口的MAC地址，封装的目标MAC地址则是路由器2的E1接口的MAC地址。</li>
+<li>路由B从E1口接收到数据帧，同样会把数据链路层的封装去掉，对目标IP地址进行检测，并与路由表进行匹配，此时发现目标地址的网段正好是自己E0口的直连网段，路由器B通过ARP广播，获知HostB的MAC地址，此时数据包在路由器B的E0接口再次封装，源MAC地址是路由器B的E0接口的MAC地址，目标MAC地址是HostB的MAC地址。封装完成后直接从路由器的E0接口发送给HostB。</li>
+<li>此时HostB才会收到来自HostA发送的数据。</li>
+</ol>
+<p>总结：路由表负责记录一个网络到另一个网络的路径</p>
+<p>最长匹配</p>
+<p><img src="index_files/0.226099164171353.png" alt="">
+路由查找的几个重点内容：
+不同的前缀（网络号+掩码，缺一不可），在路由表中属于不同的路由
+相同的前缀，通过不同的协议获取，先比AD，后比metric
+这是一般情况，当然有二般情况，这就要看特定的环境和特定的路由协议了
+默认采用最长匹配原则，匹配，则转发；无匹配，则找默认路由，默认路由都没有，则丢弃
+路由器的行为是逐跳的，到目标网络的沿路径每个路由器都必须有关于目的地的路由
+数据是双向的，考虑流量的时候，要关注流量的往返。</p>
+<h3 id="9-简单描述动态路由协议-ospf-和-bgp-的基本原理">9. 简单描述动态路由协议 OSPF 和 BGP 的基本原理。</h3>
+<p>OSPF(Open Shortest Path First，开放式最短路径优先）是用于在单一自治系统（autonomous system,AS）内决策路由。是对链路状态路由协议的一种实现。隶属内部网关协议（Interior Gateway Protocol IGP），故运作于自治系统内部。著名的迪克斯加算法(Dijkstra)被用来计算最短路径树。</p>
+<p>b&gt;.OSPF仅传播对端设备不具备的路由信息，网络收敛迅速，并有效避免了网络资源浪费；
+c&gt;.OSPF直接工作于IP层之上，IP协议号为89；
+d&gt;.OSPF以组播地址发送协议包；</p>
+<p>四个阶段：
+寻找邻居：定时发送hello包
+建立邻居关系：采用DR/BDR关系选举出
+链路状态信息传递：
+计算路由</p>
+<p><img src="index_files/0.24032985166523457.png" alt="">
+<a href="https://www.cnblogs.com/yinzhengjie/p/6711282.html">https://www.cnblogs.com/yinzhengjie/p/6711282.html</a></p>
+<p>BGP（Border Gateway Protocol, 边界网关协议）是一个去中心化自治路由协议。它通过维护IP路由表或‘前缀’表来实现AS（autonomous system，自治系统）之间的可达性，属于矢量路由协议。BGP不使用传统的内部网关协议（IGP）的指标，而使用基于路径、网络策略或规则集来决定路由。
+BGP边界网关路由协议，运行于AS与AS之间，用来相互交换两个AS的路由信息。网络的边界通了，两个网内的任意节点就全部可达。BGP工作于TCP 179号端口，与其说是路由协议，不如说是一个应用程序，一个用来互相分发路由信息的应用程序。
+主要目标是提供一种能够保证自治系统间无环路的路由选 择信息交换的域间路由系统。</p>
+<h3 id="10-向老员工导师了解-ospf-在公司内部的应用并举个具体的场景解释-ospf-如何在这个场景中起到作用">10. 向老员工（导师）了解 OSPF 在公司内部的应用，并举⼀个具体的场景解释 OSPF 如何在这个场景中起到作用</h3>
+<p>⽤?<img src="index_files/20161228165356.png" alt=""></p>
+<p>某个项目在海外发型的话
+我们用了aws机器
+例如网易杭州机房的机器需要和海外aws走内网通信
+就会走ospf</p>
+<h3 id="11-tcp-协议和-udp-协议的主要区别">11. TCP 协议和 UDP 协议的主要区别。</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">区别</th>
+<th style="text-align:center">TCP</th>
+<th style="text-align:center">UDP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">.</td>
+<td style="text-align:center">面向连接</td>
+<td style="text-align:center">面向报文</td>
+</tr>
+<tr>
+<td style="text-align:center">对系统资源要求</td>
+<td style="text-align:center">多</td>
+<td style="text-align:center">少</td>
+</tr>
+<tr>
+<td style="text-align:center">结构</td>
+<td style="text-align:center">三次握手四次挥手</td>
+<td style="text-align:center">较简单</td>
+</tr>
+<tr>
+<td style="text-align:center">模式</td>
+<td style="text-align:center">流模式</td>
+<td style="text-align:center">数据报模式</td>
+</tr>
+<tr>
+<td style="text-align:center">数据正确性</td>
+<td style="text-align:center">可保证</td>
+<td style="text-align:center">可能丢包</td>
+</tr>
+<tr>
+<td style="text-align:center">数据顺序</td>
+<td style="text-align:center">保证</td>
+<td style="text-align:center">不保证</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12-linux-如何配置-ip-地址网关和-dns">12. Linux 如何配置 IP 地址。网关和 DNS。</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ ip addr
+修改网关
+$ vi/etc/sysconfig/network
+<span class="c1"># 修改DNS</span>
+$ vi resolv.conf
+nameserver *.*.*.*
+</code></pre></td></tr></table>
+</div>
+</div><p>实机操作:
+(1)请在机器上，打开配置ip地址的配置文件，并说明各个字段的意义
+(2)现在需要给机器eth0网卡配置⼀个10.82.123.123的ip,子网掩码是25位, 请写出完整配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ vim /etc/network/interfaces
+<span class="c1"># The loopback network interface</span>
+auto lo <span class="c1">#网卡开机自动挂载</span>
+iface lo inet loopback
+auto eth0 <span class="c1">#网卡开机自动挂载，连接网络</span>
+iface eth0 inet static <span class="c1">#static表示使用静态/固定ip（需两条用于设 置）,dhcp表示使用动态ip（忽略以下两条）</span>
+address 10.82.123.123 <span class="c1">#设置ip地址</span>
+netmask 255.255.255.128 <span class="c1">#设置子网掩码</span>
+gateway 10.82.123.1 <span class="c1">#设置网关</span>
+dns-nameservers 8.8.8.8 <span class="c1">#设置DNS</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>(3)请在机器上，打开配置dns服务器的配置文件，并说明各个字段的意义
+(4)现在需要配置机器默认的dns为1.2.3.4, 备用dns为1.2.3.5,同时将www.hehe.net指向192.168.9.1, 请写出具体的配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ cat /etc/resolv.conf
+domain i.nease.net
+nameserver 1.2.3.4
+nameserver 1.2.3.5
+
+$ /etc/hosts
+220.181.71.16 g83.update.netease.com
+192.168.9.1 www.hehe.net
+</code></pre></td></tr></table>
+</div>
+</div><p>DNS生效顺序：hosts文件 &gt; interfaces中DNS &gt; resolv.conf中DNS</p>
+<h3 id="13-linux-静态路由与策略路由">13. Linux 静态路由与策略路由:</h3>
+<p>实机操作:
+(1)使⽤ip命令添加⼀条路由</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ip route
+</code></pre></td></tr></table>
+</div>
+</div><p>(2)什么是策略路由？可以根据什么条件来进行策略路由的制定？
+策略性是指对于IP包的路由是以网络管理员根据需要定下的一些策略为主要依据进行路由的。
+例如我们可以有这样的策略：“所有来直自网A的包，选择X路径；其他选择Y路径”，或者是“所有TOS为A的包选择路径F；其他选者路径K”。
+静态路由是指由网络管理员手工配置的路由信息。当网络的拓扑结构或链路的状态发生变化时，网络管理员需要手工去修改路由表中相关的静态路由信息。动态路由是指路由器之间相互通信，传递路由信息，利用收到的路由信息更新路由表的过程。是基于某种协议来实现的。
+$ ip rule show
+0: from all lookup local
+32766: from all lookup main
+32767: from all lookup default
+规则0，它是优先级别最高的规则，规则规定，所有的包，都必须首先使用local表（254）进行路由。本规则不能被更改和删除。
+规则32766，规定所有的包，使用表main进行路由。本规则可以被更改和删除。
+规则32767，规定所有的包，使用表default进行路由。本规则可以被更改和删除。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">router&gt;# ip rule add <span class="o">[</span>from 0/0<span class="o">]</span> table <span class="m">1</span> pref <span class="m">32800</span>
+32800: from all lookup <span class="m">1</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>第一条命令将向规则链增加一条规则，规则匹配的对象是所有的数据包，动作是选用路由表1的路由，这条规则的优先级是32800。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">router &gt;#ip rule add from 192.168.3.112/32 <span class="o">[</span>tos 0x10<span class="o">]</span> table <span class="m">２</span> pref 1500prohibit
+<span class="m">1500</span> from 192.168.3.112/32 <span class="o">[</span>tos 0x10<span class="o">]</span> lookup <span class="m">2</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>第二条命令将向规则链增加一条规则，规则匹配的对象是IP为192.168.3.112，tos等于0x10的包，使用路由表2，这条规则的优先级是1500，动作是</p>
+<p>Table 指明所使用的表
+Nat 透明网关
+Action prohibit 丢弃该包，并发送 COMM.ADM.PROHIITED的ICMP信息
+Reject 单纯丢弃该包
+Unreachable丢弃该包，并发送 NET UNREACHABLE的ICMP信息</p>
+<p>添加路由</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">route add -net 192.168.0.0/24 gw 192.168.0.1
+route add -host 192.168.1.1 dev 192.168.0.1
+p route add 192.168.0.0/24 via 192.168.0.1
+ip route add 192.168.1.1 dev 192.168.0.1
+</code></pre></td></tr></table>
+</div>
+</div><p>删除路由</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">route del -net 192.168.0.0/24 gw 192.168.0.1
+ip route del 192.168.0.0/24 via 192.168.0.1
+</code></pre></td></tr></table>
+</div>
+</div><p>(3)请在机器上列出当前的策略路由的规则，并解释各个字段的意义</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ ip route
+default via 10.83.13.1 dev eth0
+10.83.13.0/25 dev eth0 proto kernel scope link src 10.83.13.42
+</code></pre></td></tr></table>
+</div>
+</div><p>dev STRING 物理接口
+proto：此路由的路由協定，主要有
+redirect, kernel, boot, static, ra
+等， 其中 kernel 指的是直接由核心判斷自動設定。
+scope ：这个设备的领域，通常是以下几个大类：
+global ：允许来自所有来源的连线
+site ：仅支持IPv6 ，仅允许本主机的连接；
+link ：仅允许本设备自我连接；
+host ：仅允许本主机内部的连接；</p>
+<h3 id="14-了解-qos-的基本概念">14. 了解 QoS 的基本概念。</h3>
+<p>QoS（Quality of Service，服务质量）指一个网络能够利用各种基础技术，为指定的网络通信提供更好的服务能力, 是网络的一种安全机制，是用来解决网络延迟和阻塞等问题的一种技术。
+在分组交换网络领域中指网络满足给定业务合同的概率；或在许多情况下，非正式地指分组在网络中两点间通过的概率。QoS是一种控制机制，它提供了针对不同用户或者不同数据流采用相应不同的优先级，或者是根据应用程序的要求，保证数据流的性能达到一定的水准。QoS的保证对于容量有限的网络来说是十分重要的，特别是对于流多媒体应用，例如VoIP和IPTV等，因为这些应用常常需要固定的传输率，对延时也比较敏感。
+IP QoS ( Quality of Service ) 是指IP网络的一种服务质量能力，即在跨越多种底层网络技术（FR、ATM、Ethernet、SDH等）的IP网络上，为特定的业务提供其所需要的服务。衡量IP QoS的技术指标包括：
+带宽/吞吐量：指网络的两个节点之间特定应用业务流的平均速率；
+时延：指数据包在网络的两个节点之间传送的平均往返时间；
+抖动：指时延的变化；
+丢包率：指在网络传输过程中丢失报文的百分比，用来衡量网络正确转发用户数据的能力；
+可用性：指网络可以为用户提供服务的时间的百分比。
+通常QoS提供以下三种服务模型：
+l Best-Effort service（尽力而为服务模型）
+l Integrated service（综合服务模型，简称Int-Serv）
+l Differentiated service（区分服务模型，简称Diff-Serv）</p>
+<h3 id="15-了解-data-center网络的基本拓扑以及特性">15. 了解 Data Center网络的基本拓扑以及特性。</h3>
+<p>传统的数据中心
+采用二层和三层相结合的交换方法，缩小广播域，提供多路径负载均衡
+<img src="index_files/341090ce-024a-44cb-a0a7-bd331e8d3803.jpg" alt=""></p>
+<p>FatTree
+<img src="index_files/aa01c47d-7ef3-48fc-a54e-698729e2cc04.png" alt="">
+ElasticTree
+<img src="index_files/ed52b5a8-fc18-43d6-a20a-5425529dc1dc.png" alt=""></p>
+<p>SecondNet
+虚拟数据中心 (virtual data center, 简称 VDC）
+<img src="index_files/c8e68ee0-04fd-4eab-9913-7c62a903f3fb.jpg" alt=""></p>
+<p>Monsoon
+支持100000服务器的二层网络，集
+中计算交换机转发表，采用目录服务
+提供地址解析
+<img src="index_files/cefce0f0-0d6c-41f3-8f94-95d5f3270572.jpg" alt=""></p>
+<h3 id="16-了解-cdn-的基本概念">16. 了解 CDN 的基本概念。</h3>
+<h4 id="1-简单描述cdn的作原理">(1) 简单描述cdn的⼯作原理</h4>
+<p>内容分发网络
+CDN是将源站内容分发至最接近用户的节点，使用户可就近取得所需内容，提高用户访问的响应速度和成功率。
+解决因分布、带宽、服务器性能带来的访问延迟问题，适用于站点加速、点播、直播等场景。
+CDN网络是在用户和服务器之间增加Cache层，将用户的请求引导到Cache上获得源服务器的数据，主要是通过接管DNS实现</p>
+<p><img src="index_files/0.6620260243583858.png" alt=""></p>
+<h4 id="2-什么是cdn回源什么情况下发生回源如果回源过快或过慢会有什么影响">(2) 什么是cdn回源，什么情况下发生回源？如果回源过快或过慢，会有什么影响?</h4>
+<p>CDN回源是指CDN节点没有命中缓存，需要从用户源站拉取资源的情况
+回源过快会给源站带来很大的压力
+过慢CDN节点的资源更新较慢</p>
+<h4 id="3-什么是cdn预热">(3) 什么是cdn预热?</h4>
+<p>CDN预热是CDN节点主动从源站拉取资源并缓存在本地</p>
+<h3 id="18-假设-a-到-b-法-ping-通列举少3种可能出现的情况并使上述ping-mtr-traceroute-tcpdump-等命令排查">18. 假设 A 到 B ⽆法 ping 通，列举⾄少3种可能出现的情况，并使⽤上述ping mtr traceroute tcpdump 等命令排查。</h3>
+<ul>
+<li>物理链路不通</li>
+<li>防火墙 目标主机没有开启ping端口，ping则是用ICMP的&quot;Echo request&quot;（类别代码：8）</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># Allow ping
+-A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>网络延时</li>
+<li>NAT地址
+ping mtr traceroute tcpdump 等命令排查。</li>
+</ul>
+<h3 id="19-linux-系统内如何用工具解析个域名指向哪些ip">19. Linux 系统内如何用工具解析⼀个域名指向哪些ip?</h3>
+<p>实机操作：在linux系统内用工具解析 g83.update.netease.com指向哪些ip？修改系统设置使该域名解析到其中⼀个ip.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ nslookup / dig g83.update.netease.com
+Server: 220.181.36.231
+Address: 220.181.36.231#53
+Non-authoritative answer:
+g83.update.netease.com canonical <span class="nv">name</span> <span class="o">=</span> update.mmog.163.com.
+Name: update.mmog.163.com
+Address: 42.186.82.32
+Name: update.mmog.163.com
+Address: 59.111.0.112
+Name: update.mmog.163.com
+Address: 220.181.71.16
+
+$ vim /etc/hosts
+220.181.71.16 g83.update.netease.com
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="20-linux-系统内如何用工具查询个ip的域名反解">20. Linux 系统内如何用工具查询⼀个ip的域名反解？</h3>
+<p>实机操作：在linux系统内用工具查询123.58.170.185的域名反解</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">$ nslookup 123.58.170.185
+Non-authoritative answer:
+185.170.58.123.in-addr.arpa name = push-admin01.i.nease.net.
+
+dig -x 123.58.170.185
+;; ANSWER SECTION:
+185.170.58.123.in-addr.arpa. 60 IN PTR push-admin01.i.nease.net.
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="21-解释-ddos-广播风暴路由环路-dns-劫持等常见的网络问题概念">21. 解释 DDoS ，广播风暴，路由环路 ，DNS 劫持等常见的网络问题概念。</h3>
+<h4 id="ddos攻击">DDOS攻击</h4>
+<p>DDoS(DistributedDenialofService，即分布式拒绝服务攻击) 是指击者利用大量“肉鸡”对攻击目标发动大量的正常或非正常请求、耗尽目标主机资源或网络资源，从而使被攻击的主机不能为合法用户提供服务。
+DDOS攻击的本质是：利用木桶原理，寻找利用系统应用的瓶颈；阻塞和耗尽；当前问题：用户的带宽小于攻击的规模，噪声访问带宽成为木桶的短板。</p>
+<ul>
+<li>SYN flood攻击
+SYN flood攻击主要利用了TCP三次握手过程中的bug，我们知道TCP三次握手过程是要建立连接的双方发送SYN，SYN+ACK，ACK数据包，而当攻击方随意构造源ip去发送SYN包时，服务器返回的SYN+ACK就不能得到应答（因为ip是随意构造的），此时服务器就会尝试重新发送，并且会有至少30s的等待时间，导致资源饱和服务不可用，此攻击属于慢型dos攻击。</li>
+<li>UDP flood攻击
+由于udp是一种无连接的协议，因此攻击者可以伪造大量的源IP地址去发送udp包，此种攻击属于大流量攻击。正常应用情况下，UDP包双向流量会基本相等，因此在消耗对方资源的时候也在消耗自己的资源。</li>
+<li>ICMP flood攻击
+此攻击属于大流量攻击，其原理就是不断发送不正常的ICMP包（所谓不正常就是ICMP包内容很大），导致目标带宽被占用，但其本身资源也会被消耗。并且目前很多服务器都是禁ping的（在防火墙在可以屏蔽icmp包），因此这种方式已经落伍。</li>
+</ul>
+<p><img src="index_files/0.17599578193382093.png" alt=""></p>
+<ul>
+<li>网络层DDos防御</li>
+<li>网络架构上做好优化，采用负载均衡分流。</li>
+<li>添加抗DDos设备，流量清洗。</li>
+<li>限制单ip请求频率。</li>
+<li>防火墙等防护设置禁止icmp包等</li>
+</ul>
+<p>应用层DDos攻击</p>
+<ul>
+<li>CC攻击
+CC攻击的原理，就是针对消耗资源比较大的页面不断发起不正常的请求，导致资源耗尽。因此在发送CC攻击前，我们需要寻找加载比较慢，消耗资源比较多的网页，比如需要查询数据库的页面、读写硬盘文件的等。通过cc攻击，使用爬虫对某些加载需要消耗大量资源的页面发起http请求。</li>
+<li>slowloris
+这是由于webserver中间件漏洞引发的拒绝服务攻击，其原理是以极低的速度往服务器发送HTTP请求。apache等中间件默认会设置最大并发链接数，而这种攻击就是会持续保持连接，导致服务饱和不可用。slowloris有点类似基于HTTP协议的SYN flood攻击。</li>
+<li>HTTP POST DOS
+其原理是在发送HTTP POST包时，指定一个非常大的Content-Length值，然后以极低的速度发包，保持连接不断，导致服务饱和不可用。</li>
+<li>Slow Read attack
+Slow Read attack攻击方式是采用调整TCP协议中的滑动窗口大小，来对服务器单次发送发送的数据大小进行控制，使得服务器需要对一个回应分成很多个包来发送。</li>
+<li>Server Limit Dos
+这是由于cookie导致的dos攻击，当然其原理还是基于webserver的特性。apache默认最大的http包头长度为8192字节，如果超出此长度，则会返回4xx错误。如果我们利用存储型xss漏洞，将一个超长的cookie写入客户端页面，则用户再访问此页面后，由于请求头加载了恶意的超长cookie，导致其不能访问该站的页面（除非清空cookie）</li>
+<li>ReDos
+这是由于代码写得有缺陷，导致使用正则时，会出现大量占用资源的情况，导致服务不可用，这是利用了正则表达式在匹配时的某些特性决定的。</li>
+</ul>
+<p>应用层DDos防御</p>
+<ul>
+<li>判断User-Agent字段（不可靠，因为可以随意构造）</li>
+<li>网页中镶嵌js代码（不可靠，因为爬虫也可携带浏览器引擎，或者执行js代码）</li>
+<li>针对ip+cookie，限制访问频率（由于cookie可以更改，ip可以使用代理，或者肉鸡，也不可靠)</li>
+<li>关闭apache最大连接数等，合理配置中间件，缓解ddos攻击。</li>
+<li>页面中添加验证码，比如搜索数据库时。</li>
+<li>编写代码时，尽量实现优化，并合理使用缓存技术，减少数据库的读取操作。</li>
+</ul>
+<h4 id="广播风暴">广播风暴</h4>
+<p>二层以太网成环。因交换机在广播域内复制交换特性，同一个数据包指数级增加，最终从一个分子形成了破坏一个广播网络的风暴。设备因为数据量急剧增加，导致交换芯片，三层交换机涉及cpu，这两者的开销也直线飙升，同时又会占用内存资源。接着就是缓冲区溢出，设备处理不过来更大量的数据，直接开始丢包。</p>
+<h4 id="路由环路">路由环路</h4>
+<p>路由环路是指数据包在一系列路由器之间不断传输却始终无法到达其预期目的网络的一种现象。当两台或多台路由器的路由信息中存在错误地指向不可达目的网络的有效路径时，就可能发生路由环路。
+造成环路的可能原因有：
+1 ．静态路由配置错误
+2 ．路由重分布配置错误
+3 ．发生了改变的网络中收敛速度缓慢，不一致的路由表未能得到更新
+4 ．错误配置或添加了丢弃的路由</p>
+<h4 id="dns-劫持控制域名管理密码和域名管理邮箱然后将该域名的ns纪录指向到黑客可以控制的dns服务器然后通过在该dns服务器上添加相应域名纪录从而使网民访问该域名时进入了黑客所指向的内容">DNS 劫持：控制域名管理密码和域名管理邮箱，然后将该域名的NS纪录指向到黑客可以控制的DNS服务器，然后通过在该DNS服务器上添加相应域名纪录，从而使网民访问该域名时，进入了黑客所指向的内容。</h4>
+<h3 id="22-了解-sdn-nfv-openflow-iot-或者-cdn-anycast-routing-的概念和应场景或者其他网络方面的新进展">22. 了解 SDN ，NFV ，OpenFlow ，IoT 或者 CDN Anycast Routing 的概念和应⽤场景（或者其他网络方面的新进展）。</h3>
+<ul>
+<li>SDN（Software Defined Network，软件定义网络 ）
+网络虚拟化的一种实现方式，其核心技术OpenFlow通过将网络设备控制面与数据面分离开来，从而实现了网络流量的灵活控制，使网络作为管道变得更加智能。</li>
+<li>NFV（Network Functions Virtualization，网络功能虚拟化 ）
+一种对于网络架构（network architecture）的概念，利用虚拟化技术，将网络节点阶层的功能，分割成几个功能区块，分别以软件方式实作，不再拘限于硬件架构。</li>
+<li>OpenFlow
+一种网络通信协议，属于数据链路层，能够控制网络交换器或路由器的转送平面（forwarding plane），借此改变网络数据包所走的网络路径。 OpenFlow（OF）被认为是第一个软件定义网络（SDN）标准之一。它最初在SDN环境中定义了通信协议，使SDN控制器能够与物理和虚拟的交换机和路由器等网络设备的转发平面直接进行交互，从而更好地适应不断变化的业务需求。</li>
+<li>IoT（Internet of Things，物联网）
+互联网、传统电信网等信息承载体，让所有能行使独立功能的普通物体实现互联互通的网络。
+通过射频识别（RFID）、红外感应器、全球定位系统、激光扫描器等信息传感设备，提出任何时刻、任何地点、任何物体之间的互联，无所不在的网络和无所不在计算的发展愿景。</li>
+<li>CDN Anycast Routing
+Anycast：Anycast是一种路由策略，在全球很多地方都有相同的IP地址。 然后，BGP根据BGP的最佳路径概念将客户端路由到一个边缘服务器位置。 由于Anycast将客户端重定向的实现推迟到Internet路由层面，因此它提供了操作简单性。 Anycast比基于DNS的重定向具有优势，因为每个客户端重定向都是独立处理的 - 避免了上述的LDNS问题。
+anycast有一些众所周知的挑战。 首先，anycast，或者说BGP协议，意识不到网络的性能，所以它不会对路径上网络质量的变化做出反应。 其次，Anycast不知道服务器负载。 如果一个特定的边缘服务器变得超载，那么很难逐渐将流量从这个前端引导出去，尽管这个领域已经有了最近的进展。 简单地撤销路线（AS-path）以使该边缘服务器离线可能导致附近不服务器的重载过载。 第三，anycast路由选择改变会导致正在进行的TCP会话终止并需要重新启动。 在以短流量为主的网络环境下，这在实践中似乎不是问题。 包括Cloudflare，CacheFly，Edgecast和Microsoft在内的许多公司都运行成功的基于Anycast的CDN</li>
+</ul>
+<h1 id="可选review时会从两个主题中选择其中个">可选(review时会从两个主题中选择其中⼀个)</h1>
+<h2 id="nat原理及应用">NAT原理及应用</h2>
+<h3 id="1-描述nat-的基本原理">1. 描述NAT 的基本原理。</h3>
+<p>NAT（Network Address Translation，网络地址转换），是一种在IP数据包通过路由器或防火墙时重写来源IP地址或目的IP地址的技术。
+这种技术被普遍使用在有多台主机但只通过一个公有IP地址访问因特网的私有网络中。</p>
+<h3 id="2-说明linux-支持的nat类型">2. 说明Linux 支持的NAT类型。</h3>
+<ul>
+<li>
+<p>Full cone NAT
+内网接口对(ip:port)总被映射为外部接口(eip:port)，所有发自(ip:port)的报文都通过(eip:port)出去，所有来自(eip:eport)的报文都被转发到(ip:port)。</p>
+</li>
+<li>
+<p>地址受限的NAT
+内网接口对(ip:port)发往网络host的报文被映射到外部接口(eip:port)，只有来自host的报文才能通过(eip:port)转发到(ip:port)。所谓地址受限，即指只有内网的主机向网络主机发送过报文，网络主机向内网主机的报文才能被路由器转发回内网主机。</p>
+</li>
+<li>
+<p>端口受限的NAT
+内网接口对(ip:port)发往网络host (sip:sport)的报文被映射到外部接口(eip:port)，只有来自host (sip:sport)的报文才能通过(eip:port)转发到(ip:port)。所谓端口受限，即指只有内网的主机向网络主机(sip:sport)发送过报文，网络主机(sip:sport)向内网主机的报文才能被路由器转发回内网主机。</p>
+</li>
+<li>
+<p>对称NAT
+每一个发往网络(sip:sport)的接口，都在路由器上被映射为不同的(eip:eport)。
+<img src="index_files/0.1384453962716241.png" alt=""><img src="index_files/0.5983132824288058.png" alt=""><img src="index_files/0.35936097968101.png" alt=""><img src="index_files/0.360834623623997.png" alt="">
+以下是应用NAT的场景：
+用户需要访问Internet但主机没有全球唯一的IP地址
+用户更改ISP需要对网络重新编号
+用户需要合并地址重复的内网</p>
+</li>
+</ul>
+<h3 id="3-nat-对-tcpudpsslhttp-等各种应和协议的影响">3. NAT 对 TCP、UDP、SSL、HTTP 等各种应⽤和协议的影响。</h3>
+<p>NAT破坏了端到端消息的完整性，对于所有NAT敏感的协议，我们都必须做出单独的处理。这些协议包括ICMP、FTP、DNS、SNMP、IPSec等，这些处理会使NAT变得异常复杂甚至不可实现。
+FTP层报文数据中包括了自己的的IP地址（私网地址），对方终端则只能与公网地址通信。这时需要NAT上开通ALG（Application Level Gateway，应用级网关）功能。
+ICMP层“目的站点不可达”的ICMP报文数据包中包括了造成错误的数据报A的首部（注意，NAT在发送A之前进行了地址转换，所以源地址不是内部主机的真实地址，即私网地址），ALG需要转换ICMP包数据部分的报文A首部的地址，使之转换为私网地址后再发送出去。</p>
+<h3 id="4-linux-中如何使用-iptables-配置-nat">4. Linux 中如何使用 iptables 配置 NAT。</h3>
+<p>MASQUERADE</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">iptables -t nat -A POSTROUTING -s 172.16.93.0/24 -j SNAT --to-source 10.0.0.1
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="5-向老员工了解公司哪些业务使用了-nat">5. 向老员工了解公司哪些业务使用了 NAT。</h3>
+<ul>
+<li>
+<p>了解 SNAT 和 DNAT。</p>
+</li>
+<li>
+<p>如何使用 NAT 实现端口映射？
+负载均衡，公司内网访问</p>
+</li>
+</ul>
+<h2 id="tcp-原理">TCP 原理：</h2>
+<h3 id="1-详细说明tcp的握过程结束过程-在过程的各个步骤中-客户端和服务端分别会处于tcp协议描述的何种状态">1. 详细说明TCP的握⼿过程结束过程; 在过程的各个步骤中, 客户端和服务端,分别会处于TCP协议描述的何种状态?</h3>
+<p><img src="index_files/0.9891339787081335.png" alt=""></p>
+<p><img src="index_files/0.22410223165978826.png" alt=""></p>
+<h3 id="2-了解-tcp-的滑动窗口协议等算法">2. 了解 TCP 的滑动窗口协议等算法。</h3>
+<ul>
+<li>
+<p>窗口机制
+滑动窗口协议的基本原理就是在任意时刻，发送方都维持了一个连续的允许发送的帧的序号，称为发送窗口；
+同时，接收方也维持了一个连续的允许接收的帧的序号，称为接收窗口。
+发送窗口和接收窗口的序号的上下界不一定要一样，甚至大小也可以不同。不同的滑动窗口协议窗口大小一般不同。发送方窗口内的序列号代表了那些已经被发送，但是还没有被确认的帧，或者是那些可以被发送的帧。下面举一个例子（假设发送窗口尺寸为2，接收窗口尺寸为1）：
+<img src="index_files/0.24780005204281141.png" alt=""></p>
+</li>
+<li>
+<p>停等协议(stop－and－wait)
+当发送窗口和接收窗口的大小固定为1时，滑动窗口协议退化为停等协议（stop－and－wait）。
+这时接受方的窗口和发送方的窗口大小都是1，1个比特就够表示了，所以也叫1比特滑动窗口协议。发送方这时自然发送每次只能发送一个，并且必须等待这个数据包的ACK，才能发送下一个。虽然在效率上比较低，带宽利用率明显较低，不过在网络环境较差，或是带宽本身很低的情况下，还是适用的。
+<img src="index_files/0.6793824102487478.png" alt=""></p>
+</li>
+<li>
+<p>后退n帧协议
+停等协议虽然实现简单，也能较好的适用恶劣的网络环境，但是显然效率太低。所以有了后退n协议，这也是滑动窗口协议真正的用处，这里发送的窗口大小为n，接受方的窗口仍然为1。具体看下面的图，这里假设n=9：
+首先发送方一口气发送10个数据帧，前面两个帧正确返回了，数据帧2出现了错误，这时发送方被迫重新发送2-8这7个帧，接受方也必须丢弃之前接受的3-8这几个帧。
+后退n协议的好处无疑是提高了效率，但是一旦网络情况糟糕，则会导致大量数据重发，反而不如上面的停等协议，实际上这是很常见的，具体可以参考TCP拥塞控制。
+<img src="index_files/99b32fb8-4a98-4ac1-9d4c-40b9a3211897.png" alt=""></p>
+</li>
+<li>
+<p>选择重传协议
+后退n协议的问题是，当有错误帧出现后，总是要重发该帧之后的所有帧，毫无疑问在网络不是很好的情况下会进一步恶化网络状况。
+重传协议便是用来解决这个问题。原理也很简单，接收端总会缓存所有收到的帧，当某个帧出现错误时，只会要求重传这一个帧，只有当某个序号后的所有帧都正确收到后，才会一起提交给高层应用。重传协议的缺点在于接受端需要更多的缓存。</p>
+</li>
+</ul>
+<h3 id="3-了解-tcp-协议的拥塞控制-什么是tcp的慢启动算法快速重传算法快速恢复算法">3. 了解 TCP 协议的拥塞控制: 什么是TCP的慢启动算法、快速重传算法、快速恢复算法？</h3>
+<p><img src="index_files/0.05212944118877472.png" alt=""></p>
+<h4 id="慢启动-slow-start">慢启动 Slow Start</h4>
+<ol>
+<li>连接建立，开始传输数据，cwnd = 1 , ssthresh（slow start threshold 慢启动阀值）的初始值为16，发送第一个包</li>
+<li>发送端收到一个确认后，cwnd加1，于是可以 发送2个数据包</li>
+<li>收到2个ACK之后，这个时候cwnd + 2 , 于是可以发送4个数据包</li>
+<li>收到4个ACK后，这个时候cwnd + 4 ,于是可以发送8个数据包， 可以看到这个时间段，cwnd随着传输轮次的增长，成指数增长</li>
+<li>当拥塞的窗口达到ssthresh后，慢启动算法结束，开始进入拥塞避免算法</li>
+<li>cwnd按照一个RTT进行+1的线性增加，假设到达24时，出现网络拥塞</li>
+<li>ssthresh = 1/2 * cwnd = 12, cwnd = 1 继续重新执行慢启动算法</li>
+<li>同样当cwnd = 12时 执行拥塞避免算法
+其中第7步属于对网络拥塞的一种处理， 什么状态下才会认为是拥塞？ 基本上就认为是有丢包产生，在前面知道丢包产生会有2中处理方法超时重传和快速重传，其中如果RTO超时的时候，TCP认为环境已经很糟糕了，
+a .sshthresh = cwnd /2
+b. cwnd 重置为 1
+c.进入慢启动过程</li>
+</ol>
+<h4 id="快速重传">快速重传</h4>
+<p>TCP Tahoe的实现和RTO超时一样。
+TCP Reno的实现是：
+a. cwnd = cwnd /2
+b. sshthresh = cwnd</p>
+<h4 id="快速恢复算法-fast-recovery">快速恢复算法 Fast Recovery</h4>
+<p>TCP Reno这个算法定义在RFC5681。快速重传和快速恢复算法一般同时使用。
+快速恢复算法是认为，你还有3个Duplicated Acks说明网络也不那么糟糕，所以没有必要像RTO超时那么强烈，并不需要重新回到慢启动进行，这样可能降低效率。所以协议栈会做如下工作
+启动快速恢复算法：</p>
+<ol>
+<li>设置cwnd = ssthresh＋ACK个数＊MSS（一般情况下会是3个dup ACK）</li>
+<li>重传丢失的数据包（对于重传丢失的那个数据包，可以参考TCP-IP详解：SACK选项）</li>
+<li>如果只收到Dup ACK，那么cwnd = cwnd + 1， 并且在允许的条件下发送一个报文段</li>
+<li>如果收到新的ACK, 设置cwnd = ssthresh， 进入拥塞避免阶段</li>
+</ol>
+<h3 id="4-了解-tcp-的状态图">4. 了解 TCP 的状态图。</h3>
+<p>解释当关闭 TCP 连接时，为什么所绑定的端口总是要处于 <code>TIME_WAIT</code> 状态一段时间后才进入 <code>CLOSED</code> 状态，这时 <code>TIME_WAIT</code> 状态的作用是什么，这种状态一般持续多长？
+主动关闭方在发送四次挥手的最后一个ACK之后会变为TIME_WAIT状态，该状态的作用是：
+(1) 确保发起主动关闭的一方的最后一个ACK能够正常送达：
+如果这个ACK丢失，被动关闭方将重发最终的FIN，主动关闭方如果已经CLOSED了，就会发送RST而不是ACK，因此主动关闭方必须维持允许重发最终ACK的TIME_WAIT状态，才能保证TCP连接的正常终止；
+(2) 网络上仍然有可能有残余或重复的数据包：
+如果没有TIME_WAIT，第一个连接终止了，而第一个连接的残留或重复报文到达，有可能会干扰了后面建立的第二个连接。故保持TIME_WAIT状态2MSL，让先前的连接的数据包有足够时间在在网络中消逝。
+TIME_WAIT一般持续2个MSL（max segment lifetime 最大分节生命期），berkeley的TCP实现上MSL使用30秒，在RFC 1122上建议是2分钟，因此TIME_WAIT状态会维持在1-4分钟。</p>
+<h3 id="5-了解-tcp-不适用的场景以及不适用的原因">5. 了解 TCP 不适用的场景，以及不适用的原因。</h3>
+<p>网络视频、直播 掉帧不影响播放体验，但是卡顿影响很大
+网络真的非常非常可靠，几乎不丢包
+Google在Chrome上实验基于UDP的QUIC协议，传输速率减少到100ms以内。</p>
+<h2 id="网络命令">网络命令</h2>
+<h3 id="ping">ping</h3>
+<p>解释ping命令的原理; 解释ping 命令的-n/-c/-i/-t/-s的意义
+-n： Numeric output only 只输出数值；
+-c count &lt;完成次数&gt;：设置完成要求回应的次数；
+-i interval &lt;间隔秒数&gt;：指定收发信息的间隔时间；
+-s size &lt;数据包大小&gt;：设置数据包的大小；</p>
+<h3 id="traceroute">traceroute</h3>
+<p>简单说明traceroute的工作原理; traceroute默认情况下，发送的是什么数据? windows跟linux的traceroute, 发送的数据⼀样么?
+Tracert 命令用 IP 生存时间 (TTL) 字段和 ICMP 错误消息来确定从一个主机到网络上其他主机的路由。
+首先，tracert送出一个TTL是1的IP 数据包到目的地，当路径上的第一个路由器收到这个数据包时，它将TTL减1。此时，TTL变为0，所以该路由器会将此数据包丢掉，并送回一个「ICMP time exceeded」消息（包括发IP包的源地址，IP包的所有内容及路由器的IP地址），tracert 收到这个消息后，便知道这个路由器存在于这个路径上，接着tracert 再送出另一个TTL是2 的数据包，发现第2 个路由器&hellip;&hellip; tracert 每次将送出的数据包的TTL 加1来发现另一个路由器，这个重复的动作一直持续到某个数据包 抵达目的地。当数据包到达目的地后，该主机则不会送回ICMP time exceeded消息，一旦到达目的地，由于tracert通过UDP数据包向不常见端口(30000以上)发送数据包，因此会收到「ICMP port unreachable」消息，故可判断到达目的地。
+tracert 有一个固定的时间等待响应(ICMP TTL到期消息)。如果这个时间过了，它将打印出一系列的*号表明：在这个路径上，这个设备不能在给定的时间内发出ICMP TTL到期消息的响应。然后，Tracert给TTL记数器加1，继续进行。</p>
+<ul>
+<li>UDP 模式
+UDP 探测数据包（目标端口大于 30000） + 中间网关发回 ICMP TTL 超时数据包 + 目标主机发回 ICMP Destination Unreachable 数据包</li>
+<li>TCP 模式
+TCP [SYN] 探测数据包（目标端口为 Web 服务的 80） + 中间网关发回 ICMP TTL 超时数据包 + 目标主机发回 TCP [SYN ACK] 数据包</li>
+<li>ICMP 模式
+ICMP Echo (ping) Request 探测数据包 + 中间网关发回 ICMP TTL 超时数据包 + 目标主机发回 ICMP Echo (ping) reply 数据包</li>
+</ul>
+<h3 id="tcpdump">tcpdump</h3>
+<p>在分配给自己的其中⼀台服务器上，使⽤tcpdump抓1000个ssh端⼝的包, 并说明输出中， 各个字段的意义; 如果要直接在输出中看到数据包内容，需要⽤什么参数?</p>
+<ul>
+<li>查看全部三台服务器有没有安装 tcpdump 这个包，如果没有则安装之。</li>
+<li>任选一台服务器，使用 curl 命令下载 <a href="http://game.campus.163.com">http://game.campus.163.com</a> 网页并且使用tcpdump 抓取整个传输过程。</li>
+<li>从抓包结果中，找到 TCP 握手和挥手的部分并详细解释整个过程。</li>
+<li>在你自己的电脑上安装并尝试熟悉 wireshark。</li>
+<li>如何将服务器上的 tcpdump 抓包结果在 wireshark 上打开查看？</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ssh guoakngjie@10.83.13.43 -p32200 tcpdump -U -s0 -w - <span class="s1">&#39;not port 22&#39;</span> <span class="p">|</span> <span class="s2">&#34;C:\SOFT\Wireshark\Wireshark.exe&#34;</span> -k -i -
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="ip">ip</h3>
+<p><img src="index_files/0.5987226428685002.png" alt=""></p>
+<h4 id="1-尝试运行-ip-addr并理解输出的内容">1. 尝试运行 <code>ip addr</code>，并理解输出的内容。</h4>
+<p>类似ifconfig</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu <span class="m">65536</span> qdisc noqueue state UNKNOWN group default
+link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+inet 127.0.0.1/8 scope host lo
+valid_lft forever preferred_lft forever
+2: eth0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="m">1400</span> qdisc pfifo_fast state UP group default qlen <span class="m">1000</span>
+link/ether 52:54:00:36:99:4b brd ff:ff:ff:ff:ff:ff
+inet 10.83.13.42/25 brd 10.83.13.127 scope global eth0
+valid_lft forever preferred_lft forever
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="2-如何使用-ip-命令仅输出-eth0-网卡的信息">2. 如何使用 ip 命令，仅输出 eth0 网卡的信息？</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ip addr show eth0
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="3-使用-ip-命令能直接在命令行下设置机器的-ip-地址如何做">3. 使用 ip 命令能直接在命令行下设置机器的 IP 地址，如何做？</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ip addr add 192.168.0.193/24 dev wlan0
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="4-使用-ip-命令在命令行下设置的机器-ip-地址在重启后会丢失如何避免这个问题">4. 使用 ip 命令在命令行下设置的机器 IP 地址在重启后会丢失，如何避免这个问题？</h4>
+<h4 id="5-如何使用-ip-命令查看系统路由表和-arp-表">5. 如何使用 ip 命令，查看系统路由表和 arp 表？</h4>
+<p>ip route
+ip neig</p>
+<h4 id="6-ip-替换了已经过时的命令-ifconfigroute-和-arp">6. ip 替换了已经过时的命令 ifconfig、route 和 arp。</h4>
+<p>你应该避免使用这些过时的命令。了解这三个命令的作用，并思考他们的功能如何用 ip 命令来实现。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">用途</th>
+<th style="text-align:center">net-tool</th>
+<th style="text-align:left">iproute2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">地址和链路配置</td>
+<td style="text-align:center">ifconfig</td>
+<td style="text-align:left">ip addr, ip link</td>
+</tr>
+<tr>
+<td style="text-align:center">路由表</td>
+<td style="text-align:center">route</td>
+<td style="text-align:left">ip route</td>
+</tr>
+<tr>
+<td style="text-align:center">邻居</td>
+<td style="text-align:center">arp</td>
+<td style="text-align:left">ip neig</td>
+</tr>
+<tr>
+<td style="text-align:center">VLAN</td>
+<td style="text-align:center">vconfig</td>
+<td style="text-align:left">ip link</td>
+</tr>
+<tr>
+<td style="text-align:center">隧道</td>
+<td style="text-align:center">iptunnel</td>
+<td style="text-align:left">ip tunnel</td>
+</tr>
+<tr>
+<td style="text-align:center">组播</td>
+<td style="text-align:center">ipmaddr</td>
+<td style="text-align:left">ip maddr</td>
+</tr>
+<tr>
+<td style="text-align:center">统计</td>
+<td style="text-align:center">netstat</td>
+<td style="text-align:left">ss</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-ssnetstat">4.2. ss/netstat</h3>
+<h4 id="1-对于那些众所周知的服务ss-会将端口翻译成对应的服务例如对于-25会直接显示-smtp这儿的翻译是如何实现的如何避免-ss-翻译">1. 对于那些众所周知的服务，ss 会将端口翻译成对应的服务。例如对于 25，会直接显示 <code>smtp</code>。这儿的翻译是如何实现的，如何避免 ss 翻译？</h4>
+<p>-n, &ndash;numeric 不解析服务的名称，如 &ldquo;22&rdquo; 端口不会显示成 &ldquo;ssh&rdquo;</p>
+<h4 id="2-如何显示出某监听的进程-pid">2. 如何显示出某监听的进程 pid？</h4>
+<p>-l, &ndash;listening display listening sockets [监听状态接口]
+-p, &ndash;processes show process using socket [显示socket进程]</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ss -pl
+u_dgr UNCONN <span class="m">0</span> <span class="m">0</span> * <span class="m">1416113</span> * <span class="m">11750</span> users:<span class="o">((</span><span class="s2">&#34;bash&#34;</span>,pid<span class="o">=</span>26452,fd<span class="o">=</span>3<span class="o">))</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="3-ss-中的-state-可能有哪些对于-syn-flood-攻击ss-中会有哪种状态">3. ss 中的 <code>State</code> 可能有哪些？对于 SYN FLOOD 攻击，ss 中会有哪种状态？</h4>
+<p>ss 命令可以通过 TCP 连接的状态进行过滤，支持的 TCP 协议中的状态有：</p>
+<ul>
+<li>established</li>
+<li>syn-sent</li>
+<li>syn-recv</li>
+<li>fin-wait-1</li>
+<li>fin-wait-2</li>
+<li>time-wait</li>
+<li>closed</li>
+<li>close-wait</li>
+<li>last-ack</li>
+<li>listening</li>
+<li>closing
+保持syn-recv的状态</li>
+</ul>
+<h4 id="4-ss-替换了已经过时的命令-netstat对比这两个命令的输出你应该避免使用-netstat-命令">4. ss 替换了已经过时的命令 netstat，对比这两个命令的输出。你应该避免使用 netstat 命令。</h4>
+<p><img src="index_files/0.18115071026522056.png" alt="">
+ss比netstat快的主要原因是，netstat是遍历/proc下面每个PID目录，ss直接读/proc/net下面的统计信息。所以ss执行的时候消耗资源以及消耗的时间都比netstat少很多。
+当服务器的socket连接数量非常大时（如上万个），无论是使用netstat命令还是直接cat /proc/net/tcp执行速度都会很慢，相比之下ss可以节省很多时间。ss快的秘诀在于，它利用了TCP协议栈中tcp_diag，这是一个用于分析统计的模块，可以获得Linux内核中的第一手信息。如果系统中没有tcp_diag，ss也可以正常运行，只是效率会变得稍微慢但仍然比netstat要快。
+ss（socket statistics）参数和使用
+常用参数和netstat类似，如-anp
+-a all 显示所有的sockets
+-l listen 显示正在监听的
+-n numeric显示数字IP和端口，不通过域名服务器
+-p process 显示使用socket的对应的程序
+-t tcp 只显示TCP sockets
+-u udp 只显示UDP sockets
+-4 -6 只显示v4或v6V版本的sockets
+-s static 打印出统计信息。这个选项不解析从各种源获得的socket。对于解析/proc/net/top大量的sockets计数时很有效
+-0 显示PACKET sockets
+-w 只显示RAW sockets
+-x 只显示UNIX域sockets
+-r 尝试进行域名解析，地址/端口</p>
+<h3 id="mtr">mtr</h3>
+<p>查看全部三台服务器有没有安装 mtr-tiny 这个包，如果没有则安装之。</p>
+<ul>
+<li>指出 mtr-tiny 和 mtr 这两个包的区别。
+mtr-tiny is compiled without support for X and conserves disk space.
+mtr-tiny 是去掉了 X 支持的编译版本以节约磁盘空间。</li>
+<li>安装 mtr-tiny 包的过程，一共有哪些步骤，最终会对系统造成哪些变化？</li>
+<li></li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">apt-get install mtr-tiny
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+</code></pre></td></tr></table>
+</div>
+</div><p>如安装提示所示，主要的步骤包括从本地包缓存中读取包列表→从远程源更新包列表到本地→构建依赖树→读取状态信息→安装依赖包→安装软件包</p>
+<ul>
+<li>mtr 包依赖了哪些包，和哪些包冲突？</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">libc6
+libncurses5
+libtinfo5
+</code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">dacaitou</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018-04-27
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">CC BY-NC-SA 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/os/">os</a>
+          <a href="/tags/stat/">stat</a>
+          <a href="/tags/bash/">bash</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/ponyorm_implement/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">PonyORM的实现原理</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/linux_-text/">
+            <span class="next-text nav-default">Linux学习——文本处理篇</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-04-27 21:00:00 \u002b0800 CST',
+        title: 'Linux学习——网络篇',
+        clientID: '1687d1933e871f4d7ca5',
+        clientSecret: '601ba213e44aac1ba1fb9cf9807b7d11f272de0b',
+        repo: 'dact_dev',
+        owner: 'Bigcaitou',
+        admin: ['Bigcaitou'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/Bigcaitou" class="iconfont icon-github" title="github"></a>
+  <a href="https://dact.dev/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>dacaitou</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?ae241b0e5428586b68d3c815a8e5f3e6";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

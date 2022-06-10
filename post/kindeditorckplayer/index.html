@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>KindEditor与ckplayer的简单结合 - Dact.dev - dacaitou</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="dacaitou" /><meta name="description" content="因项目需要，现将KindEditor与ckplayer相结合，搭建一个带本地视频播放的cms。 KindEditor KindEditor的安装与配置这里不做多余" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.82.0 with theme even" />
+
+
+<link rel="canonical" href="https://dact.dev/post/kindeditorckplayer/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.39a3e01cac9473be1356f3572fcfe34b2e363efabad244a99a40f28a812c837e.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="KindEditor与ckplayer的简单结合" />
+<meta property="og:description" content="因项目需要，现将KindEditor与ckplayer相结合，搭建一个带本地视频播放的cms。 KindEditor KindEditor的安装与配置这里不做多余" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dact.dev/post/kindeditorckplayer/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2016-01-16T21:21:42&#43;08:00" />
+<meta property="article:modified_time" content="2016-01-16T21:21:42&#43;08:00" />
+
+<meta itemprop="name" content="KindEditor与ckplayer的简单结合">
+<meta itemprop="description" content="因项目需要，现将KindEditor与ckplayer相结合，搭建一个带本地视频播放的cms。 KindEditor KindEditor的安装与配置这里不做多余"><meta itemprop="datePublished" content="2016-01-16T21:21:42&#43;08:00" />
+<meta itemprop="dateModified" content="2016-01-16T21:21:42&#43;08:00" />
+<meta itemprop="wordCount" content="1157">
+<meta itemprop="keywords" content="Java,Web,Front-End," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="KindEditor与ckplayer的简单结合"/>
+<meta name="twitter:description" content="因项目需要，现将KindEditor与ckplayer相结合，搭建一个带本地视频播放的cms。 KindEditor KindEditor的安装与配置这里不做多余"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">dact.dev</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">dact.dev</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">KindEditor与ckplayer的简单结合</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2016-01-16 </span>
+        <div class="post-category">
+            <a href="/categories/web/"> Web </a>
+            </div>
+          <span class="more-meta"> 约 1157 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#kindeditor">KindEditor</a>
+          <ul>
+            <li><a href="#ckplayer的配置">ckplayer的配置</a></li>
+            <li><a href="#修改格式验证代码">修改格式验证代码</a></li>
+            <li><a href="#修改embed标签代码">修改embed标签代码</a></li>
+            <li><a href="#注意">注意</a></li>
+          </ul>
+        </li>
+        <li><a href="#其他">其他</a>
+          <ul>
+            <li><a href="#修改上传提示">修改上传提示</a></li>
+            <li><a href="#视频播放去广告">视频播放去广告</a></li>
+          </ul>
+        </li>
+        <li><a href="#参考链接">参考链接</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>  因项目需要，现将KindEditor与ckplayer相结合，搭建一个带本地视频播放的cms。</p>
+<h2 id="kindeditor">KindEditor</h2>
+<p>  KindEditor的安装与配置这里不做多余介绍，具体参考<a href="http://kindeditor.net/docs/usage.html">《官方文档-编辑器使用方法》</a>。</p>
+<h3 id="ckplayer的配置">ckplayer的配置</h3>
+<p>  上传相关文件到编辑器的插件目录即<code>editor/plugins/ckplayer</code>，基本的文件包括<code>ckplayer.js</code>、<code>ckplayer.swf</code>、<code>ckplayer.xml</code>、<code>language.xml</code>和<code>style.css</code>。</p>
+<h3 id="修改格式验证代码">修改格式验证代码</h3>
+<p>  修改kindeditor.js的960行左右的上传功能的格式验证代码，加入需要支持的视频格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">_mediaType</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="sr">/\.(rm|rmvb)(\?|$)/i</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">src</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span><span class="s1">&#39;audio/x-pn-realaudio-plugin&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="sr">/\.(swf|flv|mp4)(\?|$)/i</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">src</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span><span class="s1">&#39;application/x-shockwave-flash&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span><span class="s1">&#39;video/x-ms-asf-plugin&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>  修改jsp/upload_json.jsp的32行左右的上传功能的格式验证代码，加入需要支持的视频格式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//定义允许上传的文件扩展名
+</span><span class="c1"></span><span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">extMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;();</span>
+<span class="n">extMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;image&#34;</span><span class="o">,</span> <span class="s">&#34;gif,jpg,jpeg,png,bmp&#34;</span><span class="o">);</span>
+<span class="n">extMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;flash&#34;</span><span class="o">,</span> <span class="s">&#34;swf,flv,mp4&#34;</span><span class="o">);</span>
+<span class="n">extMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;media&#34;</span><span class="o">,</span> <span class="s">&#34;swf,flv,mp3,wav,wma,wmv,mid,avi,mpg,asf,rm,rmvb,mp4&#34;</span><span class="o">);</span>
+<span class="n">extMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;file&#34;</span><span class="o">,</span> <span class="s">&#34;doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2&#34;</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>  ckplayer官方称支持以下视频格式：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">视频协议</th>
+<th style="text-align:center">视频格式</th>
+<th style="text-align:center">Flash</th>
+<th style="text-align:center">HTML5</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">HTTP</td>
+<td style="text-align:center">flv</td>
+<td style="text-align:center">g.jpg</td>
+<td style="text-align:center">x.jpg</td>
+</tr>
+<tr>
+<td style="text-align:center">HTTP</td>
+<td style="text-align:center">f4v</td>
+<td style="text-align:center">g.jpg</td>
+<td style="text-align:center">x.jpg</td>
+</tr>
+<tr>
+<td style="text-align:center">HTTP</td>
+<td style="text-align:center">mp4</td>
+<td style="text-align:center">g.jpg</td>
+<td style="text-align:center">g.jpg</td>
+</tr>
+<tr>
+<td style="text-align:center">HTTP</td>
+<td style="text-align:center">m3u8</td>
+<td style="text-align:center">g.jpg</td>
+<td style="text-align:center">g.jpg</td>
+</tr>
+<tr>
+<td style="text-align:center">HTTP</td>
+<td style="text-align:center">webm</td>
+<td style="text-align:center">x.jpg</td>
+<td style="text-align:center">g.jpg</td>
+</tr>
+<tr>
+<td style="text-align:center">HTTP</td>
+<td style="text-align:center">ogg</td>
+<td style="text-align:center">x.jpg</td>
+<td style="text-align:center">g.jpg</td>
+</tr>
+<tr>
+<td style="text-align:center">RTMP</td>
+<td style="text-align:center">flv</td>
+<td style="text-align:center">g.jpg</td>
+<td style="text-align:center">x.jpg</td>
+</tr>
+<tr>
+<td style="text-align:center">RTMP</td>
+<td style="text-align:center">f4v</td>
+<td style="text-align:center">g.jpg</td>
+<td style="text-align:center">x.jpg</td>
+</tr>
+<tr>
+<td style="text-align:center">RTMP</td>
+<td style="text-align:center">mp4</td>
+<td style="text-align:center">g.jpg</td>
+<td style="text-align:center">x.jpg</td>
+</tr>
+<tr>
+<td style="text-align:center">RTMP</td>
+<td style="text-align:center">直播流</td>
+<td style="text-align:center">g.jpg</td>
+<td style="text-align:center">x.jpg</td>
+</tr>
+</tbody>
+</table>
+<p>  所以其中要添加什么类型的文件记得在两个文件都修改。</p>
+<h3 id="修改embed标签代码">修改embed标签代码</h3>
+<p>  ckplayer播放本地视频的原理是调用ckplayer.swf打开本地的视频，下面的修改kindeditor.js中983行左右embed标签相关的代码，加入ckplayer可以识别的参数flashvars：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">function</span> <span class="nx">_mediaEmbed</span><span class="p">(</span><span class="nx">attrs</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">html</span> <span class="o">=</span><span class="s1">&#39;&lt;embed&#39;</span><span class="p">;</span>
+    <span class="nx">_each</span><span class="p">(</span><span class="nx">attrs</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">key</span> <span class="o">==</span><span class="s1">&#39;src&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">html</span> <span class="o">+=</span> <span class="nx">key</span> <span class="o">+</span><span class="s1">&#39;=&#34;&#39;</span> <span class="o">+</span> <span class="nx">K</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">pluginsPath</span>
+                    <span class="o">+</span><span class="s1">&#39;ckplayer/ckplayer.swf&#34;&#39;</span> <span class="o">+</span><span class="s1">&#39;flashvars=&#34;f=&#39;</span> <span class="o">+</span> <span class="nx">localhostPath</span> <span class="o">+</span> <span class="nx">val</span>
+                    <span class="o">+</span><span class="s1">&#39;&#34;&#39;</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">html</span> <span class="o">+=</span> <span class="nx">key</span> <span class="o">+</span><span class="s1">&#39;=&#34;&#39;</span> <span class="o">+</span> <span class="nx">val</span> <span class="o">+</span><span class="s1">&#39;&#34;&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="nx">html</span> <span class="o">+=</span><span class="s1">&#39;/&gt;&#39;</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">html</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="注意">注意</h3>
+<p>大约在kindeditor.js的300行左右，会有如下代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">embed</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="s1">&#39;src&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="o">\</span>
+        <span class="s1">&#39;loop&#39;</span><span class="p">,</span> <span class="s1">&#39;autostart&#39;</span><span class="p">,</span> <span class="s1">&#39;quality&#39;</span><span class="p">,</span> <span class="s1">&#39;.width&#39;</span><span class="p">,</span> <span class="s1">&#39;.height&#39;</span><span class="p">,</span> <span class="o">\</span>
+        <span class="s1">&#39;align&#39;</span><span class="p">,</span> <span class="s1">&#39;allowscriptaccess&#39;</span><span class="p">,</span> <span class="s1">&#39;flashvars&#39;</span><span class="p">],</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>  这段代码表示的是embed标签里的属性名，记得添加ckplayer专用的代表本地视频地址的<code>flashvars</code>参数，否则在KindEditor编辑器将代码转换成HTML代码时，embed标签中的其它参数会被省略。</p>
+<p>  修改之后，当插入视频时，将会生成如下代码其中flashvars的其它参数可以通过&amp;来连接更多的参数，如控制自动播放的p参数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">embed</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;http://localhost:8080/editor/plugins/ckplayer/ckplayer.swf&#34;</span> <span class="na">flashvars</span><span class="o">=</span><span class="s">&#34;f=/attached/flash/20160116/20160116131808_254.mp4&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;application/x-shockwave-flash&#34;</span> <span class="na">width</span><span class="o">=</span><span class="s">&#34;550&#34;</span> <span class="na">height</span><span class="o">=</span><span class="s">&#34;400&#34;</span> <span class="na">quality</span><span class="o">=</span><span class="s">&#34;high&#34;</span> <span class="p">/&gt;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="其他">其他</h2>
+<p>  还有一些关于编辑器和优化如下：</p>
+<h3 id="修改上传提示">修改上传提示</h3>
+<p>  修改 <code>editor/plugins/flash/flash.js</code> ，在html参数中如添加诸如一下代码，引导管理员更好的使用上传本地视频的功能。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">html</span> <span class="o">=</span> <span class="p">[</span>
+   <span class="s1">&#39;&lt;div style=&#34;padding:20px;&#34;&gt;&#39;</span><span class="p">,</span>
+    <span class="c1">//url
+</span><span class="c1"></span>   <span class="s1">&#39;&lt;div class=&#34;ke-dialog-row&#34;&gt;&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;&lt;div style=&#34;color:red&#34;&gt;&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;本地视频上传详见&lt;a href=&#34;http://haha.tk&#34;  target=&#34;_blank&#34; &gt;《教程吧啦吧啦》&lt;/a&gt;&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;&lt;label for=&#34;keUrl&#34; style=&#34;width:60px;&#34;&gt;&#39;</span> <span class="o">+</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">url</span> <span class="o">+</span><span class="s1">&#39;&lt;/label&gt;&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;&lt;input class=&#34;ke-input-text&#34; type=&#34;text&#34; id=&#34;keUrl&#34; name=&#34;url&#34; value=&#34;&#34; style=&#34;width:160px;&#34; /&gt; &amp;nbsp;&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;&lt;input type=&#34;button&#34; class=&#34;ke-upload-button&#34; value=&#34;&#39;</span> <span class="o">+</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">upload</span> <span class="o">+</span><span class="s1">&#39;&#34; /&gt; &amp;nbsp;&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;&lt;span class=&#34;ke-bu
+</span><span class="s1">    tton-common ke-button-outer&#34;&gt;&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;&lt;input type=&#34;button&#34; class=&#34;ke-button-common ke-button&#34; name=&#34;viewServer&#34; value=&#34;&#39;</span> <span class="o">+</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">viewServer</span> <span class="o">+</span><span class="s1">&#39;&#34; /&gt;&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;&lt;/span&gt;&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">,</span>    
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="视频播放去广告">视频播放去广告</h3>
+<p>  将ckplayer.xml中setup参数的第9个值设置成0，具体参考 <a href="http://www.ckplayer.com/tool/#p_3_6_23">官方文档</a>。</p>
+<h2 id="参考链接">参考链接</h2>
+<ul>
+<li>ckplayer 6.7
+<ul>
+<li><a href="http://www.ckplayer.com/bbs/forum.php?mod=viewthread&amp;tid=10864">ckplayer 6.7</a></li>
+</ul>
+</li>
+<li>KindEditor4.1.10 (2013-11-23)
+<ul>
+<li><a href="http://kindeditor.net/down.php">kindeditor</a></li>
+</ul>
+</li>
+<li>参考教程
+<ul>
+<li><a href="http://www.ckplayer.com/bbs/forum.php?mod=viewthread&amp;tid=8961&amp;highlight=kindeditor">关于kindeditor整合万能的ckplayer视频播放器插件</a>。</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">dacaitou</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2016-01-16
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">CC BY-NC-SA 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/java/">Java</a>
+          <a href="/tags/web/">Web</a>
+          <a href="/tags/front-end/">Front-End</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/hehehe_snapshot/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">JAVA屏幕截图与水印添加程序</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/svn_usage/">
+            <span class="next-text nav-default">SVN的搭建与迁移</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2016-01-16 21:21:42 \u002b0800 CST',
+        title: 'KindEditor与ckplayer的简单结合',
+        clientID: '1687d1933e871f4d7ca5',
+        clientSecret: '601ba213e44aac1ba1fb9cf9807b7d11f272de0b',
+        repo: 'dact_dev',
+        owner: 'Bigcaitou',
+        admin: ['Bigcaitou'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/Bigcaitou" class="iconfont icon-github" title="github"></a>
+  <a href="https://dact.dev/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>dacaitou</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?ae241b0e5428586b68d3c815a8e5f3e6";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>stat on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/stat/</link>
+    <description>Recent content in stat on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 09 Sep 2021 21:00:00 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/stat/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux学习——系统维护篇</title>
+      <link>https://dact.dev/post/linux_system/</link>
+      <pubDate>Thu, 09 Sep 2021 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/linux_system/</guid>
+      <description>[TOC] 4 机器维护 4.1 iostat/vmstat/dstat 1. 直接无参数启动这些命令，能得到哪些数据？ io信息 虚拟内存信息 2. 如何持续监控某块硬盘的读写情况？ -d Display the device utilization report. -k Display statistics in kilobytes per second. 1</description>
+    </item>
+    
+    <item>
+      <title>Linux学习——网络篇</title>
+      <link>https://dact.dev/post/linux_network/</link>
+      <pubDate>Fri, 27 Apr 2018 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/linux_network/</guid>
+      <description>[TOC] 网络基础知识 路由和交换 1. 了解交换机地址学习过程。 交换机是根据MAC地址表转发数据帧的。在交换机中有一张记录着局域网主机MAC地址与交换机接</description>
+    </item>
+    
+  </channel>
+</rss>

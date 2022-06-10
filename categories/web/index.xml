@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>web on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/categories/web/</link>
+    <description>Recent content in web on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 23 Mar 2022 15:29:42 +0800</lastBuildDate><atom:link href="https://dact.dev/categories/web/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>开源wiki系统wiki.js搭建</title>
+      <link>https://dact.dev/post/wikijs/</link>
+      <pubDate>Wed, 23 Mar 2022 15:29:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/wikijs/</guid>
+      <description>[TOC] https://docs.requarks.io/install/linux https://github.com/Requarks/wiki/releases release可以看到具体的文件有多大 1 wget https://github.com/Requarks/wiki/releases/download/v2.5.276/wiki-js.tar.gz Extract the package to the final destination of your choice: 1 2 3 mkdir wiki tar xzf wiki-js.tar.gz -C ./wiki cd ./wiki Rename the sample config file to config.yml: 1 mv config.sample.yml config.yml Edit the config file and fill in your database and port settings</description>
+    </item>
+    
+    <item>
+      <title>跨域配置</title>
+      <link>https://dact.dev/post/crossover/</link>
+      <pubDate>Fri, 05 Nov 2021 22:02:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/crossover/</guid>
+      <description>跨域配置 nginx 业务列表 进入负载均衡编辑页 修改配置 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 { &amp;#34;plugins&amp;#34;: { &amp;#34;cors&amp;#34;: { &amp;#34;allow_origins&amp;#34;: &amp;#34;pre-live-liveu.oclivego.com,pre-m-liveu.oclivego.com&amp;#34;, #多个域名以逗号分割 &amp;#34;allow_methods&amp;#34;: &amp;#34;**&amp;#34;, &amp;#34;allow_headers&amp;#34;: &amp;#34;**&amp;#34;, &amp;#34;expose_headers&amp;#34;: &amp;#34;**&amp;#34;, &amp;#34;allow_origins_by_regex&amp;#34;: [ &amp;#34;.*.oclivego.com&amp;#34; ], &amp;#34;max_age&amp;#34;: 1728000, &amp;#34;allow_credential&amp;#34;: true } }</description>
+    </item>
+    
+    <item>
+      <title>KindEditor与ckplayer的简单结合</title>
+      <link>https://dact.dev/post/kindeditorckplayer/</link>
+      <pubDate>Sat, 16 Jan 2016 21:21:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/kindeditorckplayer/</guid>
+      <description>因项目需要，现将KindEditor与ckplayer相结合，搭建一个带本地视频播放的cms。 KindEditor KindEditor的安装与配置这里不做多余</description>
+    </item>
+    
+    <item>
+      <title>一个8块钱的域名引发的</title>
+      <link>https://dact.dev/post/hehehe.xyz/</link>
+      <pubDate>Mon, 06 Oct 2014 22:20:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/hehehe.xyz/</guid>
+      <description>开始 大前天，突然发现新网的.xyz域名只有8块钱（只有8块钱，你没有看错，你没有看错，不是98，不是48，是8块钱呵呵呵），于是我就注册了一</description>
+    </item>
+    
+    <item>
+      <title>专治处女座的强迫症 治不好不要钱~</title>
+      <link>https://dact.dev/post/zhuan/</link>
+      <pubDate>Fri, 06 Jun 2014 22:02:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/zhuan/</guid>
+      <description>专治处女座的强迫症 治不好不要钱~</description>
+    </item>
+    
+    <item>
+      <title>网页中的中文自定义字体和@font-face</title>
+      <link>https://dact.dev/post/custom_font/</link>
+      <pubDate>Tue, 27 May 2014 14:58:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/custom_font/</guid>
+      <description>网页中的中文自定义字体和@font-face 2016年4月28号更新： 现在有第三方的工具sfnttool可以直接裁剪中文字体文件，详见《中文</description>
+    </item>
+    
+  </channel>
+</rss>

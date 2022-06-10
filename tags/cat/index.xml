@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cat on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/cat/</link>
+    <description>Recent content in cat on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 23 Apr 2018 21:00:00 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/cat/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux学习——文本处理篇</title>
+      <link>https://dact.dev/post/linux_-text/</link>
+      <pubDate>Mon, 23 Apr 2018 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/linux_-text/</guid>
+      <description>[TOC] 3. 文本处理 3.1. cut 1 2 3 -b, --bytes=LIST select only these bytes 字节 -c, --characters=LIST select only these characters 字符 -f, --fields=LIST select only these fields 域 ; also print any line that contains no delimiter character, unless the -s option is specified 1. cut 默认的分隔符是什么，如何设置分隔符？</description>
+    </item>
+    
+  </channel>
+</rss>

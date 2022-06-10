@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/linux/</link>
+    <description>Recent content in Linux on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 09 Sep 2021 21:00:00 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux学习——系统维护篇</title>
+      <link>https://dact.dev/post/linux_system/</link>
+      <pubDate>Thu, 09 Sep 2021 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/linux_system/</guid>
+      <description>[TOC] 4 机器维护 4.1 iostat/vmstat/dstat 1. 直接无参数启动这些命令，能得到哪些数据？ io信息 虚拟内存信息 2. 如何持续监控某块硬盘的读写情况？ -d Display the device utilization report. -k Display statistics in kilobytes per second. 1</description>
+    </item>
+    
+    <item>
+      <title>Linux学习——操作系统篇</title>
+      <link>https://dact.dev/post/linux_os/</link>
+      <pubDate>Sun, 21 Jun 2020 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/linux_os/</guid>
+      <description>[TOC] 1 操作系统 1.1 bashrc 与环境变量 a. bash 的系统和个人配置文件的路径是什么？ 全局配置 /etc/profile 此文件为系统的每个用户设置环境信息,当用户第一次登录时, 该文件被执</description>
+    </item>
+    
+    <item>
+      <title>Linux学习——系统命令篇</title>
+      <link>https://dact.dev/post/linux_bash/</link>
+      <pubDate>Sun, 21 Jun 2020 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/linux_bash/</guid>
+      <description>[TOC] 2. 系统命令 2.1. top/htop 1. 如何将 top 的输出通过管道交给另一个进程？ top | grep 1 2. 如何让 top 显示每一个CPU的使用情况？ 按下数字键1即可 3. 如何在 top 里杀进程？ top</description>
+    </item>
+    
+    <item>
+      <title>Linux学习——网络篇</title>
+      <link>https://dact.dev/post/linux_network/</link>
+      <pubDate>Fri, 27 Apr 2018 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/linux_network/</guid>
+      <description>[TOC] 网络基础知识 路由和交换 1. 了解交换机地址学习过程。 交换机是根据MAC地址表转发数据帧的。在交换机中有一张记录着局域网主机MAC地址与交换机接</description>
+    </item>
+    
+    <item>
+      <title>Linux学习——文本处理篇</title>
+      <link>https://dact.dev/post/linux_-text/</link>
+      <pubDate>Mon, 23 Apr 2018 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/linux_-text/</guid>
+      <description>[TOC] 3. 文本处理 3.1. cut 1 2 3 -b, --bytes=LIST select only these bytes 字节 -c, --characters=LIST select only these characters 字符 -f, --fields=LIST select only these fields 域 ; also print any line that contains no delimiter character, unless the -s option is specified 1. cut 默认的分隔符是什么，如何设置分隔符？</description>
+    </item>
+    
+    <item>
+      <title>中标麒麟操作系统V6安装NGINX</title>
+      <link>https://dact.dev/post/neokylin_install_nginx/</link>
+      <pubDate>Sat, 14 Jan 2017 22:27:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/neokylin_install_nginx/</guid>
+      <description>因为禾斗石开需要，安装了中标麒麟高级服务器操作系统（虚拟化版）V6，然后该系统上部署了几个JAVA WEB项目，现在需要安装nginx，但是y</description>
+    </item>
+    
+    <item>
+      <title>SVN的搭建与迁移</title>
+      <link>https://dact.dev/post/svn_usage/</link>
+      <pubDate>Tue, 05 Jan 2016 21:58:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/svn_usage/</guid>
+      <description>安装 在CentOS的终端中运行以下命令： 1 yum install subversion 新建目录 用于存储SVN所有文件 1 mkdir /svn 新建svn项目 1 svnadmin create /svn/project 目录中包含以下文件及文件夹 1 2 3 4</description>
+    </item>
+    
+  </channel>
+</rss>

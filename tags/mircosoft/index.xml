@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mircosoft on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/mircosoft/</link>
+    <description>Recent content in Mircosoft on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 28 Feb 2022 20:52:00 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/mircosoft/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用python将Excel数据填充Word模板并生成Word</title>
+      <link>https://dact.dev/post/excel2word_py/</link>
+      <pubDate>Mon, 28 Feb 2022 20:52:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/excel2word_py/</guid>
+      <description>[toc] 需求 通过excel表中搜集的数据批量导出各种类型的word文档，诸如立案申请书、证据清单等等。 数据源：Excel保存名字、性别、出身年月等</description>
+    </item>
+    
+  </channel>
+</rss>

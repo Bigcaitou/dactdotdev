@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dev on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/categories/dev/</link>
+    <description>Recent content in dev on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 08 Dec 2021 22:02:42 +0800</lastBuildDate><atom:link href="https://dact.dev/categories/dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>开发环境搭建及协作</title>
+      <link>https://dact.dev/post/dev_env/</link>
+      <pubDate>Wed, 08 Dec 2021 22:02:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/dev_env/</guid>
+      <description>架构 测试环境地址 test-cm-xy.huya.info 指向 开发机10.66.69.9 10.66.69.9有一个nginx做url重定向 /api/ 指向 guokangjie 后端开发地址 /gkj/ 指向 guokangjie 前端开发地址 /hh/</description>
+    </item>
+    
+  </channel>
+</rss>

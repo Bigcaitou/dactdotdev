@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MyBatis on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/mybatis/</link>
+    <description>Recent content in MyBatis on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 13 Dec 2015 21:28:42 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/mybatis/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MyBatis批量更新</title>
+      <link>https://dact.dev/post/mybatis_batch_update/</link>
+      <pubDate>Sun, 13 Dec 2015 21:28:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/mybatis_batch_update/</guid>
+      <description>业务需要，要完成批量编辑产品名称。运用Mybatis的批量更新功能，同时因为需要更新的数据是iterator迭代出来的，所以需要在前端做一个</description>
+    </item>
+    
+  </channel>
+</rss>

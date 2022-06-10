@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>os on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/os/</link>
+    <description>Recent content in os on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 18 Mar 2022 20:12:00 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/os/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>个性化内容及广告关闭</title>
+      <link>https://dact.dev/post/turn_off_personalized/</link>
+      <pubDate>Fri, 18 Mar 2022 20:12:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/turn_off_personalized/</guid>
+      <description>[TOC] 注1：收集的关闭方式截止 2022-03-18 20:12:00 互联网产品 本文仅罗列本人在用的APP(iOS下) 注2：同 → 服务有时存在多个客户端，例如微博有微博和微博国际版，</description>
+    </item>
+    
+    <item>
+      <title>Linux学习——系统维护篇</title>
+      <link>https://dact.dev/post/linux_system/</link>
+      <pubDate>Thu, 09 Sep 2021 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/linux_system/</guid>
+      <description>[TOC] 4 机器维护 4.1 iostat/vmstat/dstat 1. 直接无参数启动这些命令，能得到哪些数据？ io信息 虚拟内存信息 2. 如何持续监控某块硬盘的读写情况？ -d Display the device utilization report. -k Display statistics in kilobytes per second. 1</description>
+    </item>
+    
+    <item>
+      <title>Linux学习——操作系统篇</title>
+      <link>https://dact.dev/post/linux_os/</link>
+      <pubDate>Sun, 21 Jun 2020 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/linux_os/</guid>
+      <description>[TOC] 1 操作系统 1.1 bashrc 与环境变量 a. bash 的系统和个人配置文件的路径是什么？ 全局配置 /etc/profile 此文件为系统的每个用户设置环境信息,当用户第一次登录时, 该文件被执</description>
+    </item>
+    
+    <item>
+      <title>Linux学习——网络篇</title>
+      <link>https://dact.dev/post/linux_network/</link>
+      <pubDate>Fri, 27 Apr 2018 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/linux_network/</guid>
+      <description>[TOC] 网络基础知识 路由和交换 1. 了解交换机地址学习过程。 交换机是根据MAC地址表转发数据帧的。在交换机中有一张记录着局域网主机MAC地址与交换机接</description>
+    </item>
+    
+    <item>
+      <title>OSX EI Captain  更改应用图标</title>
+      <link>https://dact.dev/post/macos_change_icon/</link>
+      <pubDate>Wed, 23 Dec 2015 19:39:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/macos_change_icon/</guid>
+      <description>闲着没事给自己的Mac换了一套图标，效果图如下示，期间遇到各种坑无数，现记下遇过的坑的描述、说明及解决方案，与大家分享。注：本机为MacBo</description>
+    </item>
+    
+  </channel>
+</rss>

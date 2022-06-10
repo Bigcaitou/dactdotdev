@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>joy on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/joy/</link>
+    <description>Recent content in joy on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 07 Apr 2022 17:57:42 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/joy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title> 迷雾世界(fog of world) 数据管理索引</title>
+      <link>https://dact.dev/post/fogofworld_data_management/</link>
+      <pubDate>Thu, 07 Apr 2022 17:57:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/fogofworld_data_management/</guid>
+      <description>[toc] 最近狂迷迷雾世界，在这里把整理的数据管理（导入和擦除）的教程以索引的形式分享给大家。简单介绍下世界迷雾，就是一个行走记录app，样式上采用</description>
+    </item>
+    
+    <item>
+      <title>Walkr</title>
+      <link>https://dact.dev/post/walkr/</link>
+      <pubDate>Wed, 15 Apr 2020 22:42:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/walkr/</guid>
+      <description>星球及卫星 编号 星球 卫星 最佳搭配效果 卫星需探索星球 探索星球类别 发现时解锁卫星 星球类别 1 地球 月球 太阳系 2 焦糖苹果 棒棒糖 减少食物需求 -10% 雅典娜之月 特</description>
+    </item>
+    
+    <item>
+      <title>专治处女座的强迫症 治不好不要钱~</title>
+      <link>https://dact.dev/post/zhuan/</link>
+      <pubDate>Fri, 06 Jun 2014 22:02:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/zhuan/</guid>
+      <description>专治处女座的强迫症 治不好不要钱~</description>
+    </item>
+    
+  </channel>
+</rss>

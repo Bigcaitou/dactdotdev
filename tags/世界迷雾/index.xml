@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>世界迷雾 on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/%E4%B8%96%E7%95%8C%E8%BF%B7%E9%9B%BE/</link>
+    <description>Recent content in 世界迷雾 on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 07 Apr 2022 17:57:42 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/%E4%B8%96%E7%95%8C%E8%BF%B7%E9%9B%BE/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title> 迷雾世界(fog of world) 数据管理索引</title>
+      <link>https://dact.dev/post/fogofworld_data_management/</link>
+      <pubDate>Thu, 07 Apr 2022 17:57:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/fogofworld_data_management/</guid>
+      <description>[toc] 最近狂迷迷雾世界，再这里把之前整理的数据导入和擦除的教程分享给大家。简单介绍下世界迷雾，就是一个行走记录app，样式上采用的是擦起雾玻璃的</description>
+    </item>
+    
+  </channel>
+</rss>

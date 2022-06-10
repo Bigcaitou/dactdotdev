@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>forum on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/forum/</link>
+    <description>Recent content in forum on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 26 Jul 2015 22:02:42 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/forum/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>jforum二次开发——页面请求机制</title>
+      <link>https://dact.dev/post/jforum1/</link>
+      <pubDate>Sun, 26 Jul 2015 22:02:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/jforum1/</guid>
+      <description>jforum二次开发相关笔记 1. 引言 jforum是Rafael Steil开发的一个基于JAVA的开源论坛，采用BSD开源协议，可以最大限度的进</description>
+    </item>
+    
+    <item>
+      <title>JForum 功能说明书</title>
+      <link>https://dact.dev/post/jforum_-manual/</link>
+      <pubDate>Sat, 24 Jan 2015 05:30:31 +0000</pubDate>
+      
+      <guid>https://dact.dev/post/jforum_-manual/</guid>
+      <description>JForum 功能说明书 引言 用户与用户组 内容管理 权限控制 审核功能 管理与设置 信息统计 1. 引言 JForum是Rafael Steil开发的一个基于JAVA的开源</description>
+    </item>
+    
+  </channel>
+</rss>

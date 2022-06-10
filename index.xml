@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dact.dev - dacaitou</title>
+    <link>https://dact.dev/</link>
+    <description>Recent content on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 07 Apr 2022 17:57:42 +0800</lastBuildDate><atom:link href="https://dact.dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于</title>
+      <link>https://dact.dev/about/</link>
+      <pubDate>Thu, 17 Feb 2022 14:39:06 +0800</pubDate>
+      
+      <guid>https://dact.dev/about/</guid>
+      <description>个人介绍 本站点由 大菜头(@dacaitou) 维护， 站点内容 本站点包括但不限于如下： twitter|呢喃 Web Linux Python Java OS 站点搭建 本站点的搭建通过如下</description>
+    </item>
+    
+    <item>
+      <title> 迷雾世界(fog of world) 数据管理索引</title>
+      <link>https://dact.dev/post/fogofworld_data_management/</link>
+      <pubDate>Thu, 07 Apr 2022 17:57:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/fogofworld_data_management/</guid>
+      <description>[toc] 最近狂迷迷雾世界，在这里把整理的数据管理（导入和擦除）的教程以索引的形式分享给大家。简单介绍下世界迷雾，就是一个行走记录app，样式上采用</description>
+    </item>
+    
+    <item>
+      <title>开源wiki系统wiki.js搭建</title>
+      <link>https://dact.dev/post/wikijs/</link>
+      <pubDate>Wed, 23 Mar 2022 15:29:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/wikijs/</guid>
+      <description>[TOC] https://docs.requarks.io/install/linux https://github.com/Requarks/wiki/releases release可以看到具体的文件有多大 1 wget https://github.com/Requarks/wiki/releases/download/v2.5.276/wiki-js.tar.gz Extract the package to the final destination of your choice: 1 2 3 mkdir wiki tar xzf wiki-js.tar.gz -C ./wiki cd ./wiki Rename the sample config file to config.yml: 1 mv config.sample.yml config.yml Edit the config file and fill in your database and port settings</description>
+    </item>
+    
+    <item>
+      <title>个性化内容及广告关闭</title>
+      <link>https://dact.dev/post/turn_off_personalized/</link>
+      <pubDate>Fri, 18 Mar 2022 20:12:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/turn_off_personalized/</guid>
+      <description>[TOC] 注1：收集的关闭方式截止 2022-03-18 20:12:00 互联网产品 本文仅罗列本人在用的APP(iOS下) 注2：同 → 服务有时存在多个客户端，例如微博有微博和微博国际版，</description>
+    </item>
+    
+    <item>
+      <title>个人笔记应用选择</title>
+      <link>https://dact.dev/post/notebook/</link>
+      <pubDate>Tue, 01 Mar 2022 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/notebook/</guid>
+      <description>[toc] 本人的笔记应用经历了很多代，之前的主力是为知笔记|wiznote ，wiz本身是基于html的，所以天生和适合做网页剪辑，因为网页也是htm</description>
+    </item>
+    
+    <item>
+      <title>使用python将Excel数据填充Word模板并生成Word</title>
+      <link>https://dact.dev/post/excel2word_py/</link>
+      <pubDate>Mon, 28 Feb 2022 20:52:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/excel2word_py/</guid>
+      <description>[toc] 需求 通过excel表中搜集的数据批量导出各种类型的word文档，诸如立案申请书、证据清单等等。 数据源：Excel保存名字、性别、出身年月等</description>
+    </item>
+    
+    <item>
+      <title>跨域配置</title>
+      <link>https://dact.dev/post/crossover/</link>
+      <pubDate>Fri, 05 Nov 2021 22:02:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/crossover/</guid>
+      <description>跨域配置 nginx 业务列表 进入负载均衡编辑页 修改配置 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 { &amp;#34;plugins&amp;#34;: { &amp;#34;cors&amp;#34;: { &amp;#34;allow_origins&amp;#34;: &amp;#34;pre-live-liveu.oclivego.com,pre-m-liveu.oclivego.com&amp;#34;, #多个域名以逗号分割 &amp;#34;allow_methods&amp;#34;: &amp;#34;**&amp;#34;, &amp;#34;allow_headers&amp;#34;: &amp;#34;**&amp;#34;, &amp;#34;expose_headers&amp;#34;: &amp;#34;**&amp;#34;, &amp;#34;allow_origins_by_regex&amp;#34;: [ &amp;#34;.*.oclivego.com&amp;#34; ], &amp;#34;max_age&amp;#34;: 1728000, &amp;#34;allow_credential&amp;#34;: true } }</description>
+    </item>
+    
+    <item>
+      <title>Linux学习——系统维护篇</title>
+      <link>https://dact.dev/post/linux_system/</link>
+      <pubDate>Thu, 09 Sep 2021 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/linux_system/</guid>
+      <description>[TOC] 4 机器维护 4.1 iostat/vmstat/dstat 1. 直接无参数启动这些命令，能得到哪些数据？ io信息 虚拟内存信息 2. 如何持续监控某块硬盘的读写情况？ -d Display the device utilization report. -k Display statistics in kilobytes per second. 1</description>
+    </item>
+    
+    <item>
+      <title>Linux学习——操作系统篇</title>
+      <link>https://dact.dev/post/linux_os/</link>
+      <pubDate>Sun, 21 Jun 2020 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/linux_os/</guid>
+      <description>[TOC] 1 操作系统 1.1 bashrc 与环境变量 a. bash 的系统和个人配置文件的路径是什么？ 全局配置 /etc/profile 此文件为系统的每个用户设置环境信息,当用户第一次登录时, 该文件被执</description>
+    </item>
+    
+    <item>
+      <title>Linux学习——系统命令篇</title>
+      <link>https://dact.dev/post/linux_bash/</link>
+      <pubDate>Sun, 21 Jun 2020 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/linux_bash/</guid>
+      <description>[TOC] 2. 系统命令 2.1. top/htop 1. 如何将 top 的输出通过管道交给另一个进程？ top | grep 1 2. 如何让 top 显示每一个CPU的使用情况？ 按下数字键1即可 3. 如何在 top 里杀进程？ top</description>
+    </item>
+    
+    <item>
+      <title>Walkr</title>
+      <link>https://dact.dev/post/walkr/</link>
+      <pubDate>Wed, 15 Apr 2020 22:42:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/walkr/</guid>
+      <description>星球及卫星 编号 星球 卫星 最佳搭配效果 卫星需探索星球 探索星球类别 发现时解锁卫星 星球类别 1 地球 月球 太阳系 2 焦糖苹果 棒棒糖 减少食物需求 -10% 雅典娜之月 特</description>
+    </item>
+    
+    <item>
+      <title>PonyORM的实现原理</title>
+      <link>https://dact.dev/post/ponyorm_implement/</link>
+      <pubDate>Wed, 17 Oct 2018 19:55:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/ponyorm_implement/</guid>
+      <description>PonyORM生成SQL原理 详见《How Pony ORM translates Python generators to SQL queries》 AST 在计算机科学中，抽象语法树（Abstract Syntax Tree，AST），或</description>
+    </item>
+    
+    <item>
+      <title>Linux学习——网络篇</title>
+      <link>https://dact.dev/post/linux_network/</link>
+      <pubDate>Fri, 27 Apr 2018 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/linux_network/</guid>
+      <description>[TOC] 网络基础知识 路由和交换 1. 了解交换机地址学习过程。 交换机是根据MAC地址表转发数据帧的。在交换机中有一张记录着局域网主机MAC地址与交换机接</description>
+    </item>
+    
+    <item>
+      <title>Linux学习——文本处理篇</title>
+      <link>https://dact.dev/post/linux_-text/</link>
+      <pubDate>Mon, 23 Apr 2018 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/linux_-text/</guid>
+      <description>[TOC] 3. 文本处理 3.1. cut 1 2 3 -b, --bytes=LIST select only these bytes 字节 -c, --characters=LIST select only these characters 字符 -f, --fields=LIST select only these fields 域 ; also print any line that contains no delimiter character, unless the -s option is specified 1. cut 默认的分隔符是什么，如何设置分隔符？</description>
+    </item>
+    
+    <item>
+      <title>iOS和Android下解谜游戏推荐——下篇</title>
+      <link>https://dact.dev/post/puzzle_games2.md/</link>
+      <pubDate>Thu, 15 Jun 2017 09:18:25 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/puzzle_games2.md/</guid>
+      <description>[TOC] 之前写了一篇《iOS和Android下解谜游戏推荐》，才发现原来还有这么多也喜欢玩解密游戏的朋友。 在值友们的碎银子和金币的鼓励下，我决定再</description>
+    </item>
+    
+    <item>
+      <title>iOS和Android下解谜游戏推荐</title>
+      <link>https://dact.dev/post/puzzle_games1.md/</link>
+      <pubDate>Tue, 07 Mar 2017 21:24:59 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/puzzle_games1.md/</guid>
+      <description>[TOC] 受到Fad李的《独乐乐不如众乐乐之平板篇：iPad单机双人游戏三四》的启发，我在这里再给大家推荐一些解谜类游戏，非常适合一个人玩，先放一张</description>
+    </item>
+    
+    <item>
+      <title>中标麒麟操作系统V6安装NGINX</title>
+      <link>https://dact.dev/post/neokylin_install_nginx/</link>
+      <pubDate>Sat, 14 Jan 2017 22:27:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/neokylin_install_nginx/</guid>
+      <description>因为禾斗石开需要，安装了中标麒麟高级服务器操作系统（虚拟化版）V6，然后该系统上部署了几个JAVA WEB项目，现在需要安装nginx，但是y</description>
+    </item>
+    
+    <item>
+      <title>狮子、毒蛇和鳄鱼 前篇</title>
+      <link>https://dact.dev/post/hang_in_there_1/</link>
+      <pubDate>Wed, 15 Jun 2016 21:41:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/hang_in_there_1/</guid>
+      <description>以图搜索 表叔突然发来一张图，问我怎么解。 先说我的结论：这个图片很有可能提现的是刚果人民现在所处的水深火热的困境，对于他们来说，现在无力跟“狮</description>
+    </item>
+    
+    <item>
+      <title>狮子、毒蛇和鳄鱼 后篇</title>
+      <link>https://dact.dev/post/hang_in_there_2/</link>
+      <pubDate>Wed, 15 Jun 2016 21:41:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/hang_in_there_2/</guid>
+      <description>Hang in there, Congo! | CongoStory 如果不能翻墙可以点击下面这个链接Hang in there, Congo! | CongoStory In fact, research reveals that the painting is called “the difficulties of life” in the art world, and it’s a nationwide Congolese staple. You can see this scene painted</description>
+    </item>
+    
+    <item>
+      <title>JAVA屏幕截图与水印添加程序</title>
+      <link>https://dact.dev/post/hehehe_snapshot/</link>
+      <pubDate>Tue, 03 May 2016 22:02:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/hehehe_snapshot/</guid>
+      <description>一切都源于这个表情，后面这个表情就以不可预料的情况演化了。那时想着做一个能加苍蝇的截图工具，程序是用JAVA实现的，项目托管在GitHub https://github.com/Bigcaitou/HEHEHEScreenshot</description>
+    </item>
+    
+    <item>
+      <title>KindEditor与ckplayer的简单结合</title>
+      <link>https://dact.dev/post/kindeditorckplayer/</link>
+      <pubDate>Sat, 16 Jan 2016 21:21:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/kindeditorckplayer/</guid>
+      <description>因项目需要，现将KindEditor与ckplayer相结合，搭建一个带本地视频播放的cms。 KindEditor KindEditor的安装与配置这里不做多余</description>
+    </item>
+    
+    <item>
+      <title>SVN的搭建与迁移</title>
+      <link>https://dact.dev/post/svn_usage/</link>
+      <pubDate>Tue, 05 Jan 2016 21:58:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/svn_usage/</guid>
+      <description>安装 在CentOS的终端中运行以下命令： 1 yum install subversion 新建目录 用于存储SVN所有文件 1 mkdir /svn 新建svn项目 1 svnadmin create /svn/project 目录中包含以下文件及文件夹 1 2 3 4</description>
+    </item>
+    
+    <item>
+      <title>OSX EI Captain  更改应用图标</title>
+      <link>https://dact.dev/post/macos_change_icon/</link>
+      <pubDate>Wed, 23 Dec 2015 19:39:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/macos_change_icon/</guid>
+      <description>闲着没事给自己的Mac换了一套图标，效果图如下示，期间遇到各种坑无数，现记下遇过的坑的描述、说明及解决方案，与大家分享。注：本机为MacBo</description>
+    </item>
+    
+    <item>
+      <title>MyBatis批量更新</title>
+      <link>https://dact.dev/post/mybatis_batch_update/</link>
+      <pubDate>Sun, 13 Dec 2015 21:28:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/mybatis_batch_update/</guid>
+      <description>业务需要，要完成批量编辑产品名称。运用Mybatis的批量更新功能，同时因为需要更新的数据是iterator迭代出来的，所以需要在前端做一个</description>
+    </item>
+    
+    <item>
+      <title>jforum二次开发——页面请求机制</title>
+      <link>https://dact.dev/post/jforum1/</link>
+      <pubDate>Sun, 26 Jul 2015 22:02:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/jforum1/</guid>
+      <description>jforum二次开发相关笔记 1. 引言 jforum是Rafael Steil开发的一个基于JAVA的开源论坛，采用BSD开源协议，可以最大限度的进</description>
+    </item>
+    
+    <item>
+      <title>JForum 功能说明书</title>
+      <link>https://dact.dev/post/jforum_-manual/</link>
+      <pubDate>Sat, 24 Jan 2015 05:30:31 +0000</pubDate>
+      
+      <guid>https://dact.dev/post/jforum_-manual/</guid>
+      <description>JForum 功能说明书 引言 用户与用户组 内容管理 权限控制 审核功能 管理与设置 信息统计 1. 引言 JForum是Rafael Steil开发的一个基于JAVA的开源</description>
+    </item>
+    
+    <item>
+      <title>一个8块钱的域名引发的</title>
+      <link>https://dact.dev/post/hehehe.xyz/</link>
+      <pubDate>Mon, 06 Oct 2014 22:20:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/hehehe.xyz/</guid>
+      <description>开始 大前天，突然发现新网的.xyz域名只有8块钱（只有8块钱，你没有看错，你没有看错，不是98，不是48，是8块钱呵呵呵），于是我就注册了一</description>
+    </item>
+    
+    <item>
+      <title>专治处女座的强迫症 治不好不要钱~</title>
+      <link>https://dact.dev/post/zhuan/</link>
+      <pubDate>Fri, 06 Jun 2014 22:02:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/zhuan/</guid>
+      <description>专治处女座的强迫症 治不好不要钱~</description>
+    </item>
+    
+    <item>
+      <title>网页中的中文自定义字体和@font-face</title>
+      <link>https://dact.dev/post/custom_font/</link>
+      <pubDate>Tue, 27 May 2014 14:58:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/custom_font/</guid>
+      <description>网页中的中文自定义字体和@font-face 2016年4月28号更新： 现在有第三方的工具sfnttool可以直接裁剪中文字体文件，详见《中文</description>
+    </item>
+    
+    <item>
+      <title>专治处女座的强迫症 治不好不要钱~</title>
+      <link>https://dact.dev/zhuan/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://dact.dev/zhuan/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

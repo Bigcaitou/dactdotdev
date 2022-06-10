@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OS on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/categories/os/</link>
+    <description>Recent content in OS on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 18 Mar 2022 20:12:00 +0800</lastBuildDate><atom:link href="https://dact.dev/categories/os/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>个性化内容及广告关闭</title>
+      <link>https://dact.dev/post/turn_off_personalized/</link>
+      <pubDate>Fri, 18 Mar 2022 20:12:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/turn_off_personalized/</guid>
+      <description>[TOC] 注1：收集的关闭方式截止 2022-03-18 20:12:00 互联网产品 本文仅罗列本人在用的APP(iOS下) 注2：同 → 服务有时存在多个客户端，例如微博有微博和微博国际版，</description>
+    </item>
+    
+    <item>
+      <title>个人笔记应用选择</title>
+      <link>https://dact.dev/post/notebook/</link>
+      <pubDate>Tue, 01 Mar 2022 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/notebook/</guid>
+      <description>[toc] 本人的笔记应用经历了很多代，之前的主力是为知笔记|wiznote ，wiz本身是基于html的，所以天生和适合做网页剪辑，因为网页也是htm</description>
+    </item>
+    
+    <item>
+      <title>OSX EI Captain  更改应用图标</title>
+      <link>https://dact.dev/post/macos_change_icon/</link>
+      <pubDate>Wed, 23 Dec 2015 19:39:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/macos_change_icon/</guid>
+      <description>闲着没事给自己的Mac换了一套图标，效果图如下示，期间遇到各种坑无数，现记下遇过的坑的描述、说明及解决方案，与大家分享。注：本机为MacBo</description>
+    </item>
+    
+  </channel>
+</rss>

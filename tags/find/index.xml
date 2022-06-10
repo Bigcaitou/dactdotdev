@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>find on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/find/</link>
+    <description>Recent content in find on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 21 Jun 2020 21:00:00 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/find/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux学习——系统命令篇</title>
+      <link>https://dact.dev/post/linux_bash/</link>
+      <pubDate>Sun, 21 Jun 2020 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/linux_bash/</guid>
+      <description>[TOC] 2. 系统命令 2.1. top/htop 1. 如何将 top 的输出通过管道交给另一个进程？ top | grep 1 2. 如何让 top 显示每一个CPU的使用情况？ 按下数字键1即可 3. 如何在 top 里杀进程？ top</description>
+    </item>
+    
+  </channel>
+</rss>

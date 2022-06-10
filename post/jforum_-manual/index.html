@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>JForum 功能说明书 - Dact.dev - dacaitou</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="dacaitou" /><meta name="description" content="JForum 功能说明书 引言 用户与用户组 内容管理 权限控制 审核功能 管理与设置 信息统计 1. 引言 JForum是Rafael Steil开发的一个基于JAVA的开源" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.82.0 with theme even" />
+
+
+<link rel="canonical" href="https://dact.dev/post/jforum_-manual/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.39a3e01cac9473be1356f3572fcfe34b2e363efabad244a99a40f28a812c837e.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="JForum 功能说明书" />
+<meta property="og:description" content="JForum 功能说明书 引言 用户与用户组 内容管理 权限控制 审核功能 管理与设置 信息统计 1. 引言 JForum是Rafael Steil开发的一个基于JAVA的开源" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dact.dev/post/jforum_-manual/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2015-01-24T05:30:31&#43;00:00" />
+<meta property="article:modified_time" content="2015-01-24T05:30:31&#43;00:00" />
+
+<meta itemprop="name" content="JForum 功能说明书">
+<meta itemprop="description" content="JForum 功能说明书 引言 用户与用户组 内容管理 权限控制 审核功能 管理与设置 信息统计 1. 引言 JForum是Rafael Steil开发的一个基于JAVA的开源"><meta itemprop="datePublished" content="2015-01-24T05:30:31&#43;00:00" />
+<meta itemprop="dateModified" content="2015-01-24T05:30:31&#43;00:00" />
+<meta itemprop="wordCount" content="1848">
+<meta itemprop="keywords" content="Java,Web,forum," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JForum 功能说明书"/>
+<meta name="twitter:description" content="JForum 功能说明书 引言 用户与用户组 内容管理 权限控制 审核功能 管理与设置 信息统计 1. 引言 JForum是Rafael Steil开发的一个基于JAVA的开源"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">dact.dev</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">dact.dev</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">JForum 功能说明书</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2015-01-24 </span>
+        <div class="post-category">
+            <a href="/categories/java/"> Java </a>
+            </div>
+          <span class="more-meta"> 约 1848 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#jforum-功能说明书">JForum 功能说明书</a>
+      <ul>
+        <li><a href="#1-引言">1. 引言</a></li>
+        <li><a href="#2-用户与用户组">2. 用户与用户组</a>
+          <ul>
+            <li><a href="#21-用户组介绍">2.1 用户组介绍</a></li>
+            <li><a href="#22-用户管理">2.2 用户管理</a></li>
+            <li><a href="#23-用户组管理">2.3 用户组管理</a></li>
+          </ul>
+        </li>
+        <li><a href="#3-内容管理">3. 内容管理</a>
+          <ul>
+            <li><a href="#31-版面管理">3.1 版面管理</a></li>
+            <li><a href="#32-主题">3.2 主题</a></li>
+            <li><a href="#33-评论">3.3 评论</a></li>
+            <li><a href="#34-站内信">3.4 站内信</a></li>
+          </ul>
+        </li>
+        <li><a href="#4-权限控制">4 权限控制</a>
+          <ul>
+            <li><a href="#41-发布主题">4.1 发布主题</a></li>
+            <li><a href="#42-查看主题">4.2 查看主题</a></li>
+            <li><a href="#43-回复主题">4.3 回复主题</a></li>
+          </ul>
+        </li>
+        <li><a href="#5-系统设置">5. 系统设置</a>
+          <ul>
+            <li><a href="#51-多语言设置">5.1 多语言设置</a></li>
+            <li><a href="#52-网站展示信息">5.2 网站展示信息</a></li>
+            <li><a href="#53-邮件系统">5.3 邮件系统</a></li>
+          </ul>
+        </li>
+        <li><a href="#6-审核功能">6. 审核功能</a>
+          <ul>
+            <li><a href="#61-用户锁定与解锁">6.1 用户锁定与解锁</a></li>
+            <li><a href="#62-ip封锁">6.2 IP封锁</a></li>
+            <li><a href="#63-email封锁">6.3 Email封锁</a></li>
+          </ul>
+        </li>
+        <li><a href="#7-信息统计">7. 信息统计</a>
+          <ul>
+            <li><a href="#71-用户统计">7.1 用户统计</a></li>
+            <li><a href="#72-内容统计">7.2 内容统计</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="jforum-功能说明书">JForum 功能说明书</h1>
+<hr>
+<blockquote>
+<ol>
+<li>引言</li>
+<li>用户与用户组</li>
+<li>内容管理</li>
+<li>权限控制</li>
+<li>审核功能</li>
+<li>管理与设置</li>
+<li>信息统计</li>
+</ol>
+</blockquote>
+<hr>
+<h2 id="1-引言">1. 引言</h2>
+<p>        JForum是Rafael Steil开发的一个基于JAVA的开源论坛，采用BSD开源协议，可以最大限度的进行任何修改和扩展，包括商业用途。它提供了诸如SSO之类的抽象接口，具有完全的权限控制、支持包括中文在内的十几种语言、可自定义的用户接口、安全、多数据库支持等特性。JForum 采用 FreeMarker作为页面模板引擎。JForum成功案例有EA论坛、<a href="http://www.javaranch.com/">JavaRanch</a> 和<a href="http://www.guj.com.br/">GUJ</a>。</p>
+<hr>
+<h2 id="2-用户与用户组">2. 用户与用户组</h2>
+<p>        JForum支持自己创建用户组，本文给出三个基本的用户组：<strong>游客组</strong>、<strong>普通用户组</strong>和<strong>管理员组</strong>的基本介绍。</p>
+<h3 id="21-用户组介绍">2.1 用户组介绍</h3>
+<h4 id="211-游客用户组">2.1.1 游客用户组</h4>
+<p>        游客，即未登录的用户只能查看被管理员设置成公开的板块里的主题。如果想要回复主题、关注主题、收发站内信等操作需在本站注册并登录以后才可以进行。</p>
+<h4 id="212-普通用户组">2.1.2 普通用户组</h4>
+<p>        普通用户组的成员可以根据相应板块的管理员设置的权限在板块中执行特定操作，如只能在 <code>站务中心</code> 板块中浏览管理员发布的主题，不能发布帖子。又如在 <code>技术问答</code> 板块中点击 <img src="http://222.198.131.100:8080/JForum/templates/default/images/zh_CN/post.gif" alt="发布主题"> 按钮，发布新主题。</p>
+<h4 id="213-管理员用户组">2.1.3 管理员用户组</h4>
+<p>        管理员除了具备普通用户组的所有权限外，还有管理板块或者系统的权限，具体查看  <strong>权限控制</strong> 、<strong>审核功能</strong> 、 <strong>管理与设置</strong> 和 <strong>信息统计</strong> 中的功能。</p>
+<h3 id="22-用户管理">2.2 用户管理</h3>
+<p>        普通用户登录后可以在顶栏中的  <img src="http://222.198.131.100:8080/JForum/templates/default/images/icon_mini_profile.gif" alt="个人资料"><code>个人资料</code>  中修改自己的名字、邮箱、密码、QQ、个人网站、自我介绍、个性签名等个人信息。还可以设置上线状态、首选语言等偏好设置。管理员同样可以在 <code>后台管理-会员管理</code> 中修改这些普通用户的这些信息。</p>
+<h3 id="23-用户组管理">2.3 用户组管理</h3>
+<p>        管理员可以在 <code>后台管理-分组管理</code> 中修改已有用户组名，修改组权限，新建用户组等操作。</p>
+<hr>
+<h2 id="3-内容管理">3. 内容管理</h2>
+<p>        管理员可以对版面进行管理并设置相应的发布主题、查看主题和回复主题等权限的控制。普通用户可以在特定版面进行发布主题、评论、投票和上传附件等操作。</p>
+<h3 id="31-版面管理">3.1 版面管理</h3>
+<p>        管理员可以在 <code>后台管理-版面管理</code> 中对版面进行管理并设置相应的发布主题、查看主题和回复主题等权限。</p>
+<h3 id="32-主题">3.2 主题</h3>
+<p>        普通用户可以在特定板块点击  <img src="http://222.198.131.100:8080/JForum/templates/default/images/zh_CN/post.gif" alt="发布主题"> 按钮，发布新主题。主题输入支持 BB code、HTML代码和表情。管理员还可以发布 <code>置顶主题</code> 、<code>公告主题</code> 。还可以点击 <img src="http://222.198.131.100:8080/JForum/templates/default/images/zh_CN/icon_edit.gif" alt="编辑"> 对已经发布的主题进行编辑。特定主题还支持 <code>书签</code> 功能，主题页尾点击  <img src="http://222.198.131.100:8080/JForum/templates/default/images/icon_bookmark.gif" alt="加到我的书签"><code>加到我的书签</code> 以后可以在页首 <img src="http://222.198.131.100:8080/JForum/templates/default/images/icon_minipost.gif" alt="我的书签"><code>我的书签</code> 中查看保存过的书签。</p>
+<h3 id="33-评论">3.3 评论</h3>
+<p>        已登录的用户可以回复未被设置成<strong>只读</strong>的主题。评论同样支持BB code、HTML代码和表情。点击 <img src="http://222.198.131.100:8080/JForum/templates/default/images/zh_CN/icon_quote.gif" alt="引用">对特定层的评论或者主题进行引用。</p>
+<h3 id="34-站内信">3.4 站内信</h3>
+<p>        可以根据用户名给特定用户发送站内信，发送过的和收到的站内信都可以在顶栏 <img src="http://222.198.131.100:8080/JForum/templates/default/images/icon_mini_message.gif" alt="站内信"><code>站内信</code> 中查看到。</p>
+<hr>
+<h2 id="4-权限控制">4 权限控制</h2>
+<h3 id="41-发布主题">4.1 发布主题</h3>
+<p>        管理员可以在 <code>后台管理</code> 中对用户所在的用户组的发布主题的权限进行限制，还可以在新建板块的时候对特定板块的发布权限进行限制。如可以在<code>后台管理-会员分组-权限</code>的权限中设置普通用户组对与<code>版务中心</code>板块的权限为限制发布，也可以在<code>后台管理-版面管理-权限</code>中设置<code>版务中心</code>板块对与普通用户组的权限为限制发布。需注意设置项不可以有逻辑冲突。</p>
+<h3 id="42-查看主题">4.2 查看主题</h3>
+<p>       查看主题的权限设置同发布主题方法一致。</p>
+<h3 id="43-回复主题">4.3 回复主题</h3>
+<p>        回复主题的权限设置同发布主题方法一致。</p>
+<hr>
+<h2 id="5-系统设置">5. 系统设置</h2>
+<h3 id="51-多语言设置">5.1 多语言设置</h3>
+<p>        管理员进入 <code>后台管理-系统设置</code> 后，可以设置系统的语言，支持英文、中文简体、中文繁体、葡萄牙语、意大利语、德语等。</p>
+<h3 id="52-网站展示信息">5.2 网站展示信息</h3>
+<p>        管理员进入 <code>后台管理-系统设置</code> 后，可以设置系统 <code>论坛名称</code> 、 <code>论坛页面标题</code> 、 <code>Meta 标签描述</code> 和 <code>Meta 标签关键字</code> 等系统信息的修改。</p>
+<h3 id="53-邮件系统">5.3 邮件系统</h3>
+<p>        管理员进入 <code>后台管理-系统设置</code> 后，可以设置系统的邮箱信息。</p>
+<hr>
+<h2 id="6-审核功能">6. 审核功能</h2>
+<h3 id="61-用户锁定与解锁">6.1 用户锁定与解锁</h3>
+<p>        管理员进入 <code>后台管理-封锁控制</code> 以后对特定用户进行封锁和解封，被封锁的用户进入论坛以后无法查看任何主题，提示“您已经被这个论坛封锁了. 如果您有任何问题, 请联络系统管理员XXX@XXX.com 谢谢.”</p>
+<h3 id="62-ip封锁">6.2 IP封锁</h3>
+<p>        管理员进入 <code>后台管理-封锁控制</code> 以后对特定IP地址或者特定IP地址段进行封锁。</p>
+<h3 id="63-email封锁">6.3 Email封锁</h3>
+<p>        管理员进入 <code>后台管理-封锁控制</code> 以后对特定Email进行封锁。</p>
+<hr>
+<h2 id="7-信息统计">7. 信息统计</h2>
+<h3 id="71-用户统计">7.1 用户统计</h3>
+<p>        系统提供在页尾展示了  <code>目前总共有X位注册会员</code> 、<code>最新注册的会员XXX</code> 、<code>目前总共有X位用户在线</code> 、<code>最高在线人数X人</code> 和 <code>目前在线注册会员 XXX </code> 等多种用户统计信息。在 <code>后台管理-管理首页</code> 中可以查看 <code>注册会员总数</code> 、<code>平均每天注册的会员总数</code> 。</p>
+<h3 id="72-内容统计">7.2 内容统计</h3>
+<p>        系统页尾可以看到 <code>目前总共发表了 X 篇文章</code>，在 <code>后台管理-Lucene统计</code> 中还可以根据时间或者文章代号进行聚类统计。在 <code>后台管理-管理首页</code> 中可以查看 <code>文章总数</code> 、<code>平均每天发表的文章总数</code> 、
+<code>主题总数</code> 和 <code>平均每天发表的主题总数</code> 。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">dacaitou</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2015-01-24
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">CC BY-NC-SA 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/java/">Java</a>
+          <a href="/tags/web/">Web</a>
+          <a href="/tags/forum/">forum</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/jforum1/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">jforum二次开发——页面请求机制</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/hehehe.xyz/">
+            <span class="next-text nav-default">一个8块钱的域名引发的</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2015-01-24 05:30:31 \u002b0000 \u002b0000',
+        title: 'JForum 功能说明书',
+        clientID: '1687d1933e871f4d7ca5',
+        clientSecret: '601ba213e44aac1ba1fb9cf9807b7d11f272de0b',
+        repo: 'dact_dev',
+        owner: 'Bigcaitou',
+        admin: ['Bigcaitou'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/Bigcaitou" class="iconfont icon-github" title="github"></a>
+  <a href="https://dact.dev/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>dacaitou</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?ae241b0e5428586b68d3c815a8e5f3e6";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

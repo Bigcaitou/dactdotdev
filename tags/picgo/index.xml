@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>picgo on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/picgo/</link>
+    <description>Recent content in picgo on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 16 Feb 2022 21:00:00 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/picgo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>dact.dev</title>
+      <link>https://dact.dev/post/dact.dev/</link>
+      <pubDate>Wed, 16 Feb 2022 21:00:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/dact.dev/</guid>
+      <description>[toc] dact.dev搭建细节 基础组件 本站点基于 hugo + github pages实现，具体教程网上有很多，不再赘诉，本文仅针对搭建过程中的一些问题和优化做一个记</description>
+    </item>
+    
+  </channel>
+</rss>

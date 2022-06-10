@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>使用python将Excel数据填充Word模板并生成Word - Dact.dev - dacaitou</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="dacaitou" /><meta name="description" content="[toc] 需求 通过excel表中搜集的数据批量导出各种类型的word文档，诸如立案申请书、证据清单等等。 数据源：Excel保存名字、性别、出身年月等" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.82.0 with theme even" />
+
+
+<link rel="canonical" href="https://dact.dev/post/excel2word_py/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.39a3e01cac9473be1356f3572fcfe34b2e363efabad244a99a40f28a812c837e.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="使用python将Excel数据填充Word模板并生成Word" />
+<meta property="og:description" content="[toc] 需求 通过excel表中搜集的数据批量导出各种类型的word文档，诸如立案申请书、证据清单等等。 数据源：Excel保存名字、性别、出身年月等" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dact.dev/post/excel2word_py/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-02-28T20:52:00&#43;08:00" />
+<meta property="article:modified_time" content="2022-02-28T20:52:00&#43;08:00" />
+
+<meta itemprop="name" content="使用python将Excel数据填充Word模板并生成Word">
+<meta itemprop="description" content="[toc] 需求 通过excel表中搜集的数据批量导出各种类型的word文档，诸如立案申请书、证据清单等等。 数据源：Excel保存名字、性别、出身年月等"><meta itemprop="datePublished" content="2022-02-28T20:52:00&#43;08:00" />
+<meta itemprop="dateModified" content="2022-02-28T20:52:00&#43;08:00" />
+<meta itemprop="wordCount" content="1678">
+<meta itemprop="keywords" content="batch,python,Excel,Word,Mircosoft," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="使用python将Excel数据填充Word模板并生成Word"/>
+<meta name="twitter:description" content="[toc] 需求 通过excel表中搜集的数据批量导出各种类型的word文档，诸如立案申请书、证据清单等等。 数据源：Excel保存名字、性别、出身年月等"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">dact.dev</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">dact.dev</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">使用python将Excel数据填充Word模板并生成Word</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-02-28 </span>
+        <div class="post-category">
+            <a href="/categories/python/"> python </a>
+            </div>
+          <span class="more-meta"> 约 1678 字 </span>
+          <span class="more-meta"> 预计阅读 4 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#需求">需求</a></li>
+        <li><a href="#新解决的问题">新解决的问题</a>
+          <ul>
+            <li><a href="#mac下python3的安装">mac下python3的安装</a></li>
+            <li><a href="#mailmerge-importerror">MailMerge ImportError</a></li>
+            <li><a href="#xlrdbiffhxlrderror">xlrd.biffh.XLRDError</a></li>
+            <li><a href="#icloud共享目录目录带空格">icloud共享目录（目录带空格）</a></li>
+            <li><a href="#增加日期格式转换">增加日期格式转换</a></li>
+          </ul>
+        </li>
+        <li><a href="#基本文件">基本文件</a>
+          <ul>
+            <li><a href="#批量生成主文件-excel2wordpy">批量生成主文件 excel2word.py</a></li>
+            <li><a href="#一键处理-excel2wordcommand">一键处理 excel2word.command</a></li>
+          </ul>
+        </li>
+        <li><a href="#执行">执行</a>
+          <ul>
+            <li><a href="#基本文件-1">基本文件</a></li>
+            <li><a href="#执行-1">执行</a></li>
+          </ul>
+        </li>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>[toc]</p>
+<h2 id="需求">需求</h2>
+<p>通过excel表中搜集的数据批量导出各种类型的word文档，诸如立案申请书、证据清单等等。</p>
+<ul>
+<li>数据源：Excel保存名字、性别、出身年月等</li>
+<li>模板包含：立案申请书模板.docx、证据清单模板.docx等。</li>
+</ul>
+<p>本方法主要参考  <a href="https://www.jianshu.com/p/b876a0d1940a" title="使用python将Excel数据填充Word模板并生成Word —— jianshu.com">使用python将Excel数据填充Word模板并生成Word</a> 来实现，并在原脚本的基础上，解决了一些问题，并做了一些优化， 包括但不限于如下:</p>
+<ul>
+<li>修复macos下的依赖问题</li>
+<li>一键执行</li>
+<li>带空格的目录的兼容</li>
+<li>日志打印优化</li>
+<li>&hellip;&hellip;</li>
+</ul>
+<h2 id="新解决的问题">新解决的问题</h2>
+<p>如下问题不一定每个人都会遇到，本人环境是 <code>Macbook Pro M1</code> 和 <code>macOS Monterey 12.2.1</code></p>
+<h3 id="mac下python3的安装">mac下python3的安装</h3>
+<p>mac下使用终端执行 <code>python3</code> 自动跳出xcode安装，直接安装即可
+因python2存在一些中文编码的问题，故建议使用python3</p>
+<h3 id="mailmerge-importerror">MailMerge ImportError</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ImportError: cannot import name <span class="s1">&#39;MailMerge&#39;</span> from <span class="s1">&#39;mailmerge&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>需要安装的包是 <code>docx-mailmerge</code> 而不是 <code>mailmerge</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="n">pip3</span> <span class="n">uninstall</span> <span class="n">mailmerge</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="n">docx</span><span class="o">-</span><span class="n">mailmerge</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后就可以正常import</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">mailmerge</span> <span class="kn">import</span> <span class="n">MailMerge</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>具体详见 <a href="https://stackoverflow.com/questions/59469172/importerror-cannot-import-name-mailmerge-from-mailmerge" title="ImportError: cannot import name 'MailMerge' from 'mailmerge' —— stackoverflow.com">ImportError: cannot import name &lsquo;MailMerge&rsquo; from &lsquo;mailmerge&rsquo;</a></p>
+<h3 id="xlrdbiffhxlrderror">xlrd.biffh.XLRDError</h3>
+<p>提示 不支持xlsx文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">xlrd.biffh.XLRDError: Excel xlsx file<span class="p">;</span> not supported
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>The previous version, xlrd 1.2.0, may appear to work, but it could also expose you to potential security vulnerabilities. With that warning out of the way, if you still want to give it a go, type the following command:</p>
+</blockquote>
+<p>xlrd版本过高，限定在1.2.0版本即可。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">pip3 install <span class="nv">xlrd</span><span class="o">==</span>1.2.0
+</code></pre></td></tr></table>
+</div>
+</div><p>具体详见 <a href="https://stackoverflow.com/questions/65254535/xlrd-biffh-xlrderror-excel-xlsx-file-not-supported" title="xlrd.biffh.XLRDError: Excel xlsx file; not supported [duplicate] —— stackoverflow.com">xlrd.biffh.XLRDError: Excel xlsx file; not supported [duplicate] </a></p>
+<h3 id="icloud共享目录目录带空格">icloud共享目录（目录带空格）</h3>
+<p>因本人的需求，需要通过iCloud共享对应的文件，但iCloud中的文件包含空格，例如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">/Users/<span class="o">[</span>username<span class="o">]</span>/Library/Mobile<span class="se">\ </span>Documents/com~apple~CloudDocs/<span class="o">[</span>document<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="增加日期格式转换">增加日期格式转换</h3>
+<p>直接对<code>xlrd</code>的<code>xldate_as_tuple</code>方法生成的tuple做处理，提取对应的年月日，不依赖datetime、timestamp之类的包，简单高效。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">excel_date_convert</span><span class="p">(</span><span class="n">excel_date</span><span class="p">):</span>
+    <span class="n">temp_tuple</span> <span class="o">=</span> <span class="n">xlrd</span><span class="o">.</span><span class="n">xldate_as_tuple</span><span class="p">(</span><span class="n">excel_date</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">format_date</span><span class="o">=</span><span class="s1">&#39;{0}年{1}月{2}日&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">temp_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">temp_tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">temp_tuple</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">format_date</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="基本文件">基本文件</h2>
+<h3 id="批量生成主文件-excel2wordpy">批量生成主文件 excel2word.py</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-python" data-lang="python"><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*- </span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">xlrd</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">mailmerge</span> <span class="kn">import</span> <span class="n">MailMerge</span>
+<span class="n">template_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;民事起诉书&#39;</span><span class="p">,</span><span class="s1">&#39;退费申请书&#39;</span><span class="p">,</span> <span class="s1">&#39;证据清单&#39;</span><span class="p">]</span> <span class="c1"># 其他模板文件，加到这个list里即可</span>
+<span class="n">template_type</span><span class="o">=</span><span class="s1">&#39;.docx&#39;</span>
+<span class="k">def</span> <span class="nf">batch</span><span class="p">(</span><span class="n">maindir</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;当前路径：&#39;</span> <span class="o">+</span>  <span class="n">maindir</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">maindir</span><span class="o">+</span><span class="s1">&#39;/.&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;.xlsx&#39;</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">f</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;.xls&#39;</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  数据源文件：&#39;</span> <span class="o">+</span> <span class="n">f</span><span class="p">)</span>
+        <span class="c1"># 打开Excel文件</span>
+        <span class="n">xl</span> <span class="o">=</span> <span class="n">xlrd</span><span class="o">.</span><span class="n">open_workbook</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">maindir</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;  Sheet：&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">xl</span><span class="o">.</span><span class="n">sheet_names</span><span class="p">()))</span>
+        <span class="c1"># 读取第一个表</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">xl</span><span class="o">.</span><span class="n">sheet_by_name</span><span class="p">(</span><span class="n">xl</span><span class="o">.</span><span class="n">sheet_names</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="c1"># 获取表中行数</span>
+        <span class="n">nrows</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">nrows</span>
+        <span class="k">for</span> <span class="n">template_name</span> <span class="ow">in</span> <span class="n">template_names</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;    正在处理模板：&#39;</span> <span class="o">+</span> <span class="n">template_name</span> <span class="o">+</span> <span class="s1">&#39;模板&#39;</span> <span class="o">+</span> <span class="n">template_type</span><span class="p">)</span>
+            <span class="n">path_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">maindir</span><span class="p">,</span> <span class="s1">&#39;批量处理&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path_name</span><span class="p">):</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path_name</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;    将保存到&#39;</span> <span class="o">+</span> <span class="n">path_name</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nrows</span><span class="p">):</span>  <span class="c1"># 循环逐行打印</span>
+                <span class="c1"># 第一行为表头，不作为填充数据</span>
+                <span class="n">doc</span> <span class="o">=</span> <span class="n">MailMerge</span><span class="p">(</span><span class="n">maindir</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">template_name</span> <span class="o">+</span> <span class="s1">&#39;模板&#39;</span> <span class="o">+</span> <span class="n">template_type</span><span class="p">)</span>  <span class="c1"># 打开模板文件</span>
+                <span class="c1"># 以下为填充模板中对应的域，</span>
+                <span class="k">print</span><span class="p">(</span><span class="s1">&#39;      正在处理：&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">row_values</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
+                <span class="n">doc</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+                    <span class="n">name</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">row_values</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">0</span><span class="p">]),</span>
+                    <span class="n">gender</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">row_values</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">1</span><span class="p">]),</span>
+                    <span class="n">birthday</span><span class="o">=</span><span class="n">excel_date_convert</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">row_values</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">2</span><span class="p">]),</span>
+                    <span class="n">id_card</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">row_values</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">3</span><span class="p">]),</span>
+                    <span class="n">register_address</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">row_values</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">4</span><span class="p">]),</span>
+                    <span class="n">phone_number</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">row_values</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">5</span><span class="p">]),</span>
+                    <span class="n">home_address</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">row_values</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">6</span><span class="p">]),</span>
+                    <span class="n">loan_balance</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">row_values</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">7</span><span class="p">]),</span>
+                    <span class="n">due_plus_date</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">excel_date_convert</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">row_values</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">8</span><span class="p">])),</span>
+                <span class="p">)</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">path_name</span><span class="p">)</span>
+                <span class="n">word_name</span> <span class="o">=</span> <span class="n">template_name</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">row_values</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">template_type</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&#34;        正在保存 &#34;</span> <span class="o">+</span> <span class="n">word_name</span><span class="p">)</span>
+                <span class="n">doc</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">word_name</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&#34;        保存成功&#34;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">doc</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">doc</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">excel_date_convert</span><span class="p">(</span><span class="n">excel_date</span><span class="p">):</span>
+    <span class="n">temp_tuple</span> <span class="o">=</span> <span class="n">xlrd</span><span class="o">.</span><span class="n">xldate_as_tuple</span><span class="p">(</span><span class="n">excel_date</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">format_date</span><span class="o">=</span><span class="s1">&#39;{0}年{1}月{2}日&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">temp_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">temp_tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">temp_tuple</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">format_date</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">batch</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="一键处理-excel2wordcommand">一键处理 excel2word.command</h3>
+<p>创建 <code>excel2word.command</code>，内容如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#COMMAND_DIR=$(cd &#34;$(dirname &#34;$0&#34;)&#34;;pwd)</span>
+<span class="c1">#echo $COMMAND_DIR</span>
+<span class="c1"># 方法一：目录有中文时会乱码，脚本会失败</span>
+
+<span class="nv">COMMAND_PATH</span><span class="o">=</span><span class="nv">$0</span>
+<span class="nb">echo</span> <span class="s2">&#34;COMMAND_PATH&#34;</span> <span class="nv">$COMMAND_PATH</span>
+<span class="nv">COMMAND_DIR</span><span class="o">=</span><span class="si">${</span><span class="nv">COMMAND_PATH</span><span class="p">:</span><span class="nv">0</span><span class="p">:</span><span class="si">${#</span><span class="nv">COMMAND_PATH</span><span class="si">}</span><span class="p">-18</span><span class="si">}</span>
+<span class="c1"># 获取文件所处的绝对路径</span>
+<span class="c1"># 18这个值是 excel2word.command的长度，因为遇到有中文乱码的问题，使用这个方法来保证可以正常获取到对应的（带空格及带中文）文件路径，未来可以优化</span>
+<span class="nb">echo</span> <span class="s2">&#34;COMMAND_DIR&#34;</span> <span class="nv">$COMMAND_DIR</span>
+<span class="c1"># 方法二：兼容中文</span>
+
+<span class="nb">cd</span> <span class="s2">&#34;</span><span class="nv">$COMMAND_DIR</span><span class="s2">&#34;</span>
+python3 excel2word.py <span class="s2">&#34;</span><span class="si">${</span><span class="nv">COMMAND_DIR</span><span class="si">}</span><span class="s2">&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>具体参考</p>
+<ul>
+<li>
+<p>双击执行： <a href="https://www.hangge.com/blog/cache/detail_2598.html" title="macOS - 实现可以双击执行Shell脚本文件（类似windows批处理脚本）">macOS - 实现可以双击执行Shell脚本文件</a></p>
+</li>
+<li>
+<p>获取文件的绝对路径：<a href="https://blog.csdn.net/q322625/article/details/88888305" title="shell 字符串操作 ${} 的截取，删除，和 替换">shell 字符串操作 ${} 的截取，删除，和 替换</a></p>
+</li>
+<li>
+<p>关于带空格的路径在shell中的传递：<a href="https://medium.com/@leedowthwaite/dealing-with-spaces-in-paths-f26856aef06f" title="How To Deal With Spaces in Paths on Mac and Linux">How To Deal With Spaces in Paths on Mac and Linux</a></p>
+</li>
+</ul>
+<h2 id="执行">执行</h2>
+<h3 id="基本文件-1">基本文件</h3>
+<p>下述4种文件需要放置在同一个目录下</p>
+<ul>
+<li>Excel数据表，注意每个数据要按顺序执行，与 <code>table.row_values(i)[【列数】)</code>对应，以0开始</li>
+</ul>
+<p><img src="https://dacaitou-1252862985.cos.ap-hongkong.myqcloud.com/image-20220228204222743.png" alt="image-20220228204222743"></p>
+<ul>
+<li>模板文件需添加对应的 <code>域</code> ,<code>邮件合并</code>,<code>MERGEFIELD</code>
+<ul>
+<li>注意 域的名字要和 <code>name=str(table.row_values(i)[0])</code> 中的变量名字相同，例如 <code>name</code></li>
+</ul>
+</li>
+</ul>
+<p><img src="https://dacaitou-1252862985.cos.ap-hongkong.myqcloud.com/image-20220228205022947.png" alt="image-20220228205022947"></p>
+<p><img src="https://dacaitou-1252862985.cos.ap-hongkong.myqcloud.com/image-20220228204444211.png" alt="image-20220228204444211"></p>
+<ul>
+<li>批量处理主文件 excel2word.py</li>
+<li>一键执行文件 excel2word.command</li>
+</ul>
+<h3 id="执行-1">执行</h3>
+<p><code>finder</code> 中双击excel2word.command即可</p>
+<p><img src="https://dacaitou-1252862985.cos.ap-hongkong.myqcloud.com/image-20220228204818767.png" alt="image-20220228204818767"></p>
+<h2 id="参考">参考</h2>
+<p>![image-20220301153953538](../../../../../Library/Application Support/typora-user-images/image-20220301153953538.png)</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">dacaitou</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-02-28
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">CC BY-NC-SA 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/batch/">batch</a>
+          <a href="/tags/python/">python</a>
+          <a href="/tags/excel/">Excel</a>
+          <a href="/tags/word/">Word</a>
+          <a href="/tags/mircosoft/">Mircosoft</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/notebook/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">个人笔记应用选择</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/crossover/">
+            <span class="next-text nav-default">跨域配置</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2022-02-28 20:52:00 \u002b0800 CST',
+        title: '使用python将Excel数据填充Word模板并生成Word',
+        clientID: '1687d1933e871f4d7ca5',
+        clientSecret: '601ba213e44aac1ba1fb9cf9807b7d11f272de0b',
+        repo: 'dact_dev',
+        owner: 'Bigcaitou',
+        admin: ['Bigcaitou'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/Bigcaitou" class="iconfont icon-github" title="github"></a>
+  <a href="https://dact.dev/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>dacaitou</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?ae241b0e5428586b68d3c815a8e5f3e6";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

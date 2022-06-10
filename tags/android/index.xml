@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>android on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/android/</link>
+    <description>Recent content in android on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 15 Jun 2017 09:18:25 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/android/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>iOS和Android下解谜游戏推荐——下篇</title>
+      <link>https://dact.dev/post/puzzle_games2.md/</link>
+      <pubDate>Thu, 15 Jun 2017 09:18:25 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/puzzle_games2.md/</guid>
+      <description>[TOC] 之前写了一篇《iOS和Android下解谜游戏推荐》，才发现原来还有这么多也喜欢玩解密游戏的朋友。 在值友们的碎银子和金币的鼓励下，我决定再</description>
+    </item>
+    
+    <item>
+      <title>iOS和Android下解谜游戏推荐</title>
+      <link>https://dact.dev/post/puzzle_games1.md/</link>
+      <pubDate>Tue, 07 Mar 2017 21:24:59 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/puzzle_games1.md/</guid>
+      <description>[TOC] 受到Fad李的《独乐乐不如众乐乐之平板篇：iPad单机双人游戏三四》的启发，我在这里再给大家推荐一些解谜类游戏，非常适合一个人玩，先放一张</description>
+    </item>
+    
+  </channel>
+</rss>

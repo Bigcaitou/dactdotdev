@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AD on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/ad/</link>
+    <description>Recent content in AD on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 18 Mar 2022 20:12:00 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/ad/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>个性化内容及广告关闭</title>
+      <link>https://dact.dev/post/turn_off_personalized/</link>
+      <pubDate>Fri, 18 Mar 2022 20:12:00 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/turn_off_personalized/</guid>
+      <description>[TOC] 注1：收集的关闭方式截止 2022-03-18 20:12:00 互联网产品 本文仅罗列本人在用的APP(iOS下) 注2：同 → 服务有时存在多个客户端，例如微博有微博和微博国际版，</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pythons on My New Hugo Site</title><link>http://example.org/python/</link><description>Recent content in Pythons on My New Hugo Site</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="http://example.org/python/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://example.org/python/ponyorm_implement/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://example.org/python/ponyorm_implement/</guid><description>&lt;p>[TOC]&lt;/p>
+&lt;h2 id="ponyorm生成sql原理">PonyORM生成SQL原理&lt;/h2>
+&lt;p>详见《&lt;a href="https://www.slideshare.net/ponyorm/pony-orm-ep2014-slideshare">How Pony ORM translates Python generators to SQL queries&lt;/a>》&lt;/p>
+&lt;h3 id="ast">AST&lt;/h3>
+&lt;blockquote>
+&lt;p>在计算机科学中，抽象语法树（Abstract Syntax Tree，AST），或简称语法树（Syntax tree），是源代码语法结构的一种抽象表示。它以树状的形式表现编程语言的语法结构，树上的每个节点都表示源代码中的一种结构。之所以说语法是“抽象”的，是因为这里的语法并不会表示出真实语法中出现的每个细节。比如，嵌套括号被隐含在树的结构中，并没有以节点的形式呈现；而类似于 if-condition-then 这样的条件跳转语句，可以使用带有两个分支的节点来表示。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="images/20181017111303.png" alt="">&lt;/p>
+&lt;h4 id="后续遍历二叉树">后续遍历二叉树&lt;/h4>
+&lt;h3 id="python-generator-to-sql-translation">Python generator to SQL translation&lt;/h3>
+&lt;ol>
+&lt;li>Decompile bytecode and restore AST&lt;/li>
+&lt;li>Translate AST to ‘abstract SQL’&lt;/li>
+&lt;li>Translate ‘abstract SQL’ to a specific SQL dialect&lt;/li>
+&lt;/ol>
+&lt;h3 id="踩坑记录">踩坑记录&lt;/h3>
+&lt;p>service match_name的查询方法改成filter的形式&lt;/p>
+&lt;p>&lt;img src="images/20181017111731.png" alt="">&lt;/p>
+&lt;p>service in services的形式 services是在BaseControl里的根据project筛选的&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">items &lt;span style="color:#f92672">=&lt;/span> select(
+item
+&lt;span style="color:#66d9ef">for&lt;/span> item &lt;span style="color:#f92672">in&lt;/span> self&lt;span style="color:#f92672">.&lt;/span>model
+&lt;span style="color:#66d9ef">if&lt;/span> item&lt;span style="color:#f92672">.&lt;/span>project &lt;span style="color:#f92672">==&lt;/span> project
+)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>然后再用select 相当于会有两个sql语句 而且是in services的形式 sql非常非常长 !&lt;/p>
+&lt;p>&lt;img src="images/20181017111739.png" alt="20181017111739">&lt;/p>
+&lt;p>换成filter以后相当于最后才组装sql 把之前对project筛选也加进去 sql比较简洁 !&lt;/p>
+&lt;p>&lt;img src="images/20181017111744.png" alt="20181017111744">&lt;/p>
+&lt;h2 id="属性常见标记">属性常见标记&lt;/h2>
+&lt;ul>
+&lt;li>required&lt;/li>
+&lt;li>optional&lt;/li>
+&lt;li>primary&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Required and Optional &lt;!-- raw HTML omitted -->Usually most entity attributes are of Required or Optional kind. If an attribute is defined as Required then it must have a value at all times, while Optional attributes can be empty. &lt;!-- raw HTML omitted -->If you need the value of an attribute to be unique then you can set the attribute option unique=True.&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="images/20181017111058.png" alt="20181017111058">&lt;/p>
+&lt;h2 id="代码案例">代码案例&lt;/h2>
+&lt;h3 id="ponyorm-code">PonyORM code&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">MainTable&lt;/span>(db&lt;span style="color:#f92672">.&lt;/span>Entity):id &lt;span style="color:#f92672">=&lt;/span> Required(int)
+optional_attr &lt;span style="color:#f92672">=&lt;/span> Optional(str)
+required_attr &lt;span style="color:#f92672">=&lt;/span> Required(str)
+primary_attr &lt;span style="color:#f92672">=&lt;/span> Required(str)
+unique_attr &lt;span style="color:#f92672">=&lt;/span> Optional(Decimal, unique&lt;span style="color:#f92672">=&lt;/span>True)
+nullable_attr &lt;span style="color:#f92672">=&lt;/span> Optional(date, nullable&lt;span style="color:#f92672">=&lt;/span>True)
+one_to_one_table &lt;span style="color:#f92672">=&lt;/span> Required(&lt;span style="color:#e6db74">&amp;#39;OneToOneTable&amp;#39;&lt;/span>)
+one_to_many_table &lt;span style="color:#f92672">=&lt;/span> Required(&lt;span style="color:#e6db74">&amp;#39;OneToManyTable&amp;#39;&lt;/span>)
+many_to_one_tables &lt;span style="color:#f92672">=&lt;/span> Set(&lt;span style="color:#e6db74">&amp;#39;ManyToOneTable&amp;#39;&lt;/span>)
+many_to_many_tables &lt;span style="color:#f92672">=&lt;/span> Set(&lt;span style="color:#e6db74">&amp;#39;ManyToManyTable&amp;#39;&lt;/span>)
+PrimaryKey(id, primary_attr)
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="mysql-code">MySQL code&lt;/h3>
+&lt;p>MySQL生成的sql，注意optional_attr也是 &lt;code>NOT NULL&lt;/code>，因为MySQL中的&lt;code>NULL&lt;/code> 和 &lt;code>空值&lt;/code> 不是一个概念，最好在Requied&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sql" data-lang="sql">&lt;span style="color:#66d9ef">CREATE&lt;/span> &lt;span style="color:#66d9ef">TABLE&lt;/span> &lt;span style="color:#f92672">`&lt;/span>maintable&lt;span style="color:#f92672">`&lt;/span> (
+&lt;span style="color:#f92672">`&lt;/span>id&lt;span style="color:#f92672">`&lt;/span> INTEGER &lt;span style="color:#66d9ef">NOT&lt;/span> &lt;span style="color:#66d9ef">NULL&lt;/span>,
+&lt;span style="color:#f92672">`&lt;/span>optional_attr&lt;span style="color:#f92672">`&lt;/span> VARCHAR(&lt;span style="color:#ae81ff">255&lt;/span>) &lt;span style="color:#66d9ef">NOT&lt;/span> &lt;span style="color:#66d9ef">NULL&lt;/span>,
+&lt;span style="color:#f92672">`&lt;/span>required_attr&lt;span style="color:#f92672">`&lt;/span> VARCHAR(&lt;span style="color:#ae81ff">255&lt;/span>) &lt;span style="color:#66d9ef">NOT&lt;/span> &lt;span style="color:#66d9ef">NULL&lt;/span>,
+&lt;span style="color:#f92672">`&lt;/span>primary_attr&lt;span style="color:#f92672">`&lt;/span> VARCHAR(&lt;span style="color:#ae81ff">255&lt;/span>) &lt;span style="color:#66d9ef">NOT&lt;/span> &lt;span style="color:#66d9ef">NULL&lt;/span>,
+&lt;span style="color:#f92672">`&lt;/span>unique_attr&lt;span style="color:#f92672">`&lt;/span> DECIMAL(&lt;span style="color:#ae81ff">12&lt;/span>, &lt;span style="color:#ae81ff">2&lt;/span>) &lt;span style="color:#66d9ef">UNIQUE&lt;/span>,
+&lt;span style="color:#f92672">`&lt;/span>nullable_attr&lt;span style="color:#f92672">`&lt;/span> DATE,
+&lt;span style="color:#f92672">`&lt;/span>one_to_one_table&lt;span style="color:#f92672">`&lt;/span> INTEGER &lt;span style="color:#66d9ef">NOT&lt;/span> &lt;span style="color:#66d9ef">NULL&lt;/span>,
+&lt;span style="color:#f92672">`&lt;/span>one_to_many_table&lt;span style="color:#f92672">`&lt;/span> INTEGER &lt;span style="color:#66d9ef">NOT&lt;/span> &lt;span style="color:#66d9ef">NULL&lt;/span>,
+&lt;span style="color:#66d9ef">CONSTRAINT&lt;/span> &lt;span style="color:#f92672">`&lt;/span>pk_maintable&lt;span style="color:#f92672">`&lt;/span> &lt;span style="color:#66d9ef">PRIMARY&lt;/span> &lt;span style="color:#66d9ef">KEY&lt;/span> (&lt;span style="color:#f92672">`&lt;/span>id&lt;span style="color:#f92672">`&lt;/span>, &lt;span style="color:#f92672">`&lt;/span>primary_attr&lt;span style="color:#f92672">`&lt;/span>)
+);
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="多表关联">多表关联&lt;/h2>
+&lt;p>&lt;img src="images/20181017110420.png" alt="20181017110420">&lt;/p>
+&lt;h3 id="cascade_delete关联删除">cascade_delete关联删除&lt;/h3>
+&lt;p>当PonyORM删除实体(entity)的实例(instance)的时候，它还需要删除与其他对象(object)的关系。两个对象之间的关系由两个关系属性定义的。&lt;/p>
+&lt;ul>
+&lt;li>如果关系的另一侧被声明为 &lt;code>Set&lt;/code> ，则只需要从该集合中删除该对象；&lt;/li>
+&lt;li>多对一，删除该实例 * 多对多，删除中间表&lt;/li>
+&lt;li>如果另一边被声明为 &lt;code>Optional&lt;/code> ，则只需把它设置为None；&lt;/li>
+&lt;li>如果另一边被声明为 &lt;code>Required&lt;/code>，不能为该关系属性指定None&lt;/li>
+&lt;/ul>
+&lt;p>可以使用属性的 &lt;code>cascade_delete&lt;/code> 选项更改此默认行为。默认情况下，当关系的另一侧声明为Required时，此选项设置为True，对于所有其他关系类型，此选项设置为False。&lt;/p>
+&lt;ul>
+&lt;li>True 意味着 Pony 总是做关联删除，即时另一边定义的是 Optional。&lt;/li>
+&lt;li>False 意味着 Pony 总是不对这个关系做关联删除。&lt;/li>
+&lt;/ul>
+&lt;h3 id="关联关系表">关联关系表&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>cascade_delete&lt;/th>
+&lt;th>A和B的关系&lt;/th>
+&lt;th>B在A中的声明&lt;/th>
+&lt;th>A在B中的声明&lt;/th>
+&lt;th>操作&lt;/th>
+&lt;th>说明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>False&lt;/td>
+&lt;td>所有关系&lt;/td>
+&lt;td>所有类型&lt;/td>
+&lt;td>Require&lt;/td>
+&lt;td>删除A&lt;/td>
+&lt;td>因为B的声明中A是Require必须的，如果A被删除且B有记录，则会报错（raises the ConstraintError）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>True&lt;/td>
+&lt;td>一对一&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>删除A&lt;/td>
+&lt;td>B也会删除&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>True&lt;/td>
+&lt;td>一对多&lt;/td>
+&lt;td>Set&lt;/td>
+&lt;td>Optional&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>True&lt;/td>
+&lt;td>一对多&lt;/td>
+&lt;td>Set&lt;/td>
+&lt;td>Required&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>True&lt;/td>
+&lt;td>多对一&lt;/td>
+&lt;td>Optional&lt;/td>
+&lt;td>Set&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>True&lt;/td>
+&lt;td>多对一&lt;/td>
+&lt;td>Required&lt;/td>
+&lt;td>Set&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>True&lt;/td>
+&lt;td>多对一&lt;/td>
+&lt;td>Set&lt;/td>
+&lt;td>Set&lt;/td>
+&lt;td>&lt;/td>
+&lt;td>TypeError: &amp;lsquo;cascade_delete&amp;rsquo; option cannot be set for attribute Crontab.requestlog, because reverse attribute RequestLog.crontab is collection&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h4 id="案例">案例&lt;/h4>
+&lt;p>如果在另一端将关系定义为Required并且cascade_delete = False，则Pony会在删除尝试时引发ConstraintError异常，例如删除Services关联着Domain表，因为Domain表有外键依赖于Service，所以如果不把Domain关联联删除，删除Service时会报错。&lt;/p>
+&lt;h3 id="采坑记录">采坑记录&lt;/h3>
+&lt;p>&lt;a href="https://stackoverflow.com/questions/44060834/how-to-use-a-sql-view-with-pony-orm%22">How to use a SQL View with Pony ORM&lt;/a>&lt;/p>
+&lt;h3 id="inner-join和left-join">inner join和left join&lt;/h3>
+&lt;p>&lt;a href="https://stackoverflow.com/questions/41847908/pony-orm-join-syntax">Pony ORM JOIN syntax&lt;/a>&lt;/p>
+&lt;h4 id="raw-sql">raw sql&lt;/h4>
+&lt;p>You can write raw SQL query without defining any entity:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">with&lt;/span> db_session:
+start_date &lt;span style="color:#f92672">=&lt;/span> date(&lt;span style="color:#ae81ff">2017&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>)
+rows &lt;span style="color:#f92672">=&lt;/span> db&lt;span style="color:#f92672">.&lt;/span>select(&lt;span style="color:#e6db74">&amp;#39;&amp;#39;&amp;#39;
+&lt;/span>&lt;span style="color:#e6db74"> SELECT `Date` AS dt, `Aluminum Count` AS ac, `PET Count` AS pc
+&lt;/span>&lt;span style="color:#e6db74"> FROM `ResidueCountByDate`
+&lt;/span>&lt;span style="color:#e6db74"> WHERE `Date` &amp;gt;= $start_date
+&lt;/span>&lt;span style="color:#e6db74"> &amp;#39;&amp;#39;&amp;#39;&lt;/span>)
+&lt;span style="color:#66d9ef">for&lt;/span> row &lt;span style="color:#f92672">in&lt;/span> rows:
+&lt;span style="color:#66d9ef">print&lt;/span>(row[&lt;span style="color:#ae81ff">0&lt;/span>], row[&lt;span style="color:#ae81ff">1&lt;/span>], row[&lt;span style="color:#ae81ff">2&lt;/span>])
+&lt;span style="color:#66d9ef">print&lt;/span>(row&lt;span style="color:#f92672">.&lt;/span>dt, row&lt;span style="color:#f92672">.&lt;/span>ac, row&lt;span style="color:#f92672">.&lt;/span>pc) &lt;span style="color:#75715e"># the same as previous row &lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="new-entity">new entity&lt;/h4>
+&lt;p>Define a new entity and specify the view name as a table name for that entity:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">ResidueCountByDate&lt;/span>(db&lt;span style="color:#f92672">.&lt;/span>Entity):
+dt &lt;span style="color:#f92672">=&lt;/span> PrimaryKey(date, column&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Date&amp;#39;&lt;/span>)
+aluminum_count &lt;span style="color:#f92672">=&lt;/span> Required(int, column&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;Aluminum Count&amp;#39;&lt;/span>)
+pet_count &lt;span style="color:#f92672">=&lt;/span> Required(int, column&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;PET Count&amp;#39;&lt;/span>)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>After that you can use that entity to select data from the view:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">with&lt;/span> db_session:
+start_date &lt;span style="color:#f92672">=&lt;/span> date(&lt;span style="color:#ae81ff">2017&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>, &lt;span style="color:#ae81ff">1&lt;/span>)
+query &lt;span style="color:#f92672">=&lt;/span> select(
+rc &lt;span style="color:#66d9ef">for&lt;/span> rc &lt;span style="color:#f92672">in&lt;/span> ResidueCountByDate
+&lt;span style="color:#66d9ef">if&lt;/span> rc&lt;span style="color:#f92672">.&lt;/span>date &lt;span style="color:#f92672">&amp;gt;=&lt;/span> start_date)
+&lt;span style="color:#66d9ef">for&lt;/span> rc &lt;span style="color:#f92672">in&lt;/span> query:
+&lt;span style="color:#66d9ef">print&lt;/span>(rc&lt;span style="color:#f92672">.&lt;/span>date, rc&lt;span style="color:#f92672">.&lt;/span>aluminum_count, rc&lt;span style="color:#f92672">.&lt;/span>pet_count)
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>By default, a column name is equal to an attribute name. I explicitly specified column for each attribute, because in Python attribute names cannot contain spaces, and usually written in lowercase. It is possible to explicitly specify table name if it is not equal to entity name:&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-python" data-lang="python">&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">ResidueCount&lt;/span>(db&lt;span style="color:#f92672">.&lt;/span>Entity):
+_table_ &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#39;ResidueCountByDate&amp;#39;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div></description></item><item><title/><link>http://example.org/python/readme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://example.org/python/readme/</guid><description>&lt;ul>
+&lt;li>&lt;a href="http://example.org/python/ponyorm_implement.md">PonyORM实现原理浅析&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

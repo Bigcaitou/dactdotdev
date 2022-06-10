@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>wiki on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/wiki/</link>
+    <description>Recent content in wiki on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 23 Mar 2022 15:29:42 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/wiki/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>开源wiki系统wiki.js搭建</title>
+      <link>https://dact.dev/post/wikijs/</link>
+      <pubDate>Wed, 23 Mar 2022 15:29:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/wikijs/</guid>
+      <description>[TOC] https://docs.requarks.io/install/linux https://github.com/Requarks/wiki/releases release可以看到具体的文件有多大 1 wget https://github.com/Requarks/wiki/releases/download/v2.5.276/wiki-js.tar.gz Extract the package to the final destination of your choice: 1 2 3 mkdir wiki tar xzf wiki-js.tar.gz -C ./wiki cd ./wiki Rename the sample config file to config.yml: 1 mv config.sample.yml config.yml Edit the config file and fill in your database and port settings</description>
+    </item>
+    
+  </channel>
+</rss>

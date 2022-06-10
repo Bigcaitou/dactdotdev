@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Front-End on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/front-end/</link>
+    <description>Recent content in Front-End on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 16 Jan 2016 21:21:42 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/front-end/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KindEditor与ckplayer的简单结合</title>
+      <link>https://dact.dev/post/kindeditorckplayer/</link>
+      <pubDate>Sat, 16 Jan 2016 21:21:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/kindeditorckplayer/</guid>
+      <description>因项目需要，现将KindEditor与ckplayer相结合，搭建一个带本地视频播放的cms。 KindEditor KindEditor的安装与配置这里不做多余</description>
+    </item>
+    
+    <item>
+      <title>网页中的中文自定义字体和@font-face</title>
+      <link>https://dact.dev/post/custom_font/</link>
+      <pubDate>Tue, 27 May 2014 14:58:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/custom_font/</guid>
+      <description>网页中的中文自定义字体和@font-face 2016年4月28号更新： 现在有第三方的工具sfnttool可以直接裁剪中文字体文件，详见《中文</description>
+    </item>
+    
+  </channel>
+</rss>

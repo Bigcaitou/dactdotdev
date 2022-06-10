@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dacaitou on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/dacaitou/</link>
+    <description>Recent content in dacaitou on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 17 Feb 2022 14:39:06 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/dacaitou/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于</title>
+      <link>https://dact.dev/about/</link>
+      <pubDate>Thu, 17 Feb 2022 14:39:06 +0800</pubDate>
+      
+      <guid>https://dact.dev/about/</guid>
+      <description>个人介绍 本站点由 大菜头(@dacaitou) 维护， 站点内容 本站点包括但不限于如下： twitter|呢喃 Web Linux Python Java OS 站点搭建 本站点的搭建通过如下</description>
+    </item>
+    
+  </channel>
+</rss>

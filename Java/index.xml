@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Javae on My New Hugo Site</title><link>http://example.org/java/</link><description>Recent content in Javae on My New Hugo Site</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><atom:link href="http://example.org/java/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>http://example.org/java/hehehe_snapshot/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://example.org/java/hehehe_snapshot/</guid><description>&lt;p>[TOC]&lt;/p>
+&lt;blockquote>
+&lt;p>一切都源于这个表情，后面这个表情就以不可预料的情况演化了。那时想着做一个能加苍蝇的截图工具，程序是用JAVA实现的，项目托管在GitHub &lt;a href="https://github.com/Bigcaitou/HEHEHEScreenshot">https://github.com/Bigcaitou/HEHEHEScreenshot&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="images/10104625_kRAQ.jpg" alt="苍蝇表情">&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">&lt;strong>Talk is cheap, show you the code.&lt;/strong>&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;/table>
+&lt;h2 id="截取屏幕">截取屏幕&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-JAVA" data-lang="JAVA">&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#a6e22e">RectD&lt;/span>&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+snapshot&lt;span style="color:#f92672">();&lt;/span>
+setVisible&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">true&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#75715e">// setSize(d);//最大化窗口
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">//用 JDialog 做一个无控制条的窗口，大小设置成满屏，把截取的这个满屏的图片贴到这个 JDiaglog 里
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> setDefaultCloseOperation&lt;span style="color:#f92672">(&lt;/span>JFrame&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">EXIT_ON_CLOSE&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#66d9ef">this&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">addMouseListener&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> MouseAdapter&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">{&lt;/span>&lt;span style="color:#75715e">// 得到鼠标箭头初始坐标
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">@Override&lt;/span>
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">mousePressed&lt;/span>&lt;span style="color:#f92672">(&lt;/span>MouseEvent e&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+orgx &lt;span style="color:#f92672">=&lt;/span> e&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getX&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+orgy &lt;span style="color:#f92672">=&lt;/span> e&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getY&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">});&lt;/span>
+&lt;span style="color:#75715e">//鼠标圈定区域， 对圈定的区域截屏
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">addMouseMotionListener&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> MouseMotionAdapter&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#a6e22e">@Override&lt;/span>
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">mouseDragged&lt;/span>&lt;span style="color:#f92672">(&lt;/span>MouseEvent e&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+endx &lt;span style="color:#f92672">=&lt;/span> e&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getX&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+endy &lt;span style="color:#f92672">=&lt;/span> e&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getY&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+g &lt;span style="color:#f92672">=&lt;/span> getGraphics&lt;span style="color:#f92672">();&lt;/span>
+g&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">drawImage&lt;/span>&lt;span style="color:#f92672">(&lt;/span>tempImage&lt;span style="color:#f92672">,&lt;/span> 0&lt;span style="color:#f92672">,&lt;/span> 0&lt;span style="color:#f92672">,&lt;/span> RectD&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">this&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#66d9ef">int&lt;/span> x &lt;span style="color:#f92672">=&lt;/span> Math&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">min&lt;/span>&lt;span style="color:#f92672">(&lt;/span>orgx&lt;span style="color:#f92672">,&lt;/span> endx&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#66d9ef">int&lt;/span> y &lt;span style="color:#f92672">=&lt;/span> Math&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">min&lt;/span>&lt;span style="color:#f92672">(&lt;/span>orgy&lt;span style="color:#f92672">,&lt;/span> endy&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#66d9ef">int&lt;/span> width &lt;span style="color:#f92672">=&lt;/span> Math&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">abs&lt;/span>&lt;span style="color:#f92672">(&lt;/span>endx &lt;span style="color:#f92672">-&lt;/span> orgx&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">+&lt;/span> 1&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#66d9ef">int&lt;/span> height &lt;span style="color:#f92672">=&lt;/span> Math&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">abs&lt;/span>&lt;span style="color:#f92672">(&lt;/span>endy &lt;span style="color:#f92672">-&lt;/span> orgy&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">+&lt;/span> 1&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#75715e">// 加上1，防止width或height为0
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> g&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">setColor&lt;/span>&lt;span style="color:#f92672">(&lt;/span>Color&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">BLUE&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+g&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">drawRect&lt;/span>&lt;span style="color:#f92672">(&lt;/span>x &lt;span style="color:#f92672">-&lt;/span> 1&lt;span style="color:#f92672">,&lt;/span> y &lt;span style="color:#f92672">-&lt;/span> 1&lt;span style="color:#f92672">,&lt;/span> width &lt;span style="color:#f92672">+&lt;/span> 1&lt;span style="color:#f92672">,&lt;/span> height &lt;span style="color:#f92672">+&lt;/span> 1&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#75715e">// 减1，加1都是为了防止图片将矩形框覆盖掉
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> saveImage &lt;span style="color:#f92672">=&lt;/span> image&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getSubimage&lt;/span>&lt;span style="color:#f92672">(&lt;/span>x&lt;span style="color:#f92672">,&lt;/span> y&lt;span style="color:#f92672">,&lt;/span> width&lt;span style="color:#f92672">,&lt;/span> height&lt;span style="color:#f92672">);&lt;/span>
+g&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">drawImage&lt;/span>&lt;span style="color:#f92672">(&lt;/span>saveImage&lt;span style="color:#f92672">,&lt;/span> x&lt;span style="color:#f92672">,&lt;/span> y&lt;span style="color:#f92672">,&lt;/span> RectD&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">this&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">});&lt;/span>
+&lt;span style="color:#75715e">//双击鼠标截图
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">addMouseListener&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> MouseAdapter&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#a6e22e">@Override&lt;/span>
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">mousePressed&lt;/span>&lt;span style="color:#f92672">(&lt;/span>MouseEvent e&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">int&lt;/span> clickTimes &lt;span style="color:#f92672">=&lt;/span> e&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getClickCount&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">(&lt;/span>clickTimes &lt;span style="color:#f92672">==&lt;/span> 2&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+saveToFile&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">});&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-JAVA" data-lang="JAVA">&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">snapshot&lt;/span>&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">try&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+Robot robot &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> Robot&lt;span style="color:#f92672">();&lt;/span>
+Dimension d &lt;span style="color:#f92672">=&lt;/span> Toolkit&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getDefaultToolkit&lt;/span>&lt;span style="color:#f92672">().&lt;/span>&lt;span style="color:#a6e22e">getScreenSize&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+image &lt;span style="color:#f92672">=&lt;/span> robot&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">createScreenCapture&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> Rectangle&lt;span style="color:#f92672">(&lt;/span>0&lt;span style="color:#f92672">,&lt;/span> 0&lt;span style="color:#f92672">,&lt;/span> d&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">width&lt;/span>&lt;span style="color:#f92672">,&lt;/span> d&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">height&lt;/span>&lt;span style="color:#f92672">));&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span> &lt;span style="color:#66d9ef">catch&lt;/span> &lt;span style="color:#f92672">(&lt;/span>AWTException e&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+e&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">printStackTrace&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>利用Robot的createScreenCapture可以截图，但是有个问题是遇到多个屏幕，这个方法只能在默认屏幕截图。&lt;/p>
+&lt;h2 id="添加苍蝇">添加苍蝇&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-JAVA" data-lang="JAVA">&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">static&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">markImageByIcon&lt;/span>&lt;span style="color:#f92672">(&lt;/span>String iconPath&lt;span style="color:#f92672">,&lt;/span> String srcImgPath&lt;span style="color:#f92672">,&lt;/span> String targerPath&lt;span style="color:#f92672">,&lt;/span> Integer degree&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+OutputStream os &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#66d9ef">try&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+Image srcImg &lt;span style="color:#f92672">=&lt;/span> ImageIO&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">read&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> File&lt;span style="color:#f92672">(&lt;/span>srcImgPath&lt;span style="color:#f92672">));&lt;/span>
+BufferedImage buffImg &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> BufferedImage&lt;span style="color:#f92672">(&lt;/span>srcImg&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getWidth&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">null&lt;/span>&lt;span style="color:#f92672">),&lt;/span> srcImg&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getHeight&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">null&lt;/span>&lt;span style="color:#f92672">),&lt;/span>
+BufferedImage&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">TYPE_INT_RGB&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#75715e">// 得到画笔对象
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> Graphics2D g &lt;span style="color:#f92672">=&lt;/span> buffImg&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">createGraphics&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#75715e">// 设置对线段的锯齿状边缘处理
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> g&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">setRenderingHint&lt;/span>&lt;span style="color:#f92672">(&lt;/span>RenderingHints&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">KEY_INTERPOLATION&lt;/span>&lt;span style="color:#f92672">,&lt;/span> RenderingHints&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">VALUE_INTERPOLATION_BILINEAR&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+g&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">drawImage&lt;/span>&lt;span style="color:#f92672">(&lt;/span>srcImg&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getScaledInstance&lt;/span>&lt;span style="color:#f92672">(&lt;/span>srcImg&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getWidth&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">null&lt;/span>&lt;span style="color:#f92672">),&lt;/span> srcImg&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getHeight&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">null&lt;/span>&lt;span style="color:#f92672">),&lt;/span> Image&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">SCALE_SMOOTH&lt;/span>&lt;span style="color:#f92672">),&lt;/span> 0&lt;span style="color:#f92672">,&lt;/span>
+0&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">null&lt;/span> &lt;span style="color:#f92672">!=&lt;/span> degree&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#75715e">// 设置水印旋转
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> g&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">rotate&lt;/span>&lt;span style="color:#f92672">(&lt;/span>Math&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">toRadians&lt;/span>&lt;span style="color:#f92672">(&lt;/span>degree&lt;span style="color:#f92672">),&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">double&lt;/span>&lt;span style="color:#f92672">)&lt;/span> buffImg&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getWidth&lt;/span>&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">/&lt;/span> 2&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">double&lt;/span>&lt;span style="color:#f92672">)&lt;/span> buffImg&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getHeight&lt;/span>&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">/&lt;/span> 2&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#75715e">// 水印图象的路径 水印一般为gif或者png的，这样可设置透明度
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> ImageIcon imgIcon &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> ImageIcon&lt;span style="color:#f92672">(&lt;/span>iconPath&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#75715e">// ImageIcon imgIcon = new ImageIcon(iconPath);
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// 得到Image对象。
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> Image img &lt;span style="color:#f92672">=&lt;/span> imgIcon&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getImage&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#66d9ef">float&lt;/span> alpha &lt;span style="color:#f92672">=&lt;/span> 1f&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#75715e">// 透明度
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> g&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">setComposite&lt;/span>&lt;span style="color:#f92672">(&lt;/span>AlphaComposite&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getInstance&lt;/span>&lt;span style="color:#f92672">(&lt;/span>AlphaComposite&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">SRC_ATOP&lt;/span>&lt;span style="color:#f92672">,&lt;/span> alpha&lt;span style="color:#f92672">));&lt;/span>
+&lt;span style="color:#75715e">// 表示水印图片的位置
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> g&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">drawImage&lt;/span>&lt;span style="color:#f92672">(&lt;/span>img&lt;span style="color:#f92672">,&lt;/span> 50&lt;span style="color:#f92672">,&lt;/span> 50&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+g&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">setComposite&lt;/span>&lt;span style="color:#f92672">(&lt;/span>AlphaComposite&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getInstance&lt;/span>&lt;span style="color:#f92672">(&lt;/span>AlphaComposite&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">SRC_OVER&lt;/span>&lt;span style="color:#f92672">));&lt;/span>
+g&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">dispose&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+os &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> FileOutputStream&lt;span style="color:#f92672">(&lt;/span>targerPath&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#75715e">// 生成图片
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> ImageIO&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">write&lt;/span>&lt;span style="color:#f92672">(&lt;/span>buffImg&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;PNG&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> os&lt;span style="color:#f92672">);&lt;/span>
+setClipboardImage&lt;span style="color:#f92672">(&lt;/span>buffImg&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span> &lt;span style="color:#66d9ef">catch&lt;/span> &lt;span style="color:#f92672">(&lt;/span>Exception e&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+e&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">printStackTrace&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span> &lt;span style="color:#66d9ef">finally&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">try&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">null&lt;/span> &lt;span style="color:#f92672">!=&lt;/span> os&lt;span style="color:#f92672">)&lt;/span>
+os&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">close&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span> &lt;span style="color:#66d9ef">catch&lt;/span> &lt;span style="color:#f92672">(&lt;/span>Exception e&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+e&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">printStackTrace&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>苍蝇的大小要合适，太大的话太假，太小的话素材太难抠了，最后苍蝇素材是从一个苍蝇画刷工具而来的，我还找了会PS的同学帮我画上苍蝇腿。&lt;/p>
+&lt;h2 id="截图复制到剪贴板">截图复制到剪贴板&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-JAVA" data-lang="JAVA">&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">static&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">setClipboardImage&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">final&lt;/span> Image image&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+Transferable trans &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> Transferable&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">public&lt;/span> DataFlavor&lt;span style="color:#f92672">[]&lt;/span> &lt;span style="color:#a6e22e">getTransferDataFlavors&lt;/span>&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> DataFlavor&lt;span style="color:#f92672">[]&lt;/span> &lt;span style="color:#f92672">{&lt;/span> DataFlavor&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">imageFlavor&lt;/span> &lt;span style="color:#f92672">};&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">boolean&lt;/span> &lt;span style="color:#a6e22e">isDataFlavorSupported&lt;/span>&lt;span style="color:#f92672">(&lt;/span>DataFlavor flavor&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">return&lt;/span> DataFlavor&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">imageFlavor&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">equals&lt;/span>&lt;span style="color:#f92672">(&lt;/span>flavor&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#66d9ef">public&lt;/span> Object &lt;span style="color:#a6e22e">getTransferData&lt;/span>&lt;span style="color:#f92672">(&lt;/span>DataFlavor flavor&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#66d9ef">throws&lt;/span> UnsupportedFlavorException&lt;span style="color:#f92672">,&lt;/span> IOException &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">(&lt;/span>isDataFlavorSupported&lt;span style="color:#f92672">(&lt;/span>flavor&lt;span style="color:#f92672">))&lt;/span>
+&lt;span style="color:#66d9ef">return&lt;/span> image&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#66d9ef">throw&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> UnsupportedFlavorException&lt;span style="color:#f92672">(&lt;/span>flavor&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">};&lt;/span>
+Toolkit&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getDefaultToolkit&lt;/span>&lt;span style="color:#f92672">().&lt;/span>&lt;span style="color:#a6e22e">getSystemClipboard&lt;/span>&lt;span style="color:#f92672">().&lt;/span>&lt;span style="color:#a6e22e">setContents&lt;/span>&lt;span style="color:#f92672">(&lt;/span>trans&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="系统托盘">系统托盘&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-JAVA" data-lang="JAVA">&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">static&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">SystemTrayDemo&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> JFrame &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">private&lt;/span> &lt;span style="color:#66d9ef">static&lt;/span> &lt;span style="color:#66d9ef">final&lt;/span> &lt;span style="color:#66d9ef">long&lt;/span> serialVersionUID &lt;span style="color:#f92672">=&lt;/span> 1L&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#66d9ef">private&lt;/span> TrayIcon trayIcon &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#a6e22e">SystemTrayDemo&lt;/span>&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">(&lt;/span>SystemTray&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">isSupported&lt;/span>&lt;span style="color:#f92672">())&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#75715e">// 检查当前系统是否支持系统托盘
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> SystemTray tray &lt;span style="color:#f92672">=&lt;/span> SystemTray&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getSystemTray&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#75715e">// 获取表示桌面托盘区的SystemTray实例。
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> Image image &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getToolkit&lt;/span>&lt;span style="color:#f92672">().&lt;/span>&lt;span style="color:#a6e22e">getImage&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">this&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getClass&lt;/span>&lt;span style="color:#f92672">().&lt;/span>&lt;span style="color:#a6e22e">getResource&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;/image/logo.png&amp;#34;&lt;/span>&lt;span style="color:#f92672">));&lt;/span>
+PopupMenu popupMenu &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> PopupMenu&lt;span style="color:#f92672">();&lt;/span>
+MenuItem exitItem &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> MenuItem&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;退出&amp;#34;&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+MenuItem menuItema &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> MenuItem&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;截图&amp;#34;&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+exitItem&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">addActionListener&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> ActionListener&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">actionPerformed&lt;/span>&lt;span style="color:#f92672">(&lt;/span>ActionEvent e&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">try&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+System&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">exit&lt;/span>&lt;span style="color:#f92672">(&lt;/span>0&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span> &lt;span style="color:#66d9ef">catch&lt;/span> &lt;span style="color:#f92672">(&lt;/span>Exception ex&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+ex&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">printStackTrace&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">});&lt;/span>
+popupMenu&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">add&lt;/span>&lt;span style="color:#f92672">(&lt;/span>menuItema&lt;span style="color:#f92672">);&lt;/span>
+popupMenu&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">add&lt;/span>&lt;span style="color:#f92672">(&lt;/span>exitItem&lt;span style="color:#f92672">);&lt;/span>
+trayIcon &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> TrayIcon&lt;span style="color:#f92672">(&lt;/span>image&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;呵呵呵截图&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> popupMenu&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#f92672">(&lt;/span>flag&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+flag &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">false&lt;/span>&lt;span style="color:#f92672">;&lt;/span>
+menuItema&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">addActionListener&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> ActionListener&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">actionPerformed&lt;/span>&lt;span style="color:#f92672">(&lt;/span>ActionEvent e&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#75715e">// 这里调用截图功能
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> RectD rd &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> RectD&lt;span style="color:#f92672">();&lt;/span>
+GraphicsDevice gd &lt;span style="color:#f92672">=&lt;/span> GraphicsEnvironment&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getLocalGraphicsEnvironment&lt;/span>&lt;span style="color:#f92672">()&lt;/span>
+&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getDefaultScreenDevice&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+gd&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">setFullScreenWindow&lt;/span>&lt;span style="color:#f92672">(&lt;/span>rd&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">});&lt;/span>
+&lt;span style="color:#66d9ef">try&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+tray&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">add&lt;/span>&lt;span style="color:#f92672">(&lt;/span>trayIcon&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#75715e">// 将 TrayIcon 添加到 SystemTray。
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#f92672">}&lt;/span> &lt;span style="color:#66d9ef">catch&lt;/span> &lt;span style="color:#f92672">(&lt;/span>AWTException e&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+System&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">err&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">println&lt;/span>&lt;span style="color:#f92672">(&lt;/span>e&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span> &lt;span style="color:#66d9ef">else&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+System&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">out&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">println&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;你的系统不支持系统托盘&amp;#34;&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#66d9ef">try&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span> &lt;span style="color:#66d9ef">catch&lt;/span> &lt;span style="color:#f92672">(&lt;/span>Exception e&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>可能会遇到托盘乱码，可以参考 &lt;a href="http://blog.csdn.net/lishaman/article/details/17751727">《java软件托盘MenuItem 显示中文出现框框乱码、读取ini配置文件乱码》&lt;/a> ，来解决问题。&lt;/p>
+&lt;h2 id="保存图片">保存图片&lt;/h2>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-JAVA" data-lang="JAVA">&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">saveToFile&lt;/span>&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+SimpleDateFormat sdf &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> SimpleDateFormat&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;yyyy年MM月dd日HH时mm分ss秒&amp;#34;&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+String name &lt;span style="color:#f92672">=&lt;/span> sdf&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">format&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">new&lt;/span> Date&lt;span style="color:#f92672">());&lt;/span>
+File path &lt;span style="color:#f92672">=&lt;/span> FileSystemView&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getFileSystemView&lt;/span>&lt;span style="color:#f92672">().&lt;/span>&lt;span style="color:#a6e22e">getHomeDirectory&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#75715e">// 图片保存在桌面
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> String format &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;png&amp;#34;&lt;/span>&lt;span style="color:#f92672">;&lt;/span>
+File f &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> File&lt;span style="color:#f92672">(&lt;/span>path &lt;span style="color:#f92672">+&lt;/span> File&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">separator&lt;/span> &lt;span style="color:#f92672">+&lt;/span> name &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#34;.&amp;#34;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> format&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#66d9ef">try&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+ImageIO&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">write&lt;/span>&lt;span style="color:#f92672">(&lt;/span>saveImage&lt;span style="color:#f92672">,&lt;/span> format&lt;span style="color:#f92672">,&lt;/span> f&lt;span style="color:#f92672">);&lt;/span>
+String srcImgPath &lt;span style="color:#f92672">=&lt;/span> path &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#34;\\&amp;#34;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> name &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#34;.png&amp;#34;&lt;/span>&lt;span style="color:#f92672">;&lt;/span>
+String iconPath &lt;span style="color:#f92672">=&lt;/span> System&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getProperty&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;user.dir&amp;#34;&lt;/span>&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#34;\\1.png&amp;#34;&lt;/span>&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#75715e">// URL iconPath = this.getClass().getResource(&amp;#34;/image/1.png&amp;#34;);
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> String targerPath &lt;span style="color:#f92672">=&lt;/span> path &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#34;\\&amp;#34;&lt;/span> &lt;span style="color:#f92672">+&lt;/span> name &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#34;呵呵呵.png&amp;#34;&lt;/span>&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#66d9ef">this&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">dispose&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#75715e">//给图片添加水印
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> HEHEHEScreenshot&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">markImageByIcon&lt;/span>&lt;span style="color:#f92672">(&lt;/span>iconPath&lt;span style="color:#f92672">,&lt;/span> srcImgPath&lt;span style="color:#f92672">,&lt;/span> targerPath&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span> &lt;span style="color:#66d9ef">catch&lt;/span> &lt;span style="color:#f92672">(&lt;/span>IOException e&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+e&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">printStackTrace&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>效果图如下所示：&lt;/p>
+&lt;p>&lt;img src="images/10104658_oAsF.png" alt="HEHEHE">&lt;/p>
+&lt;h2 id="相关链接">相关链接&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:center">相关链接&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a href="https://mega.nz/#!bF4HSaSQ!wFtq9vbUzrqvTI6Xe0WJcZg0YZIVg4HINNQEZ3MmTOE">苍蝇画刷工具下载&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a href="https://github.com/Bigcaitou/HEHEHEScreenshot">项目主页&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a href="http://www.cnblogs.com/superjt/archive/2012/12/19/2824426.html">java 截图源码&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a href="http://www.2cto.com/kf/201108/101021.html">Java实现给图片添加水印&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:center">&lt;a href="http://blog.csdn.net/lishaman/article/details/17751727">java软件托盘MenuItem 显示中文出现框框乱码、读取ini配置文件乱码&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>下次再讲&lt;/p>
+&lt;blockquote>
+&lt;ul>
+&lt;li>jar的运行&lt;/li>
+&lt;li>jar→exe&lt;/li>
+&lt;li>jre精简&lt;/li>
+&lt;li>跨平台优化&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;p>为什么要叫HEHEHEScreenshot呢，因为之前我注册过一个域名：hehehe.xyz，然后就在谷歌成立母公司Alphabet并注册域名abc.xyz之后，我才想起我的hehehe.xyz忘记续费了，结果被别人抢注了哭，本来一个很有意思的域名，呵呵呵，我现在只能翻出来之前写的用来调戏处女座的截图工具，来纪念我的hehehe.xyz&lt;/p></description></item><item><title/><link>http://example.org/java/jforum1/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://example.org/java/jforum1/</guid><description>&lt;p>[TOC]&lt;/p>
+&lt;h2 id="jforum二次开发相关笔记">jforum二次开发相关笔记&lt;/h2>
+&lt;h3 id="1-引言">1. 引言&lt;/h3>
+&lt;p>&lt;a href="http://jforum.net">jforum&lt;/a>是Rafael Steil开发的一个基于JAVA的开源论坛，采用BSD开源协议，可以最大限度的进行任何修改和扩展，包括商业用途。它提供了诸如SSO之类的抽象接口，具有完全的权限控制、支持包括中文在内的十几种语言、可自定义的用户接口、安全、多数据库支持等特性。JForum 采用 FreeMarker作为页面模板引擎。jforum的介绍这里不再敷述，因项目需要，需要对jforum进行修改、实现从CS平台登录以后单点登录到jforum，因为jforum只支持唯一用户名标识，所以还需对jforum进行二次开发。(注：本文的jforum版本为2.1.9。)&lt;/p>
+&lt;h3 id="2-jforum的页面请求机制">2. jforum的页面请求机制&lt;/h3>
+&lt;p>将jforum导入到eclipse可以参考《&lt;a href="http://www.jiacode.com/739.html">Java开源论坛JForum二次开发技术资料之导入安装&lt;/a>》。以最简单的在一个登陆用户进入 &lt;code>个人资料&lt;/code>页为例：&lt;/p>
+&lt;p>&lt;img src="images/26173549_bKYN.png" alt="jforum导航栏">&lt;/p>
+&lt;h4 id="21-处理url">2.1 处理url&lt;/h4>
+&lt;p>用户点击 &lt;code>个人资料&lt;/code>，页面请求的url为/user/edit/session中获取的用户Id如header.htm源码所示：
+&lt;code>/jforum/WebContent/templates/default/header.htm&lt;/code>&lt;/p>
+&lt;pre>&lt;code class="language-jsp" data-lang="jsp">&amp;lt;a id=&amp;quot;myprofile&amp;quot; class=&amp;quot;mainmenu&amp;quot; href=&amp;quot;${JForumContext.encodeURL(&amp;quot;/user/edit/${session.userId}&amp;quot;)}&amp;quot;&amp;gt;
+&amp;lt;img src=&amp;quot;${contextPath}/templates/${templateName}/images/icon_mini_profile.gif&amp;quot; border=&amp;quot;0&amp;quot; alt=&amp;quot;[Profile]&amp;quot; /&amp;gt;
+${I18n.getMessage(&amp;quot;ForumBase.profile&amp;quot;)}
+&lt;/code>&lt;/pre>&lt;p>JForum中的JForumContext.encodeURL方法（注：实现在/jforum/src/net/jforum/context/JForumContext.java下）根据请求的url中的 user&lt;code>和 edit&lt;/code>在modulesMapping.properties中查询user对应的配置项:&lt;/p>
+&lt;p>&lt;code>/jforum/WebContent/WEB-INF/config/modulesMapping.properties&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">user&lt;span style="color:#f92672">=&lt;/span>net&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">jforum&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">view&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">forum&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">UserAction&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="22-查询action">2.2 查询action&lt;/h4>
+&lt;p>根据请求的url中的 edit`在相应的UserAction中找到edit方法：&lt;/p>
+&lt;p>&lt;code>/jforum/src/net/jforum/view/forum/UserAction.java&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">void&lt;/span> &lt;span style="color:#a6e22e">edit&lt;/span>&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">this&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">canEdit&lt;/span>&lt;span style="color:#f92672">())&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">int&lt;/span> userId &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">this&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">request&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getIntParameter&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;user_id&amp;#34;&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+UserDAO um &lt;span style="color:#f92672">=&lt;/span> DataAccessDriver&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getInstance&lt;/span>&lt;span style="color:#f92672">().&lt;/span>&lt;span style="color:#a6e22e">newUserDAO&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+User u &lt;span style="color:#f92672">=&lt;/span> um&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">selectById&lt;/span>&lt;span style="color:#f92672">(&lt;/span>userId&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#66d9ef">this&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">context&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">put&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;u&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> u&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#66d9ef">this&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">context&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">put&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;action&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> &lt;span style="color:#e6db74">&amp;#34;editSave&amp;#34;&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#66d9ef">this&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">context&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">put&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;pageTitle&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> I18n&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getMessage&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;UserProfile.profileFor&amp;#34;&lt;/span>&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">+&lt;/span> &lt;span style="color:#e6db74">&amp;#34; &amp;#34;&lt;/span> &lt;span style="color:#f92672">+&lt;/span>u&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getUsername&lt;/span>&lt;span style="color:#f92672">());&lt;/span>
+&lt;span style="color:#66d9ef">this&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">context&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">put&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;avatarAllowExternalUrl&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> SystemGlobals&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getBoolValue&lt;/span>&lt;span style="color:#f92672">(&lt;/span>ConfigKeys&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">AVATAR_ALLOW_EXTERNAL_URL&lt;/span>&lt;span style="color:#f92672">));&lt;/span>
+&lt;span style="color:#66d9ef">this&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">setTemplateName&lt;/span>&lt;span style="color:#f92672">(&lt;/span>TemplateKeys&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">USER_EDIT&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="23-查询dao层">2.3 查询dao层&lt;/h4>
+&lt;p>根据action中的 um.selectById(userId)`请求UserDAO文件中的selectById方法：&lt;/p>
+&lt;p>&lt;code>/jforum/src/net/jforum/dao/UserDAO.java&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#75715e">/**
+&lt;/span>&lt;span style="color:#75715e">* Gets a specific &amp;lt;code&amp;gt;User&amp;lt;/code&amp;gt;.
+&lt;/span>&lt;span style="color:#75715e">*
+&lt;/span>&lt;span style="color:#75715e">* @param userId The User ID to search
+&lt;/span>&lt;span style="color:#75715e">* @return &amp;lt;code&amp;gt;User&amp;lt;/code&amp;gt;object containing all the information
+&lt;/span>&lt;span style="color:#75715e">* @see #selectAll
+&lt;/span>&lt;span style="color:#75715e">*/&lt;/span>
+&lt;span style="color:#66d9ef">public&lt;/span> User &lt;span style="color:#a6e22e">selectById&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">int&lt;/span> userId&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>UserDAO只是一个抽象的DAO接口，GenericUserDAO具体实现了UserDAO中定义的方法：&lt;/p>
+&lt;p>&lt;code>/jforum/src/net/jforum/dao/generic/GenericUserDAO.java&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#75715e">/**
+&lt;/span>&lt;span style="color:#75715e">* @see net.jforum.dao.UserDAO#selectById(int)
+&lt;/span>&lt;span style="color:#75715e">*/&lt;/span>
+&lt;span style="color:#66d9ef">public&lt;/span> User &lt;span style="color:#a6e22e">selectById&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#66d9ef">int&lt;/span> userId&lt;span style="color:#f92672">)&lt;/span>
+&lt;span style="color:#f92672">{&lt;/span>
+String q &lt;span style="color:#f92672">=&lt;/span> SystemGlobals&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getSql&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;UserModel.selectById&amp;#34;&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+PreparedStatement p &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>&lt;span style="color:#f92672">;&lt;/span>
+ResultSet rs &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">null&lt;/span>&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#66d9ef">try&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+p &lt;span style="color:#f92672">=&lt;/span> JForumExecutionContext&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getConnection&lt;/span>&lt;span style="color:#f92672">().&lt;/span>&lt;span style="color:#a6e22e">prepareStatement&lt;/span>&lt;span style="color:#f92672">(&lt;/span>q&lt;span style="color:#f92672">);&lt;/span>
+p&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">setInt&lt;/span>&lt;span style="color:#f92672">(&lt;/span>1&lt;span style="color:#f92672">,&lt;/span> userId&lt;span style="color:#f92672">);&lt;/span>
+rs &lt;span style="color:#f92672">=&lt;/span> p&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">executeQuery&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+User u &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> User&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#f92672">(&lt;/span>rs&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">next&lt;/span>&lt;span style="color:#f92672">())&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">this&lt;/span>&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">fillUserFromResultSet&lt;/span>&lt;span style="color:#f92672">(&lt;/span>u&lt;span style="color:#f92672">,&lt;/span> rs&lt;span style="color:#f92672">);&lt;/span>
+u&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">setPrivateMessagesCount&lt;/span>&lt;span style="color:#f92672">(&lt;/span>rs&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getInt&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;private_messages&amp;#34;&lt;/span>&lt;span style="color:#f92672">));&lt;/span>
+rs&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">close&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+p&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">close&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#75715e">// User groups
+&lt;/span>&lt;span style="color:#75715e">&lt;/span> p &lt;span style="color:#f92672">=&lt;/span> JForumExecutionContext&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getConnection&lt;/span>&lt;span style="color:#f92672">().&lt;/span>&lt;span style="color:#a6e22e">prepareStatement&lt;/span>&lt;span style="color:#f92672">(&lt;/span>SystemGlobals&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getSql&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;UserModelselectGroups&amp;#34;&lt;/span>&lt;span style="color:#f92672">));&lt;/span>
+p&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">setInt&lt;/span>&lt;span style="color:#f92672">(&lt;/span>1&lt;span style="color:#f92672">,&lt;/span> userId&lt;span style="color:#f92672">);&lt;/span>
+rs &lt;span style="color:#f92672">=&lt;/span> p&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">executeQuery&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#66d9ef">while&lt;/span> &lt;span style="color:#f92672">(&lt;/span>rs&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">next&lt;/span>&lt;span style="color:#f92672">())&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+Group g &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> Group&lt;span style="color:#f92672">();&lt;/span>
+g&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">setName&lt;/span>&lt;span style="color:#f92672">(&lt;/span>rs&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getString&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;group_name&amp;#34;&lt;/span>&lt;span style="color:#f92672">));&lt;/span>
+g&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">setId&lt;/span>&lt;span style="color:#f92672">(&lt;/span>rs&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getInt&lt;/span>&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;group_id&amp;#34;&lt;/span>&lt;span style="color:#f92672">));&lt;/span>
+u&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getGroupsList&lt;/span>&lt;span style="color:#f92672">().&lt;/span>&lt;span style="color:#a6e22e">add&lt;/span>&lt;span style="color:#f92672">(&lt;/span>g&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#66d9ef">return&lt;/span> u&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#66d9ef">catch&lt;/span> &lt;span style="color:#f92672">(&lt;/span>SQLException e&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">throw&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> DatabaseException&lt;span style="color:#f92672">(&lt;/span>e&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#66d9ef">finally&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+DbUtils&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">close&lt;/span>&lt;span style="color:#f92672">(&lt;/span>rs&lt;span style="color:#f92672">,&lt;/span> p&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="24-查询sql">2.4 查询sql&lt;/h4>
+&lt;p>根据GenericUserDAO文件中的 UserModel.selectById`查询sql文件中相应的sql：&lt;/p>
+&lt;p>&lt;code>/jforum/WebContent/WEB-INF/config/database/generic/generic_queries.sql&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-sql" data-lang="sql">UserModel.selectById &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">SELECT&lt;/span> &lt;span style="color:#66d9ef">COUNT&lt;/span>(pm.privmsgs_to_userid) &lt;span style="color:#66d9ef">AS&lt;/span> private_messages, u.&lt;span style="color:#f92672">*&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">\&lt;/span>
+&lt;span style="color:#66d9ef">FROM&lt;/span> jforum_users u &lt;span style="color:#960050;background-color:#1e0010">\&lt;/span>
+&lt;span style="color:#66d9ef">LEFT&lt;/span> &lt;span style="color:#66d9ef">JOIN&lt;/span> jforum_privmsgs pm &lt;span style="color:#66d9ef">ON&lt;/span> pm.privmsgs_type &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#66d9ef">AND&lt;/span> pm.privmsgs_to_userid &lt;span style="color:#f92672">=&lt;/span> u.user_id &lt;span style="color:#960050;background-color:#1e0010">\&lt;/span>
+&lt;span style="color:#66d9ef">WHERE&lt;/span> u.user_id &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">?&lt;/span> &lt;span style="color:#960050;background-color:#1e0010">\&lt;/span>
+&lt;span style="color:#66d9ef">GROUP&lt;/span> &lt;span style="color:#66d9ef">BY&lt;/span> pm.privmsgs_to_userid
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="25-返回结果到页面">2.5 返回结果到页面&lt;/h4>
+&lt;p>根据 &lt;code>templatesMapping&lt;/code>中的配置找到user.edit对应的页面
+&lt;code>/jforum/WebContent/WEB-INF/config/templatesMapping.properties&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">user&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">edit&lt;/span> &lt;span style="color:#f92672">=&lt;/span> user_form&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">htm&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="26-打印页面">2.6 打印页面&lt;/h4>
+&lt;p>在页面中填入查询到的值：&lt;/p>
+&lt;p>&lt;code>/jforum/WebContent/templates/default/user_form.htm&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">&amp;lt;&lt;span style="color:#f92672">span&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;gen&amp;#34;&lt;/span>&amp;gt;
+&lt;span style="color:#960050;background-color:#1e0010">&amp;lt;&lt;/span>#if admin?default(false)&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">input&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;post&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">type&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;text&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">name&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;username&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">value&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;${u.username?html}&amp;#34;&lt;/span> /&amp;gt;
+&lt;span style="color:#960050;background-color:#1e0010">&amp;lt;&lt;/span>#else&amp;gt;
+${u.username?html}
+&lt;span style="color:#960050;background-color:#1e0010">&amp;lt;&lt;/span>/#if&amp;gt;
+&amp;lt;/&lt;span style="color:#f92672">span&lt;/span>&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;p>用户的实体类在 &lt;code>/jforum/src/net/jforum/entities/User.java&lt;/code> 下。
+个人资料页如下图所示:&lt;/p>
+&lt;p>&lt;img src="images/26173855_trF9.png" alt="jforum个人资料页">&lt;/p>
+&lt;h3 id="3-参考资料">3. 参考资料&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="http://www.jiacode.com/739.html">Java开源论坛JForum二次开发技术资料之导入安装&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title/><link>http://example.org/java/mybatis_batch_update/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://example.org/java/mybatis_batch_update/</guid><description>&lt;p>[TOC]&lt;/p>
+&lt;p>业务需要，要完成批量编辑产品名称。运用Mybatis的批量更新功能，同时因为需要更新的数据是iterator迭代出来的，所以需要在前端做一个标记。&lt;/p>
+&lt;h3 id="entity">Entity&lt;/h3>
+&lt;p>产品有产品ID、产品名称两个属性：&lt;/p>
+&lt;p>&lt;img src="images/product.png" alt="product">&lt;/p>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">Product&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> BaseEntity &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#75715e">/** 产品ID */&lt;/span>
+&lt;span style="color:#66d9ef">private&lt;/span> String productId&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#75715e">/** 产品名称 */&lt;/span>
+&lt;span style="color:#66d9ef">private&lt;/span> String name&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#75715e">/** 产品列表查询 */&lt;/span>
+&lt;span style="color:#66d9ef">private&lt;/span> List productList&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#75715e">//以下省了get和set方法...
+&lt;/span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="controller">Controller&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#a6e22e">@Action&lt;/span>&lt;span style="color:#f92672">(&lt;/span>value &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;updateProduct&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> results &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#f92672">{&lt;/span> &lt;span style="color:#a6e22e">@Result&lt;/span>&lt;span style="color:#f92672">(&lt;/span>name &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;success&amp;#34;&lt;/span>&lt;span style="color:#f92672">,&lt;/span> location &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#e6db74">&amp;#34;/pages/backstage/manage-product-list.jsp&amp;#34;&lt;/span>&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">})&lt;/span>
+&lt;span style="color:#66d9ef">public&lt;/span> String &lt;span style="color:#a6e22e">updateProduct&lt;/span>&lt;span style="color:#f92672">()&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+product &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> Product&lt;span style="color:#f92672">();&lt;/span>
+product&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">setProductList&lt;/span>&lt;span style="color:#f92672">(&lt;/span>productList&lt;span style="color:#f92672">);&lt;/span>
+UpdateProductService service &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#66d9ef">new&lt;/span> UpdateProductService&lt;span style="color:#f92672">();&lt;/span>
+service&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">setEntity&lt;/span>&lt;span style="color:#f92672">(&lt;/span>product&lt;span style="color:#f92672">);&lt;/span>
+service&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">excuteService&lt;/span>&lt;span style="color:#f92672">();&lt;/span>
+&lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#e6db74">&amp;#34;success&amp;#34;&lt;/span>&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="service">Service&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">UpdateProductService&lt;/span> &lt;span style="color:#66d9ef">extends&lt;/span> BaseService &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">protected&lt;/span> Object &lt;span style="color:#a6e22e">makeService&lt;/span>&lt;span style="color:#f92672">(&lt;/span>Product entity&lt;span style="color:#f92672">,&lt;/span> SqlSession sqlSession&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+ProductDao dao &lt;span style="color:#f92672">=&lt;/span> sqlSession&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">getMapper&lt;/span>&lt;span style="color:#f92672">(&lt;/span>ProductDao&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">);&lt;/span>
+dao&lt;span style="color:#f92672">.&lt;/span>&lt;span style="color:#a6e22e">updateProduct&lt;/span>&lt;span style="color:#f92672">(&lt;/span>entity&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#66d9ef">return&lt;/span> entity&lt;span style="color:#f92672">;&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="dao">Dao&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-java" data-lang="java">&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">interface&lt;/span> &lt;span style="color:#a6e22e">ProductDao&lt;/span> &lt;span style="color:#f92672">{&lt;/span>
+&lt;span style="color:#66d9ef">public&lt;/span> &lt;span style="color:#66d9ef">int&lt;/span> &lt;span style="color:#a6e22e">updateProduct&lt;/span>&lt;span style="color:#f92672">(&lt;/span>Product product&lt;span style="color:#f92672">);&lt;/span>
+&lt;span style="color:#f92672">}&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="sql">Sql&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-xml" data-lang="xml">&lt;span style="color:#f92672">&amp;lt;insert&lt;/span> &lt;span style="color:#a6e22e">id=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;updateProduct&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">parameterType=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;com.xxxxx.product.entity.Product&amp;#34;&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span>
+replace into product (
+product_id,name
+) values
+&lt;span style="color:#f92672">&amp;lt;foreach&lt;/span> &lt;span style="color:#a6e22e">collection=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;productList&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">item=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;productList&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">index=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;index&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">separator=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;,&amp;#34;&lt;/span>&lt;span style="color:#f92672">&amp;gt;&lt;/span>
+(#{productList.productId}, #{productList.name})
+&lt;span style="color:#f92672">&amp;lt;/foreach&amp;gt;&lt;/span>
+&lt;span style="color:#f92672">&amp;lt;/insert&amp;gt;&lt;/span>
+&lt;span style="color:#75715e">&amp;lt;!--此处其实就是运用Mybatis的foreach标签来拼sql--&amp;gt;&lt;/span>
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="html">html&lt;/h3>
+&lt;div class="highlight">&lt;pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">&lt;code class="language-html" data-lang="html">&amp;lt;&lt;span style="color:#f92672">body&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">script&lt;/span> &lt;span style="color:#a6e22e">type&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;text/javascript&amp;#34;&lt;/span>&amp;gt;
+&lt;span style="color:#a6e22e">$&lt;/span>(&lt;span style="color:#66d9ef">function&lt;/span>() {
+&lt;span style="color:#a6e22e">$&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;#btn-save&amp;#34;&lt;/span>).&lt;span style="color:#a6e22e">on&lt;/span>(&lt;span style="color:#e6db74">&amp;#39;click&amp;#39;&lt;/span>, &lt;span style="color:#66d9ef">function&lt;/span>() {
+&lt;span style="color:#a6e22e">$&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;#updateProduct&amp;#34;&lt;/span>).&lt;span style="color:#a6e22e">submit&lt;/span>();
+})
+});
+&amp;lt;/&lt;span style="color:#f92672">script&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">div&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;panel panel-default&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">div&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;panel-heading&amp;#34;&lt;/span>&amp;gt;产品列表&amp;lt;/&lt;span style="color:#f92672">div&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">div&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;panel-body&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">ul&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;tool-bar&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">li&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">a&lt;/span> &lt;span style="color:#a6e22e">href&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;javascript:void(0);&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">id&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;btn-save&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">span&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;glyphicon glyphicon-floppy-disk&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#f92672">span&lt;/span>&amp;gt; 保存
+&amp;lt;/&lt;span style="color:#f92672">a&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#f92672">li&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#f92672">ul&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">div&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;double-line&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#f92672">div&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">s:form&lt;/span> &lt;span style="color:#a6e22e">role&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;form&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">action&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;updateProduct&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">method&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;post&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">namespace&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;/admin&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">theme&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;simple&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">br&lt;/span> /&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">ul&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;list-group&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">s:iterator&lt;/span> &lt;span style="color:#a6e22e">value&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;product.productList&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">status&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;statusTest&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">li&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;list-group-item list-group-item-text&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">h5&lt;/span>&amp;gt;产品列表&amp;lt;/&lt;span style="color:#f92672">h5&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">s:hidden&lt;/span> &lt;span style="color:#a6e22e">name&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;%{&amp;#39;productList[&amp;#39;+#statusTest.index+&amp;#39;].productId&amp;#39;}&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">value&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;%{productId}&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#f92672">s:hidden&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">div&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;form-group input-group&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">span&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;input-group-addon&amp;#34;&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">span&lt;/span> &lt;span style="color:#a6e22e">class&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;glyphicon glyphicon-pencil&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#f92672">span&lt;/span>&amp;gt; 标题
+&amp;lt;/&lt;span style="color:#f92672">span&lt;/span>&amp;gt;
+&amp;lt;&lt;span style="color:#f92672">s:textfield&lt;/span> &lt;span style="color:#a6e22e">cssClass&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;form-control&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">name&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;%{&amp;#39;productList[&amp;#39;+#statusTest.index+&amp;#39;].name&amp;#39;}&amp;#34;&lt;/span> &lt;span style="color:#a6e22e">value&lt;/span>&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;%{name}&amp;#34;&lt;/span>&amp;gt;&amp;lt;/&lt;span style="color:#f92672">s:textfield&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#f92672">div&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#f92672">li&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#f92672">s:iterator&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#f92672">ul&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#f92672">s:form&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#f92672">div&lt;/span>&amp;gt;
+&amp;lt;/&lt;span style="color:#f92672">div&lt;/span>&amp;gt;
+&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="实现效果">实现效果&lt;/h3>
+&lt;p>如下图所示：&lt;/p>
+&lt;p>&lt;img src="images/edit-product-4994274.png" alt="edit-product">&lt;/p></description></item><item><title/><link>http://example.org/java/readme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>http://example.org/java/readme/</guid><description>&lt;ul>
+&lt;li>&lt;a href="http://example.org/Java/hehehe_snapshot.md">JAVA屏幕截图与水印添加程序-HEHEHEScreenshot&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://example.org/Java/MyBatis_batch_update.md">MyBatis批量更新&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://example.org/Java/jforum1.md">jforum二次开发相关笔记——（一）页面请求机制&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>

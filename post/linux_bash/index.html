@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux学习——系统命令篇 - Dact.dev - dacaitou</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="dacaitou" /><meta name="description" content="[TOC] 2. 系统命令 2.1. top/htop 1. 如何将 top 的输出通过管道交给另一个进程？ top | grep 1 2. 如何让 top 显示每一个CPU的使用情况？ 按下数字键1即可 3. 如何在 top 里杀进程？ top" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.82.0 with theme even" />
+
+
+<link rel="canonical" href="https://dact.dev/post/linux_bash/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.39a3e01cac9473be1356f3572fcfe34b2e363efabad244a99a40f28a812c837e.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Linux学习——系统命令篇" />
+<meta property="og:description" content="[TOC] 2. 系统命令 2.1. top/htop 1. 如何将 top 的输出通过管道交给另一个进程？ top | grep 1 2. 如何让 top 显示每一个CPU的使用情况？ 按下数字键1即可 3. 如何在 top 里杀进程？ top" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dact.dev/post/linux_bash/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2020-06-21T21:00:00&#43;08:00" />
+<meta property="article:modified_time" content="2020-06-21T21:00:00&#43;08:00" />
+
+<meta itemprop="name" content="Linux学习——系统命令篇">
+<meta itemprop="description" content="[TOC] 2. 系统命令 2.1. top/htop 1. 如何将 top 的输出通过管道交给另一个进程？ top | grep 1 2. 如何让 top 显示每一个CPU的使用情况？ 按下数字键1即可 3. 如何在 top 里杀进程？ top"><meta itemprop="datePublished" content="2020-06-21T21:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2020-06-21T21:00:00&#43;08:00" />
+<meta itemprop="wordCount" content="4773">
+<meta itemprop="keywords" content="Linux,bash,find,grep,ls,df,ps," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux学习——系统命令篇"/>
+<meta name="twitter:description" content="[TOC] 2. 系统命令 2.1. top/htop 1. 如何将 top 的输出通过管道交给另一个进程？ top | grep 1 2. 如何让 top 显示每一个CPU的使用情况？ 按下数字键1即可 3. 如何在 top 里杀进程？ top"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">dact.dev</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">dact.dev</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux学习——系统命令篇</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-06-21 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            </div>
+          <span class="more-meta"> 约 4773 字 </span>
+          <span class="more-meta"> 预计阅读 10 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#2-系统命令">2. 系统命令</a>
+      <ul>
+        <li><a href="#21-tophtop">2.1. top/htop</a>
+          <ul>
+            <li><a href="#1-如何将-top-的输出通过管道交给另一个进程">1. 如何将 <code>top</code> 的输出通过管道交给另一个进程？</a></li>
+            <li><a href="#2-如何让-top-显示每一个cpu的使用情况">2. 如何让 top 显示每一个CPU的使用情况？</a></li>
+            <li><a href="#3-如何在-top-里杀进程">3. 如何在 top 里杀进程？</a></li>
+            <li><a href="#4-top-的默认刷新时间是多少如何修改这个默认设置">4. top 的默认刷新时间是多少，如何修改这个默认设置？</a></li>
+            <li><a href="#5-top-里的-load-average-是如何计算的">5. top 里的 load average 是如何计算的？</a></li>
+            <li><a href="#6-top-显示的某个进程的-cpu-使用率有没有可能超过-100为什么">6. top 显示的某个进程的 CPU 使用率有没有可能超过 100%，为什么？</a></li>
+            <li><a href="#7-第四列的-ni-是什么意思">7. 第四列的 <code>NI</code> 是什么意思？</a></li>
+          </ul>
+        </li>
+        <li><a href="#23-find">2.3. find</a>
+          <ul>
+            <li><a href="#1-find-能根据哪些条件来查找文件">1. find 能根据哪些条件来查找文件？</a></li>
+            <li><a href="#2-find-能否根据文件内容来搜索为什么">2. find 能否根据文件内容来搜索，为什么？</a></li>
+            <li><a href="#3-find-可以如何删除找到的文件请提供三种方法">3. find 可以如何删除找到的文件，请提供三种方法。</a></li>
+            <li><a href="#4-请简述-mtimectimeatime-的区别">4. 请简述 mtime、ctime、atime 的区别。</a></li>
+            <li><a href="#5--type-中有哪些常见类型">5. <code>-type</code> 中有哪些常见类型？</a></li>
+          </ul>
+        </li>
+        <li><a href="#24-grep">2.4. grep</a></li>
+        <li><a href="#25-ls-l-ist-">2.5. ls (L iSt )</a>
+          <ul>
+            <li><a href="#1-对于-ls--l-的输出给出每个字符的含义">1. 对于 <code>ls -l</code> 的输出，给出每个字符的含义。</a></li>
+            <li><a href="#3-ls-默认的排序方式是什么有哪些参数能改变这一行为">3. ls 默认的排序方式是什么，有哪些参数能改变这一行为？</a></li>
+            <li><a href="#4-对于--r-i-参数请给出具体的使用场景">4. 对于 <code>-R</code>/<code>-i</code> 参数，请给出具体的使用场景。</a></li>
+          </ul>
+        </li>
+        <li><a href="#26-dfdu-disk-free-disk-usage-">2.6 df/du (Disk Free/ Disk Usage )</a>
+          <ul>
+            <li><a href="#1-如何显示-inode-占用率">1. 如何显示 inode 占用率？</a></li>
+            <li><a href="#2-如何显示文件系统的类型">2. 如何显示文件系统的类型？</a></li>
+            <li><a href="#3-什么情况下用-rm-删除了一个大文件df-显示的空余大小会没有变化">3. 什么情况下用 rm 删除了一个大文件，df 显示的空余大小会没有变化？</a></li>
+            <li><a href="#4-如何仅仅显示某个目录下文件的总大小">4. 如何仅仅显示某个目录下文件的总大小？</a></li>
+            <li><a href="#5-请解释如何产生一个文件空洞">5. 请解释如何产生一个文件空洞。</a></li>
+          </ul>
+        </li>
+        <li><a href="#27-touch">2.7. touch</a>
+          <ul>
+            <li><a href="#1-请给出使用-touch-来修改文件修改时间的具体使用场景">1. 请给出使用 touch 来修改文件修改时间的具体使用场景。</a></li>
+            <li><a href="#2-touch-对目录是否有效">2. touch 对目录是否有效？</a></li>
+            <li><a href="#3-touch-时如何在文件不存在的情况下避免创建文件">3. touch 时如何在文件不存在的情况下避免创建文件？</a></li>
+          </ul>
+        </li>
+        <li><a href="#28-ps">2.8. ps</a>
+          <ul>
+            <li><a href="#1-ps-auxww-默认是按照什么进行排序的">1. <code>ps auxww</code> 默认是按照什么进行排序的？</a></li>
+            <li><a href="#2-如何用-ps-来查看进程树">2. 如何用 ps 来查看进程树？</a></li>
+            <li><a href="#3-如何用-ps-来查看单个线程的资源使用情况">3. 如何用 ps 来查看单个线程的资源使用情况？</a></li>
+            <li><a href="#4-ps-auxww中的-ww-有什么使用场景">4. <code>ps auxww</code>中的 <code>ww</code> 有什么使用场景？</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>[TOC]</p>
+<h1 id="2-系统命令">2. 系统命令</h1>
+<h2 id="21-tophtop">2.1. top/htop</h2>
+<h3 id="1-如何将-top-的输出通过管道交给另一个进程">1. 如何将 <code>top</code> 的输出通过管道交给另一个进程？</h3>
+<p>top | grep 1</p>
+<h3 id="2-如何让-top-显示每一个cpu的使用情况">2. 如何让 top 显示每一个CPU的使用情况？</h3>
+<p>按下数字键1即可</p>
+<h3 id="3-如何在-top-里杀进程">3. 如何在 top 里杀进程？</h3>
+<p>top -b -n 1 | head | grep -A 1 PID | grep &ldquo;^[0-9]&rdquo; | cut -f1 -d&quot; &quot; | xargs kill
+终止一个进程。系统将提示用户输入需要终止的进程PID，以及需要发送给该进程什么样的信号。一般的终止进程可以使用15信号；
+如果不能正常结束那就使用信号9强制结束该进程。默认值是信号15。在安全模式中此命令被屏蔽。</p>
+<h3 id="4-top-的默认刷新时间是多少如何修改这个默认设置">4. top 的默认刷新时间是多少，如何修改这个默认设置？</h3>
+<p>5秒</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 每隔5秒显式所有进程的资源占用情况</span>
+top
+<span class="c1"># 每隔2秒显式所有进程的资源占用情况</span>
+top -d <span class="m">2</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="5-top-里的-load-average-是如何计算的">5. top 里的 load average 是如何计算的？</h3>
+<p>系统负载，即任务队列的平均长度。三个数值分别为 1分钟、5分钟、15分钟前到现在的平均值。</p>
+<h3 id="6-top-显示的某个进程的-cpu-使用率有没有可能超过-100为什么">6. top 显示的某个进程的 CPU 使用率有没有可能超过 100%，为什么？</h3>
+<p>有</p>
+<h3 id="7-第四列的-ni-是什么意思">7. 第四列的 <code>NI</code> 是什么意思？</h3>
+<p>us user 用户空间占用CPU百分比
+sy system 内核空间占用CPU百分比
+ni nice 用户进程空间内改变过优先级的进程占用CPU百分比
+id idle空闲CPU百分比
+wa wait 等待输入输出的CPU时间百分比
+hi hardware irq 硬件中断
+si software irq软件中断</p>
+<p>8.假设top显示ffmpeg进程的CPU使用率为143.7%, 请具体解释这个数值是如何计算出来的.
+也就是说如果你是n核cpu那么cpu最高占用率可达 143.7% ，top里显示的是把所有使用率加起来。</p>
+<pre><code>## 2.2. ssh/scp
+### 1. 请简要叙述 ssh 连接加密的原理。
+    Secure Shell（缩写为SSH），SSH为一项创建在应用层和传输层基础上的安全协议，为计算机上的Shell（壳层）提供安全的传输和使用环境。 利用SSH协议可以有效防止远程管理过程中的信息泄露问题。通过SSH可以对所有传输的数据进行加密，也能够防止DNS欺骗和IP欺骗。 SSH之另一项优点为其传输的数据可以是经过压缩的，所以可以加快传输的速度。
+
+2. 请简述 ssh agent forward 的原理。
+SSH agent forwarding 可以讓本地的 SSH Key 在遠端 Server 上進行轉送，也就是當你需要在選端 Server 上使用 SSH Key 時，就不需要將你的 key pair 手動複製到 server 上，是個暨方便又安全的作法。
+Local ---(SSH)---&gt; Server1 ---(SSH)---&gt; Server2
+
+3. ssh 连接时如何指定远程端口，如何设置连接超时时间？
+
+4. ssh 私钥文件默认的权限是什么？
+400 权限设置为对拥有者只读，其他用户没有任何权限
+
+5. 如何利用 ssh 来进行端口转发？
+
+6. passphrase 是什么东西，有什么作用？
+
+7. 在自己的电脑上操作，通过 ssh agent forward 先登录 A，再从 A 登录 B
+</code></pre>
+<h2 id="23-find">2.3. find</h2>
+<h3 id="1-find-能根据哪些条件来查找文件">1. find 能根据哪些条件来查找文件？</h3>
+<ul>
+<li>-name
+按照文件名查找文件。
+在/dir目录及其子目录下面查找名字为filename的文件</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">find /dir -name filename
+</code></pre></td></tr></table>
+</div>
+</div><p>在当前目录及其子目录（用“.”表示）中查找任何扩展名为“c”的文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">find . -name &#34;*.c&#34;
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>-perm
+按照文件权限来查找文件。
+find . -perm 755 –print 在当前目录下查找文件权限位为755的文件，即文件属主可以读、写、执行，其他用户可以读、执行的文件
+-prune
+使用这一选项可以使find命令不在当前指定的目录中查找，如果同时使用-depth选项，那么-prune将被find命令忽略。
+find /apps -path &ldquo;/apps/bin&rdquo; -prune -o –print 在/apps目录下查找文件，但不希望在/apps/bin目录下查找
+find /usr/sam -path &ldquo;/usr/sam/dir1&rdquo; -prune -o –print 在/usr/sam目录下查找不在dir1子目录之内的所有文件</li>
+<li>-user
+按照文件属主来查找文件。
+find ~ -user sam –print 在$HOME目录中查找文件属主为sam的文件</li>
+<li>-group
+按照文件所属的组来查找文件。
+find /apps -group gem –print 在/apps目录下查找属于gem用户组的文件</li>
+<li>-mtime -n +n
+按照文件的更改时间来查找文件， - n表示文件更改时间距现在n天以内，+ n表示文件更改时间距现在n天以前。
+find / -mtime -5 –print 在系统根目录下查找更改时间在5日以内的文件
+find /var/adm -mtime +3 –print 在/var/adm目录下查找更改时间在3日以前的文件
+-nogroup
+查找无有效所属组的文件，即该文件所属的组在/etc/groups中不存在。
+find / –nogroup -print</li>
+<li>-nouser
+查找无有效属主的文件，即该文件的属主在/etc/passwd中不存在。
+find /home -nouser –print
+-newer file1 ! file2
+查找更改时间比文件file1新但比文件file2旧的文件。</li>
+<li>-type
+查找某一类型的文件，诸如：
+<ul>
+<li>-size n：[c] 查找文件长度为n块的文件，带有c时表示文件长度以字节计。
+find . -size +1000000c –print 在当前目录下查找文件长度大于1 M字节的文件
+find /home/apache -size 100c –print 在/home/apache目录下查找文件长度恰好为100字节的文件
+find . -size +10 –print 在当前目录下查找长度超过10块的文件（一块等于512字节）</li>
+</ul>
+</li>
+<li>-depth：在查找文件时，首先查找当前目录中的文件，然后再在其子目录中查找。
+find / -name &ldquo;CON.FILE&rdquo; -depth –print 它将首先匹配所有的文件然后再进入子目录中查找</li>
+<li>-mount：在查找文件时不跨越文件系统mount点。
+find . -name &ldquo;*.XC&rdquo; -mount –print 从当前目录开始查找位于本文件系统中文件名以XC结尾的文件（不进入其他文件系统）</li>
+<li>-follow：如果find命令遇到符号链接文件，就跟踪至链接所指向的文件。</li>
+</ul>
+<h3 id="2-find-能否根据文件内容来搜索为什么">2. find 能否根据文件内容来搜索，为什么？</h3>
+<p>find .|xargs grep x</p>
+<h3 id="3-find-可以如何删除找到的文件请提供三种方法">3. find 可以如何删除找到的文件，请提供三种方法。</h3>
+<p>find . -name &lsquo;file*&rsquo; -size 0 -print0 | xargs -0 rm
+find . -name &lsquo;file*&rsquo; | xargs rm -rf
+find . -name &lsquo;file*&rsquo; -size 0 -delete
+find . -name &lsquo;file*&rsquo; -exec rm {} ;</p>
+<h3 id="4-请简述-mtimectimeatime-的区别">4. 请简述 mtime、ctime、atime 的区别。</h3>
+<p>ctime即change time文件状态改变时间，
+atime - ( access time) 访问时间 即文件被读取或者执行的时间，修改文件是不会改变access time的。网上很多资料都声称cat、more等读取文件的命令会改变atime
+mtime - ( modify time) 修改时间 文件内容被修改的时间
+ctime - (change time) 状态修改时间， inode上一次变动的时间 ，如通过chmod修改文件属性，ctime就会被修改。
+find . –mtime n: File waslast modified n<em>24 hours ago.
+最后一次修改发生在距离当前时间n</em>24小时至(n+1)*24 小时
+find . –mtime +n:
+最后一次修改发生在n+1天以前，距离当前时间为(n+1)<em>24小时或者更早
+find . –mtime –n:
+最后一次修改发生在n天以内，距离当前时间为n</em>24小时以内
+find ./ -type f -mtime +29 |xargs rm -rf</p>
+<h4 id="关闭atime">关闭atime</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">shell&gt; vi /etc/fstab
+LABEL=/data1 /data1 ext3 defaults,noatime 1 2
+</code></pre></td></tr></table>
+</div>
+</div><p>2.6.20 内核引入了新的方法：relatime 开关。
+如果在挂载文件系统的时候使用这个开关，访问时间(access times)只有在它们比变更时间(modification time)更旧的时候才会更新。</p>
+<h3 id="5--type-中有哪些常见类型">5. <code>-type</code> 中有哪些常见类型？</h3>
+<pre><code>b - 块设备文件。
+d - 目录。
+c - 字符设备文件。
+p - 管道文件。
+l - 符号链接文件。
+f - 普通文件。
+find /etc -type d –print 在/etc目录下查找所有的目录
+find . ! -type d –print 在当前目录下查找除目录以外的所有类型的文件
+find /etc -type l –print 在/etc目录下查找所有的符号链接文件
+</code></pre>
+<h2 id="24-grep">2.4. grep</h2>
+<ol>
+<li>-c &ndash;count 只打印匹配的行数，不显示匹配的内容。</li>
+<li>-v &ndash;revert-match 反检索，只显示不匹配的行</li>
+<li>-A -A6 查找某些字符的内容,并下延伸6行</li>
+<li>-B -B2 查找某些字符的内容,并上延伸2行</li>
+<li>-C -C1查找某些字符的内容,并上和向下各延伸1行</li>
+<li>-E &ndash;extended-regexp</li>
+<li>-n &ndash;line-number 在匹配的行前面打印行号</li>
+<li>-i &ndash;ignore-case 忽略大小写差别</li>
+<li>-R -r, &ndash;recursive 递归的读取目录下的所有文件，包括子目录。 比如grep -R &lsquo;pattern&rsquo; test会在 test 及其子目录下的所有文件中，匹配 pattern。</li>
+<li>对于 <code>-q</code>/<code>-o</code> 参数，给出具体的使用场景.
+-o, &ndash;only-matching 只显示正则表达式匹配的部分。（show only the part of a line matching PATTERN）</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">{</span><span class="s2">&#34;aid&#34;</span>:45,<span class="s2">&#34;path&#34;</span>:<span class="s2">&#34;attachment/Mon_1112/2_1_5728040df3ab346.jpg&#34;</span><span class="o">}</span>
+grep -o -E <span class="s1">&#39;aid&#34;:[1-9]*&#39;</span> tmp.txt
+aid<span class="s2">&#34;:45
+</span></code></pre></td></tr></table>
+</div>
+</div><p>-q，&ndash;quiet 取消显示，只返回退出状态。
+0则表示找到了匹配的行。用于if 逻辑判断很好用。grep -q &ldquo;test&rdquo; filename 不会输出任何信息，如果命令运行成功返回0，失败则返回非0值。一般用于条件测试。</p>
+<h2 id="25-ls-l-ist-">2.5. ls (L iSt )</h2>
+<h3 id="1-对于-ls--l-的输出给出每个字符的含义">1. 对于 <code>ls -l</code> 的输出，给出每个字符的含义。</h3>
+<p><img src="../../_resources/b75be95b-a6f9-4116-8a26-3fb2820ee603.png" alt="index_files/b75be95b-a6f9-4116-8a26-3fb2820ee603.png">
+<img src="../../_resources/a1c78005-15f0-40bf-ac5c-bcce44a237dc.jpg" alt="index_files/a1c78005-15f0-40bf-ac5c-bcce44a237dc.jpg">
+①文件属性：drwxr-xr-x
+其中各个字符代表的意义：
+* d表示该文件是一个目录，字母&quot;d&quot;，是directory(目录)的缩写
+注意：目录或者是特殊文件，这个特殊文件存放其他文件或目录的相关信息
+* l表示该文件是一个链接文件。字母&quot;l&quot;是link(链接)的缩写，类似于windows下的快捷方式
+链接文件分为硬链接或符号链接两种。
+文件硬链接数或目录子目录数：3 （一个空目录的该字段是2，表示该目录下有两个子目录，因为每一个目录都有一个指向它本身的子目录&quot;.&quot; 和指向它上级目录的子目录&quot;..&quot;）
+* b的表示块设备文件(block)，一般置于/dev目录下，设备文件是普通文件和程序访问硬件设备的入口，是 很特殊的文件。没有文件大小，只有一个主设备号和一个辅设备号。一次传输数据为一整块的被称为块设备，如硬盘、光盘等。最小数据传输单位为一个数据块(通 常一个数据块的大小为512字节)
+* c表示该文件是一个字符设备文件(character)，一般置于/dev目录下，一次传输一个字节的设备被称为字符设备，如键盘、字符终端等，传输数据的最小单位为一个字节
+* p表示该文件为命令管道文件。与shell编程有关的文件
+* s表示该文件为sock文件。与shell编程有关的文件
+* rwx：依次代表属主权限、 组权限和 其他用户权限 ，-代表无权限；r代表具有可读权限； w代表具有可写权限；x代表具有可执行权限
+② 文件inode数量
+③ 所有者
+④ 所属用户组
+⑤ 文件大小
+⑥ 修改时间： 月 日 年（今年的话会显示时间）
+⑦ 文件名（文件：绿色 文件夹：蓝色 压缩文件：橘红色 ）</p>
+<pre><code>### 2. 目录的大小是什么意思？
+</code></pre>
+<p>用ls命令出来的目录大小，不包括里面的文件大小，查询目录的总大小，可以试用<code>du</code>指令。</p>
+<h3 id="3-ls-默认的排序方式是什么有哪些参数能改变这一行为">3. ls 默认的排序方式是什么，有哪些参数能改变这一行为？</h3>
+<p>&ndash;sort=WORD
+sort by WORD instead of name: none (-U), size (-S), time (-t), version (-v), extension (-X)
+-S <strong>大写</strong>S表示根据文件大小排序(Sort)，默认是降序排列
+-rS 表示排序(R everse Sort)，升序排列
+-t 表示根据修改时间(Time)排序
+-h 表示 文件大小转为我们习惯的M，K等为单位的大小
+-St代表先根据时间再根据大小排序</p>
+<h3 id="4-对于--r-i-参数请给出具体的使用场景">4. 对于 <code>-R</code>/<code>-i</code> 参数，请给出具体的使用场景。</h3>
+<ul>
+<li>-R (R ecursive)递归显示子目录</li>
+<li>-i (Inode) 显示每个文件的inode 号</li>
+</ul>
+<h2 id="26-dfdu-disk-free-disk-usage-">2.6 df/du (Disk Free/ Disk Usage )</h2>
+<h3 id="1-如何显示-inode-占用率">1. 如何显示 inode 占用率？</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">df -i
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2-如何显示文件系统的类型">2. 如何显示文件系统的类型？</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">df -T
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3-什么情况下用-rm-删除了一个大文件df-显示的空余大小会没有变化">3. 什么情况下用 rm 删除了一个大文件，df 显示的空余大小会没有变化？</h3>
+<ul>
+<li>创建了硬链接</li>
+<li>文件还在被占用
+如某日志文件已经被删除，但由于进程还在一直向此文件写入数据，空间并未释放。</li>
+</ul>
+<h3 id="4-如何仅仅显示某个目录下文件的总大小">4. 如何仅仅显示某个目录下文件的总大小？</h3>
+<pre><code>-a或-all 为每个指定文件显示磁盘使用情况，或者为目录中每个文件显示各自磁盘使用情况。
+-c或–total 除了显示目录或文件的大小外，同时也显示所有目录或文件的总和。
+-h或–human-readable 以K，M，G为单位，提高信息的可读性。
+</code></pre>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">du -ach guokangjie
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="5-请解释如何产生一个文件空洞">5. 请解释如何产生一个文件空洞。</h3>
+<p>写日志的时候没有关闭这个文件，而直接清空，文件头还在一个位置，但是后续的偏移值是往后加的，所以文件还是比原来更大。</p>
+<h2 id="27-touch">2.7. touch</h2>
+<h3 id="1-请给出使用-touch-来修改文件修改时间的具体使用场景">1. 请给出使用 touch 来修改文件修改时间的具体使用场景。</h3>
+<p>而更新文件时间通常是为了让某些软件能够正常执行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">touch -t 200910112200 new.txt &lt;=== 格式 yyyyMMDDhhmm
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2-touch-对目录是否有效">2. touch 对目录是否有效？</h3>
+<p>有效</p>
+<h3 id="3-touch-时如何在文件不存在的情况下避免创建文件">3. touch 时如何在文件不存在的情况下避免创建文件？</h3>
+<p>-c, &ndash;no-create do not create any files</p>
+<h2 id="28-ps">2.8. ps</h2>
+<h3 id="1-ps-auxww-默认是按照什么进行排序的">1. <code>ps auxww</code> 默认是按照什么进行排序的？</h3>
+<p>根据pid进行排序的
+ps -ef 是用标准的格式显示进程的
+ps aux 是用BSD的格式来显示
+-a ：不与terminal有关的进程
+-u：有效用户相关的进程
+x：通常与a这个参数一起用，可以列出完整信息</p>
+<p>STAT表明进程的状态</p>
+<ul>
+<li>S 睡眠，s进程是会话期首进程；</li>
+<li>R 运行；</li>
+<li>D 等待；</li>
+<li>T 停止；</li>
+<li>Z 僵尸；</li>
+<li>N 低优先级任务,nice；</li>
+<li>W 分页；</li>
+<li>+进程属于前台进程组；</li>
+<li>l 进程是多线程；</li>
+<li>&lt;高优先级任务</li>
+</ul>
+<h3 id="2-如何用-ps-来查看进程树">2. 如何用 ps 来查看进程树？</h3>
+<p>ps axjf 连通部分进程树状态
+f ASCII art process hierarchy (forest).
+&ndash;forest ASCII art process tree.</p>
+<p>pstree</p>
+<h3 id="3-如何用-ps-来查看单个线程的资源使用情况">3. 如何用 ps 来查看单个线程的资源使用情况？</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ps -T -p &lt;pid&gt;
+ps -eo ruser,pid,ppid,lwp,psr,args -L <span class="p">|</span> grep qemu
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="4-ps-auxww中的-ww-有什么使用场景">4. <code>ps auxww</code>中的 <code>ww</code> 有什么使用场景？</h3>
+<p>-w Wide output. Use this option twice for unlimited width.
+比如要显示的信息 过长，如脚本名称（带参数），使用两个ww就可以全部显示，不受终端宽度影响， 类似自动换行
+-w
+Use 132 columns to display information, instead of the default which is your window size. If the -w option is specified more than once, ps will use as many columns as necessary without regard for your window size. When output is not to a terminal, an unlimited number of columns are always used.</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">dacaitou</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-06-21
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">CC BY-NC-SA 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/bash/">bash</a>
+          <a href="/tags/find/">find</a>
+          <a href="/tags/grep/">grep</a>
+          <a href="/tags/ls/">ls</a>
+          <a href="/tags/df/">df</a>
+          <a href="/tags/ps/">ps</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux_os/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Linux学习——操作系统篇</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/walkr/">
+            <span class="next-text nav-default">Walkr</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2020-06-21 21:00:00 \u002b0800 CST',
+        title: 'Linux学习——系统命令篇',
+        clientID: '1687d1933e871f4d7ca5',
+        clientSecret: '601ba213e44aac1ba1fb9cf9807b7d11f272de0b',
+        repo: 'dact_dev',
+        owner: 'Bigcaitou',
+        admin: ['Bigcaitou'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/Bigcaitou" class="iconfont icon-github" title="github"></a>
+  <a href="https://dact.dev/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>dacaitou</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?ae241b0e5428586b68d3c815a8e5f3e6";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

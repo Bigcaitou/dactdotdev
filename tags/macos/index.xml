@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>macOS on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/macos/</link>
+    <description>Recent content in macOS on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 23 Dec 2015 19:39:42 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/macos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>OSX EI Captain  更改应用图标</title>
+      <link>https://dact.dev/post/macos_change_icon/</link>
+      <pubDate>Wed, 23 Dec 2015 19:39:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/macos_change_icon/</guid>
+      <description>闲着没事给自己的Mac换了一套图标，效果图如下示，期间遇到各种坑无数，现记下遇过的坑的描述、说明及解决方案，与大家分享。注：本机为MacBo</description>
+    </item>
+    
+  </channel>
+</rss>

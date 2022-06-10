@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>windows on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/windows/</link>
+    <description>Recent content in windows on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 03 May 2016 22:02:42 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/windows/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JAVA屏幕截图与水印添加程序</title>
+      <link>https://dact.dev/post/hehehe_snapshot/</link>
+      <pubDate>Tue, 03 May 2016 22:02:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/hehehe_snapshot/</guid>
+      <description>一切都源于这个表情，后面这个表情就以不可预料的情况演化了。那时想着做一个能加苍蝇的截图工具，程序是用JAVA实现的，项目托管在GitHub https://github.com/Bigcaitou/HEHEHEScreenshot</description>
+    </item>
+    
+  </channel>
+</rss>

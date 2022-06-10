@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Linux学习——文本处理篇 - Dact.dev - dacaitou</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="dacaitou" /><meta name="description" content="[TOC] 3. 文本处理 3.1. cut 1 2 3 -b, --bytes=LIST select only these bytes 字节 -c, --characters=LIST select only these characters 字符 -f, --fields=LIST select only these fields 域 ; also print any line that contains no delimiter character, unless the -s option is specified 1. cut 默认的分隔符是什么，如何设置分隔符？" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.82.0 with theme even" />
+
+
+<link rel="canonical" href="https://dact.dev/post/linux_-text/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.39a3e01cac9473be1356f3572fcfe34b2e363efabad244a99a40f28a812c837e.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Linux学习——文本处理篇" />
+<meta property="og:description" content="[TOC] 3. 文本处理 3.1. cut 1 2 3 -b, --bytes=LIST select only these bytes 字节 -c, --characters=LIST select only these characters 字符 -f, --fields=LIST select only these fields 域 ; also print any line that contains no delimiter character, unless the -s option is specified 1. cut 默认的分隔符是什么，如何设置分隔符？" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dact.dev/post/linux_-text/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2018-04-23T21:00:00&#43;08:00" />
+<meta property="article:modified_time" content="2018-04-23T21:00:00&#43;08:00" />
+
+<meta itemprop="name" content="Linux学习——文本处理篇">
+<meta itemprop="description" content="[TOC] 3. 文本处理 3.1. cut 1 2 3 -b, --bytes=LIST select only these bytes 字节 -c, --characters=LIST select only these characters 字符 -f, --fields=LIST select only these fields 域 ; also print any line that contains no delimiter character, unless the -s option is specified 1. cut 默认的分隔符是什么，如何设置分隔符？"><meta itemprop="datePublished" content="2018-04-23T21:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2018-04-23T21:00:00&#43;08:00" />
+<meta itemprop="wordCount" content="1215">
+<meta itemprop="keywords" content="Linux,bash,cut,sort,cat,sed,awk,vim," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux学习——文本处理篇"/>
+<meta name="twitter:description" content="[TOC] 3. 文本处理 3.1. cut 1 2 3 -b, --bytes=LIST select only these bytes 字节 -c, --characters=LIST select only these characters 字符 -f, --fields=LIST select only these fields 域 ; also print any line that contains no delimiter character, unless the -s option is specified 1. cut 默认的分隔符是什么，如何设置分隔符？"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">dact.dev</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">dact.dev</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Linux学习——文本处理篇</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-04-23 </span>
+        <div class="post-category">
+            <a href="/categories/linux/"> Linux </a>
+            </div>
+          <span class="more-meta"> 约 1215 字 </span>
+          <span class="more-meta"> 预计阅读 3 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#3-文本处理">3. 文本处理</a>
+      <ul>
+        <li><a href="#31-cut">3.1. cut</a>
+          <ul>
+            <li><a href="#1-cut-默认的分隔符是什么如何设置分隔符">1. cut 默认的分隔符是什么，如何设置分隔符？</a></li>
+            <li><a href="#2-对于每一行如何让-cut-仅显示第-3-到第-5-列">2. 对于每一行，如何让 cut 仅显示第 3 到第 5 列？</a></li>
+            <li><a href="#3-对于每一行如何让-cut-仅显示第-10-到第-15-个字符">3. 对于每一行，如何让 cut 仅显示第 10 到第 15 个字符？</a></li>
+            <li><a href="#4-在什么情况下-c-和--b-的输出有区别">4. 在什么情况下，<code>-c</code> 和 <code>-b</code> 的输出有区别？</a></li>
+          </ul>
+        </li>
+        <li><a href="#32-sort">3.2. sort</a>
+          <ul>
+            <li><a href="#1-如何对每行第-3-列进行排序">1. 如何对每行第 3 列进行排序？</a></li>
+            <li><a href="#2-请给出具体例子说明什么情况下使用了--n-会导致-sort-的输出和不加--n-不一致">2. 请给出具体例子说明什么情况下使用了 <code>-n</code> 会导致 sort 的输出和不加 <code>-n</code> 不一致。</a></li>
+            <li><a href="#3-请了解--u-r-的意义">3. 请了解 <code>-u</code>/<code>-r</code> 的意义。</a></li>
+            <li><a href="#4-默认的分隔符是什么如何指定分隔符">4. 默认的分隔符是什么，如何指定分隔符？</a></li>
+            <li><a href="#5-请给出--t-参数的使用场景">5. 请给出 <code>-T</code> 参数的使用场景。</a></li>
+          </ul>
+        </li>
+        <li><a href="#33-tailhead">3.3. tail/head</a>
+          <ul>
+            <li><a href="#1-如何取得一个文件的前几个字符">1. 如何取得一个文件的前几个字符？</a></li>
+            <li><a href="#2-tail--f-是干什么的和-tail--f-有什么区别">2. <code>tail -f</code> 是干什么的，和 <code>tail -F</code> 有什么区别？</a></li>
+            <li><a href="#3-如何用-tail-显示从第-25-行开始显示一个-40-多行不知道具体数目的文件的内容">3. 如何用 tail 显示从第 25 行开始，显示一个 40 多行（不知道具体数目）的文件的内容？</a></li>
+            <li><a href="#4-请提供两种不同的办法来打印一个文件的第-50-行内容">4. 请提供两种不同的办法来打印一个文件的第 50 行内容。</a></li>
+          </ul>
+        </li>
+        <li><a href="#34-cat">3.4. cat</a>
+          <ul>
+            <li><a href="#1-如何在显示文件时附加上行号">1. 如何在显示文件时附加上行号？</a></li>
+            <li><a href="#2-cat-file--wc--lwc--l-filewc--l--file-三个命令的输出有何不同为什么">2. <code>cat file | wc -l</code>、<code>wc -l file</code>、<code>wc -l &lt; file</code> 三个命令的输出有何不同，为什么？</a></li>
+            <li><a href="#3-如何将两个文本文件合并成一个">3. 如何将两个文本文件合并成一个？</a></li>
+          </ul>
+        </li>
+        <li><a href="#35-sed">3.5. sed</a>
+          <ul>
+            <li><a href="#1-如何使用-sed-命令达到和-grep-abc-file-命令相同的效果">1. 如何使用 sed 命令，达到和 <code>grep abc file</code> 命令相同的效果？</a></li>
+            <li><a href="#2-如何使用-sed-命令达到和-head--n-20-file-命令相同的效果">2. 如何使用 sed 命令，达到和 <code>head -n 20 file</code> 命令相同的效果？</a></li>
+          </ul>
+        </li>
+        <li><a href="#36-vim">3.6. vim</a>
+          <ul>
+            <li><a href="#1-请输入-vimtutor-命令照着操作一遍">1. 请输入 <code>vimtutor</code> 命令，照着操作一遍。</a></li>
+            <li><a href="#2-vimviewvimdiff-这三个命令有什么区别">2. <code>vim</code>、<code>view</code>、<code>vimdiff</code> 这三个命令有什么区别？</a></li>
+            <li><a href="#3-阅读-vim-键盘图httpwwwviemucoma_vi_vim_graphical_cheat_sheet_tutorialhtml">3. 阅读 <a href="http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html">vim 键盘图</a></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>[TOC]</p>
+<h1 id="3-文本处理">3. 文本处理</h1>
+<h2 id="31-cut">3.1. cut</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">-b, --bytes<span class="o">=</span>LIST <span class="k">select</span> only these bytes 字节
+-c, --characters<span class="o">=</span>LIST <span class="k">select</span> only these characters 字符
+-f, --fields<span class="o">=</span>LIST <span class="k">select</span> only these fields 域 <span class="p">;</span> also print any line that contains no delimiter character, unless the -s option is specified
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="1-cut-默认的分隔符是什么如何设置分隔符">1. cut 默认的分隔符是什么，如何设置分隔符？</h3>
+<p>-d, &ndash;delimiter=DELIM use DELIM instead of TAB for field delimiter
+默认是tab</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cut -d<span class="s1">&#39; &#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2-对于每一行如何让-cut-仅显示第-3-到第-5-列">2. 对于每一行，如何让 cut 仅显示第 3 到第 5 列？</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ps -eopid,uid,cmd
+ps -L u n <span class="p">|</span> tr -s <span class="s2">&#34; &#34;</span> <span class="p">|</span> cut -d <span class="s2">&#34; &#34;</span> -f 2,3,14-<span class="p">;</span>
+ps -ef <span class="p">|</span> cut -f3-5
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3-对于每一行如何让-cut-仅显示第-10-到第-15-个字符">3. 对于每一行，如何让 cut 仅显示第 10 到第 15 个字符？</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">ps -ef <span class="p">|</span> cut -b10-15
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="4-在什么情况下-c-和--b-的输出有区别">4. 在什么情况下，<code>-c</code> 和 <code>-b</code> 的输出有区别？</h3>
+<p>中文提取的情况：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>rocrocket@rocrocket programming<span class="o">]</span>$ cat cut_ch.txt
+星期一
+星期二
+<span class="o">[</span>rocrocket@rocrocket programming<span class="o">]</span>$ cut -b <span class="m">3</span> cut_ch.txt
+�
+�
+<span class="o">[</span>rocrocket@rocrocket programming<span class="o">]</span>$ cut -c <span class="m">3</span> cut_ch.txt
+一
+二
+</code></pre></td></tr></table>
+</div>
+</div><p>遇到中文等字符，用-c则会以字符为单位，输出正常；
+而-b只会以字节（8位二进制位）来计算，输出就是乱码。</p>
+<h2 id="32-sort">3.2. sort</h2>
+<h3 id="1-如何对每行第-3-列进行排序">1. 如何对每行第 3 列进行排序？</h3>
+<p>-n, 以数值来排序
+&ndash;numeric-sort compare according to string numerical value 以数值来排序
+-k, 以第k列进行排序
+&ndash;key=POS1[,POS2] start a key at POS1, end it at POS2 (origin 1) d
+-t, 以？为分隔符
+&ndash;field-separator=SEP use SEP instead of non-blank to blank transition</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sort -n -k <span class="m">3</span> -t : /etc/passwd
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2-请给出具体例子说明什么情况下使用了--n-会导致-sort-的输出和不加--n-不一致">2. 请给出具体例子说明什么情况下使用了 <code>-n</code> 会导致 sort 的输出和不加 <code>-n</code> 不一致。</h3>
+<pre><code>-n, 以数值来排序
+--numeric-sort compare according to string numerical value 以数值来排序
+![index_files/207e5b6f-8873-4c8a-be42-4f7f7a6b3bc4.png](../_resources/207e5b6f-8873-4c8a-be42-4f7f7a6b3bc4.png)
+</code></pre>
+<h3 id="3-请了解--u-r-的意义">3. 请了解 <code>-u</code>/<code>-r</code> 的意义。</h3>
+<p>-r, &ndash;reverse reverse the result of comparisons
+默认升序，加-r就是降序排列
+-u, &ndash;unique with -c, check for strict ordering;
+排除重复项</p>
+<h3 id="4-默认的分隔符是什么如何指定分隔符">4. 默认的分隔符是什么，如何指定分隔符？</h3>
+<p>-t, 以？为分隔符
+&ndash;field-separator=SEP use SEP instead of non-blank to blank transition</p>
+<h3 id="5-请给出--t-参数的使用场景">5. 请给出 <code>-T</code> 参数的使用场景。</h3>
+<p>-T, &ndash;temporary-directory=DIR use DIR for temporaries, not $TMPDIR or /tmp;
+multiple options specify multiple directories
+&ndash;parallel=N change the number of sorts run concurrently to N</p>
+<h2 id="33-tailhead">3.3. tail/head</h2>
+<h3 id="1-如何取得一个文件的前几个字符">1. 如何取得一个文件的前几个字符？</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">head -c &lt;n字节&gt; filename
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2-tail--f-是干什么的和-tail--f-有什么区别">2. <code>tail -f</code> 是干什么的，和 <code>tail -F</code> 有什么区别？</h3>
+<p>-f, &ndash;follow[={name|descriptor}]
+output appended data as the file grows;
+an absent option argument means &lsquo;descriptor&rsquo;
+-F same as &ndash;follow=name &ndash;retry
+-q, &ndash;quiet, &ndash;silent never output headers giving file names
+&ndash;retry keep trying to open a file if it is inaccessible</p>
+<p>-f ：监视filename文件的尾部内容（默认10行，相当于增加参数 -n 10），刷新显示在屏幕上。退出，按下CTRL+C。
+&ndash;retry：即是在tail命令启动时，文件不可访问或者文件稍后变得不可访问，都始终尝试打开文件。使用此选项时需要与选项“——follow=name”连用；</p>
+<h3 id="3-如何用-tail-显示从第-25-行开始显示一个-40-多行不知道具体数目的文件的内容">3. 如何用 tail 显示从第 25 行开始，显示一个 40 多行（不知道具体数目）的文件的内容？</h3>
+<p>-n<N>或——line=<N>：输出文件的尾部N（N位数字）行内容。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tail -n +25 file
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="4-请提供两种不同的办法来打印一个文件的第-50-行内容">4. 请提供两种不同的办法来打印一个文件的第 50 行内容。</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cat filename <span class="p">|</span> tail -n +50 <span class="p">|</span> head -n <span class="m">1</span>
+cat filename <span class="p">|</span> head -n <span class="m">50</span> <span class="p">|</span> tail -n +50
+sed -n <span class="s1">&#39;50,50p&#39;</span> filename
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="34-cat">3.4. cat</h2>
+<h3 id="1-如何在显示文件时附加上行号">1. 如何在显示文件时附加上行号？</h3>
+<p>-n, &ndash;number</p>
+<h3 id="2-cat-file--wc--lwc--l-filewc--l--file-三个命令的输出有何不同为什么">2. <code>cat file | wc -l</code>、<code>wc -l file</code>、<code>wc -l &lt; file</code> 三个命令的输出有何不同，为什么？</h3>
+<p>Print newline, word, and byte counts for each FILE
+-l, &ndash;lines print the newline counts
+-w, &ndash;words print the word counts
+-c, &ndash;bytes print the byte counts</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cat file <span class="p">|</span> wc -l
+<span class="c1"># 共多少行</span>
+wc -l file
+<span class="c1"># 共多少行 及文件名 for each FILE所以会显示文件名</span>
+wc -l &lt; file
+<span class="c1"># 共多少行</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3-如何将两个文本文件合并成一个">3. 如何将两个文本文件合并成一个？</h3>
+<p>一个文件在上，一个文件在下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cat file1 file2 &gt; file3
+</code></pre></td></tr></table>
+</div>
+</div><p>一个文件在左，一个文件在右</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">paste file1 file2 &gt; file3
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="35-sed">3.5. sed</h2>
+<h3 id="1-如何使用-sed-命令达到和-grep-abc-file-命令相同的效果">1. 如何使用 sed 命令，达到和 <code>grep abc file</code> 命令相同的效果？</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sed -n <span class="s2">&#34;/abc/p&#34;</span> file
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2-如何使用-sed-命令达到和-head--n-20-file-命令相同的效果">2. 如何使用 sed 命令，达到和 <code>head -n 20 file</code> 命令相同的效果？</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sed -n <span class="s1">&#39;1,10p&#39;</span> adduser.sh
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="36-vim">3.6. vim</h2>
+<h3 id="1-请输入-vimtutor-命令照着操作一遍">1. 请输入 <code>vimtutor</code> 命令，照着操作一遍。</h3>
+<h3 id="2-vimviewvimdiff-这三个命令有什么区别">2. <code>vim</code>、<code>view</code>、<code>vimdiff</code> 这三个命令有什么区别？</h3>
+<p>vimdiff A/file1 B/file1等价于vim -d A/file1 B/file2
+同时操作两个文件</p>
+<h3 id="3-阅读-vim-键盘图httpwwwviemucoma_vi_vim_graphical_cheat_sheet_tutorialhtml">3. 阅读 <a href="http://www.viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html">vim 键盘图</a></h3>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">dacaitou</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2018-04-23
+        
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">CC BY-NC-SA 4.0</a></span>
+  </p>
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/linux/">Linux</a>
+          <a href="/tags/bash/">bash</a>
+          <a href="/tags/cut/">cut</a>
+          <a href="/tags/sort/">sort</a>
+          <a href="/tags/cat/">cat</a>
+          <a href="/tags/sed/">sed</a>
+          <a href="/tags/awk/">awk</a>
+          <a href="/tags/vim/">vim</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/linux_network/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Linux学习——网络篇</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        <a class="next" href="/post/puzzle_games2.md/">
+            <span class="next-text nav-default">iOS和Android下解谜游戏推荐——下篇</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        <div id="gitalk-container"></div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var gitalk = new Gitalk({
+        id: '2018-04-23 21:00:00 \u002b0800 CST',
+        title: 'Linux学习——文本处理篇',
+        clientID: '1687d1933e871f4d7ca5',
+        clientSecret: '601ba213e44aac1ba1fb9cf9807b7d11f272de0b',
+        repo: 'dact_dev',
+        owner: 'Bigcaitou',
+        admin: ['Bigcaitou'],
+        body: decodeURI(location.href)
+      });
+      gitalk.render('gitalk-container');
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://github.com/gitalk/gitalk">comments powered by gitalk.</a></noscript>
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://github.com/Bigcaitou" class="iconfont icon-github" title="github"></a>
+  <a href="https://dact.dev/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>dacaitou</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+<script id="baidu_analytics">
+  var _hmt = _hmt || [];
+  (function() {
+    if (window.location.hostname === 'localhost') return;
+    var hm = document.createElement("script"); hm.async = true;
+    hm.src = "https://hm.baidu.com/hm.js?ae241b0e5428586b68d3c815a8e5f3e6";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+
+
+
+</body>
+</html>

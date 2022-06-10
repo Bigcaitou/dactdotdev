@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NeoKylin on Dact.dev - dacaitou</title>
+    <link>https://dact.dev/tags/neokylin/</link>
+    <description>Recent content in NeoKylin on Dact.dev - dacaitou</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 14 Jan 2017 22:27:42 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/neokylin/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>中标麒麟操作系统V6安装NGINX</title>
+      <link>https://dact.dev/post/neokylin_install_nginx/</link>
+      <pubDate>Sat, 14 Jan 2017 22:27:42 +0800</pubDate>
+      
+      <guid>https://dact.dev/post/neokylin_install_nginx/</guid>
+      <description>因为禾斗石开需要，安装了中标麒麟高级服务器操作系统（虚拟化版）V6，然后该系统上部署了几个JAVA WEB项目，现在需要安装nginx，但是y</description>
+    </item>
+    
+  </channel>
+</rss>
