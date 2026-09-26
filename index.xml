@@ -6,7 +6,16 @@
     <description>Recent content on Dact.dev - dacaitou</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 07 Apr 2022 17:57:42 +0800</lastBuildDate><atom:link href="https://dact.dev/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 26 Sep 2026 19:51:21 +0800</lastBuildDate><atom:link href="https://dact.dev/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Walkr星球台账</title>
+      <link>https://dact.dev/post/walkr/</link>
+      <pubDate>Sat, 26 Sep 2026 19:51:21 +0800</pubDate>
+
+      <guid>https://dact.dev/post/walkr/</guid>
+      <description>Walkr星球台账，包含 202 颗星球及卫星的完整数据。</description>
+    </item>
+
     <item>
       <title>关于</title>
       <link>https://dact.dev/about/</link>
@@ -97,14 +106,6 @@
       <description>[TOC] 2. 系统命令 2.1. top/htop 1. 如何将 top 的输出通过管道交给另一个进程？ top | grep 1 2. 如何让 top 显示每一个CPU的使用情况？ 按下数字键1即可 3. 如何在 top 里杀进程？ top</description>
     </item>
     
-    <item>
-      <title>Walkr</title>
-      <link>https://dact.dev/post/walkr/</link>
-      <pubDate>Wed, 15 Apr 2020 22:42:42 +0800</pubDate>
-      
-      <guid>https://dact.dev/post/walkr/</guid>
-      <description>星球及卫星 编号 星球 卫星 最佳搭配效果 卫星需探索星球 探索星球类别 发现时解锁卫星 星球类别 1 地球 月球 太阳系 2 焦糖苹果 棒棒糖 减少食物需求 -10% 雅典娜之月 特</description>
-    </item>
     
     <item>
       <title>PonyORM的实现原理</title>

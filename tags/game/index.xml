@@ -6,7 +6,16 @@
     <description>Recent content in game on Dact.dev - dacaitou</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 07 Apr 2022 17:57:42 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/game/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 26 Sep 2026 19:51:21 +0800</lastBuildDate><atom:link href="https://dact.dev/tags/game/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Walkr星球台账</title>
+      <link>https://dact.dev/post/walkr/</link>
+      <pubDate>Sat, 26 Sep 2026 19:51:21 +0800</pubDate>
+
+      <guid>https://dact.dev/post/walkr/</guid>
+      <description>Walkr星球台账，包含 202 颗星球及卫星的完整数据。</description>
+    </item>
+
     <item>
       <title> 迷雾世界(fog of world) 数据管理索引</title>
       <link>https://dact.dev/post/fogofworld_data_management/</link>
@@ -16,14 +25,6 @@
       <description>[toc] 最近狂迷迷雾世界，在这里把整理的数据管理（导入和擦除）的教程以索引的形式分享给大家。简单介绍下世界迷雾，就是一个行走记录app，样式上采用</description>
     </item>
     
-    <item>
-      <title>Walkr</title>
-      <link>https://dact.dev/post/walkr/</link>
-      <pubDate>Wed, 15 Apr 2020 22:42:42 +0800</pubDate>
-      
-      <guid>https://dact.dev/post/walkr/</guid>
-      <description>星球及卫星 编号 星球 卫星 最佳搭配效果 卫星需探索星球 探索星球类别 发现时解锁卫星 星球类别 1 地球 月球 太阳系 2 焦糖苹果 棒棒糖 减少食物需求 -10% 雅典娜之月 特</description>
-    </item>
     
     <item>
       <title>iOS和Android下解谜游戏推荐——下篇</title>
